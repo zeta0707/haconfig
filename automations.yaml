@@ -1,0 +1,331 @@
+- id: '1780190128685'
+  alias: 누수 감지 알림
+  description: ''
+  triggers:
+  - entity_id: binary_sensor.tuya_nususenseo_water_leak
+    to: 'on'
+    trigger: state
+  actions:
+  - action: notify.mobile_app
+    data:
+      title: ⚠️ 누수 경고!
+      message: "주방에서 누수가 감지됐습니다! \U0001F4A7"
+  mode: single
+- id: '1780924411635'
+  alias: Smart Plug On
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - event.bilresa_dual_button_dancu_1
+  conditions: []
+  actions:
+  - action: switch.turn_on
+    metadata: {}
+    target:
+      entity_id: switch.grillplats_plug
+    data: {}
+  mode: single
+- id: '1780925775109'
+  alias: Smart Plug Off
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - event.bilresa_dual_button_dancu_2
+  conditions: []
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    target:
+      entity_id: switch.grillplats_plug
+    data: {}
+  mode: single
+- id: '1781318745154'
+  alias: Zemi1_grillplats
+  triggers:
+  - trigger: state
+    entity_id:
+    - light.zemismart_wifi_smart_switch_jomyeong_1
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: light.zemismart_wifi_smart_switch_jomyeong_1
+        state: 'on'
+      sequence:
+      - action: switch.turn_on
+        target:
+          entity_id: switch.grillplats_plug
+    - conditions:
+      - condition: state
+        entity_id: light.zemismart_wifi_smart_switch_jomyeong_1
+        state: 'off'
+      sequence:
+      - action: switch.turn_off
+        target:
+          entity_id: switch.grillplats_plug
+  mode: single
+- id: '1781319765077'
+  alias: Zemi2_grillplats
+  triggers:
+  - trigger: state
+    entity_id:
+    - light.zemismart_wifi_smart_switch_jomyeong_2
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: light.zemismart_wifi_smart_switch_jomyeong_2
+        state: 'on'
+      sequence:
+      - action: switch.turn_on
+        target:
+          entity_id: switch.grillplats_plug
+    - conditions:
+      - condition: state
+        entity_id: light.zemismart_wifi_smart_switch_jomyeong_2
+        state: 'off'
+      sequence:
+      - action: switch.turn_off
+        target:
+          entity_id: switch.grillplats_plug
+  mode: single
+- id: '1781324944517'
+  alias: Bilresa PowerOn clicks
+  triggers:
+  - trigger: state
+    entity_id:
+    - event.bilresa_dual_button_dancu_1
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ trigger.to_state.attributes.event_type == ''multi_press_1''
+          }}'
+      sequence:
+      - action: light.turn_on
+        target:
+          entity_id:
+          - light.geosil_zemiswitch_jomyeong_1
+          - light.geosil_zemiswitch_jomyeong_2
+          - light.geosil_zemiswitch_jomyeong_3
+    - conditions:
+      - condition: template
+        value_template: '{{ trigger.to_state.attributes.event_type == ''multi_press_2''
+          }}'
+      sequence:
+      - action: light.turn_on
+        target:
+          entity_id:
+          - light.geosil_zemiswitch_jomyeong_1
+          - light.geosil_zemiswitch_jomyeong_2
+          - light.geosil_zemiswitch_jomyeong_3
+          - light.geosil_zemiswitch_jomyeong_4
+          - light.geosil_zemiswitch_jomyeong_5
+          - light.geosil_zemiswitch_jomyeong_6
+  mode: single
+- id: '1781325034527'
+  alias: Bilresa PowerOff clicks
+  triggers:
+  - trigger: state
+    entity_id:
+    - event.bilresa_dual_button_dancu_2
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ trigger.to_state.attributes.event_type == ''multi_press_1''
+          }}'
+      sequence:
+      - action: light.turn_off
+        target:
+          entity_id:
+          - light.geosil_zemiswitch_jomyeong_1
+          - light.geosil_zemiswitch_jomyeong_2
+          - light.geosil_zemiswitch_jomyeong_3
+    - conditions:
+      - condition: template
+        value_template: '{{ trigger.to_state.attributes.event_type == ''multi_press_2''
+          }}'
+      sequence:
+      - action: light.turn_off
+        target:
+          entity_id:
+          - light.geosil_zemiswitch_jomyeong_1
+          - light.geosil_zemiswitch_jomyeong_2
+          - light.geosil_zemiswitch_jomyeong_3
+          - light.geosil_zemiswitch_jomyeong_4
+          - light.geosil_zemiswitch_jomyeong_5
+          - light.geosil_zemiswitch_jomyeong_6
+  mode: single
+- id: '1787300001'
+  alias: 가상 청소기 - 청소 중 배터리 소모
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    seconds: /10
+  conditions:
+  - condition: state
+    entity_id: input_select.virtual_vacuum_state
+    state: cleaning
+  actions:
+  - action: input_number.set_value
+    target:
+      entity_id: input_number.virtual_vacuum_battery
+    data:
+      value: '{{ [states(''input_number.virtual_vacuum_battery'')|int(0) - 1, 0] |
+        max }}'
+  - if:
+    - condition: numeric_state
+      entity_id: input_number.virtual_vacuum_battery
+      below: 15
+    then:
+    - action: input_select.select_option
+      target:
+        entity_id: input_select.virtual_vacuum_state
+      data:
+        option: returning
+  mode: single
+- id: '1787300002'
+  alias: 가상 청소기 - 복귀 후 도킹 완료
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id: input_select.virtual_vacuum_state
+    to: returning
+  conditions: []
+  actions:
+  - delay: 00:00:15
+  - action: input_select.select_option
+    target:
+      entity_id: input_select.virtual_vacuum_state
+    data:
+      option: docked
+  mode: single
+- id: '1787300003'
+  alias: 가상 청소기 - 도킹 중 충전
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    seconds: /10
+  conditions:
+  - condition: state
+    entity_id: input_select.virtual_vacuum_state
+    state: docked
+  actions:
+  - action: input_number.set_value
+    target:
+      entity_id: input_number.virtual_vacuum_battery
+    data:
+      value: '{{ [states(''input_number.virtual_vacuum_battery'')|int(0) + 2, 100]
+        | min }}'
+  mode: single
+- id: '1787919015610'
+  alias: 거실 실링팬 스위치 연동
+  triggers:
+  - entity_id: light.geosil_zemiswitch_jomyeong_2
+    trigger: state
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: light.geosil_zemiswitch_jomyeong_2
+        state: 'on'
+      sequence:
+      - target:
+          entity_id: fan.geosil_silringpaen
+        action: fan.turn_on
+    - conditions:
+      - condition: state
+        entity_id: light.geosil_zemiswitch_jomyeong_2
+        state: 'off'
+      sequence:
+      - target:
+          entity_id: fan.geosil_silringpaen
+        action: fan.turn_off
+  mode: single
+- id: '1787919233903'
+  alias: 거실 에어컨 스위치 연동
+  triggers:
+  - entity_id: light.geosil_zemiswitch_jomyeong_4
+    trigger: state
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: light.geosil_zemiswitch_jomyeong_4
+        state: 'on'
+      sequence:
+      - action: climate.set_hvac_mode
+        target:
+          entity_id: climate.geosil_eeokeon
+        data:
+          hvac_mode: cool
+    - conditions:
+      - condition: state
+        entity_id: light.geosil_zemiswitch_jomyeong_4
+        state: 'off'
+      sequence:
+      - action: climate.set_hvac_mode
+        target:
+          entity_id: climate.geosil_eeokeon
+        data:
+          hvac_mode: 'off'
+  mode: single
+- id: '1787992899594'
+  alias: 안방화장실 실링팬 스위치 연동
+  triggers:
+  - entity_id: light.anbanghwajangsil_zemiswitch_jomyeong_1
+    trigger: state
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: light.anbanghwajangsil_zemiswitch_jomyeong_1
+        state: 'on'
+      sequence:
+      - target:
+          entity_id: fan.anbang_silringpaen
+        action: fan.turn_on
+    - conditions:
+      - condition: state
+        entity_id: light.anbanghwajangsil_zemiswitch_jomyeong_1
+        state: 'off'
+      sequence:
+      - target:
+          entity_id: fan.anbang_silringpaen
+        action: fan.turn_off
+  mode: single
+- id: '1787992929390'
+  alias: 거실 에어컨 스위치 연동
+  triggers:
+  - entity_id: light.anbanghwajangsil_zemiswitch_jomyeong_2
+    trigger: state
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: light.anbanghwajangsil_zemiswitch_jomyeong_2
+        state: 'on'
+      sequence:
+      - action: climate.set_hvac_mode
+        target:
+          entity_id: climate.anbang_eeokeon
+        data:
+          hvac_mode: cool
+    - conditions:
+      - condition: state
+        entity_id: light.anbanghwajangsil_zemiswitch_jomyeong_2
+        state: 'off'
+      sequence:
+      - action: climate.set_hvac_mode
+        target:
+          entity_id: climate.anbang_eeokeon
+        data:
+          hvac_mode: 'off'
+  mode: single

@@ -1,0 +1,13 @@
+secrets.yaml
+.storage/
+.cloud/
+*.db
+*.db-*
+home-assistant.log*
+tts/
+image/
+deps/
+custom_components/
+www/community/
+zigbee2mqtt/
+*.sh

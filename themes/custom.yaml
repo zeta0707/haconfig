@@ -1,0 +1,6 @@
+custom_theme:
+  orange: "linear-gradient(135deg, #ffb347, #ff6b9d)"
+  active-big: "linear-gradient(90deg, #ffb3d1 0%, #c084fc 100%)"
+  active-small: "rgba(219, 39, 119, 0.3)"
+  gray100: "#f5f5f5"
+  gray300: "#e0e0e0"

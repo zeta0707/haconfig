@@ -1,0 +1,54 @@
+ilgwalsodeung_button_press:
+  alias: away_mode_button_press
+  sequence:
+  - action: light.turn_off
+    target:
+      entity_id: all
+  - action: switch.turn_off
+    target:
+      entity_id: switch.grillplats_plug
+  mode: single
+night_mode_button_press:
+  alias: night_mode_button_press
+  sequence:
+  - action: light.turn_off
+    target:
+      entity_id: all
+  - action: switch.turn_off
+    target:
+      entity_id: switch.grillplats_plug
+  mode: single
+zigbee_map_refresh:
+  alias: Zigbee map refresh
+  sequence:
+  - action: mqtt.publish
+    data:
+      topic: zigbee2mqtt/bridge/request/networkmap
+      payload: '{"type":"raw","routes":false}'
+  mode: single
+control_room_lights:
+  alias: control_room_lights
+  fields:
+    room:
+      selector:
+        select:
+          options:
+          - living_room
+          - bedroom_bathroom
+    state:
+      selector:
+        select:
+          options:
+          - 'on'
+          - 'off'
+  sequence:
+  - variables:
+      target_entities: '{% if room == ''living_room'' %} [''light.geosil_zemiswitch_jomyeong_1'',''light.geosil_zemiswitch_jomyeong_2'']
+        {% else %} [''light.anbanghwajangsil_zemiswitch_jomyeong_1'',''light.anbanghwajangsil_zemiswitch_jomyeong_2'']
+        {% endif %}
+
+        '
+  - action: light.turn_{{ state }}
+    target:
+      entity_id: '{{ target_entities }}'
+  mode: parallel
