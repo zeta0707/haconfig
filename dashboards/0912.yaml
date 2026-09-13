@@ -200,305 +200,6 @@ decluttering_templates:
     grid_options:
       columns: 12
       rows: auto
-  room_switch_panel:
-    card:
-      type: custom:button-card
-      name: '[[title]]'
-      icon: '[[room_icon]]'
-      custom_fields:
-        switches:
-          card:
-            type: custom:paper-buttons-row
-            styles:
-              display: block
-              column-gap: 0px
-              column-fill: balance
-              column-count: |
-                [[[
-                  const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
-                  const count = es.filter(e => e !== 'none').length;
-                  return count > 4 ? 2 : 1;
-                ]]]
-            buttons:
-              - icon: none
-                entity: '[[b1_entity]]'
-                name: '[[b1_name]]'
-                show_state: false
-                tap_action:
-                  action: toggle
-                ripple: none
-                styles:
-                  button:
-                    display: |
-                      [[[ return '[[b1_entity]]' === 'none' ? 'none' : undefined ]]]
-                    background: |
-                      [[[ return states['[[b1_entity]]']?.state === 'on' ? 'var(--active-small)' : 'white'; ]]]
-                    border-radius: 0
-                    border-left: 2px solid black
-                    border-right: 2px solid black
-                    border-top: |
-                      [[[
-                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
-                        return es.findIndex(e => e !== 'none') === 0 ? '2px solid black' : '1px solid black';
-                      ]]]
-                    border-bottom: |
-                      [[[
-                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
-                        let last = -1; es.forEach((e, i) => { if (e !== 'none') last = i; });
-                        return last === 0 ? '2px solid black' : '1px solid black';
-                      ]]]
-                    transition: background 0.2s ease
-                    width: 60px
-                    height: '[[button_height]]'
-                  name:
-                    - font-size: 10px
-                    - font-weight: 600
-                    - color: black
-                    - white-space: nowrap
-                    - text-align: center
-                    - align-self: center
-                    - justify-self: center
-                    - margin-left: -22px
-                    - line-height: 1
-              - icon: none
-                entity: '[[b2_entity]]'
-                name: '[[b2_name]]'
-                show_state: false
-                tap_action:
-                  action: toggle
-                ripple: none
-                styles:
-                  button:
-                    display: |
-                      [[[ return '[[b2_entity]]' === 'none' ? 'none' : undefined ]]]
-                    background: |
-                      [[[ return states['[[b2_entity]]']?.state === 'on' ? 'var(--active-small)' : 'white'; ]]]
-                    border-radius: 0
-                    border-left: 2px solid black
-                    border-right: 2px solid black
-                    border-top: |
-                      [[[
-                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
-                        return es.findIndex(e => e !== 'none') === 1 ? '2px solid black' : '1px solid black';
-                      ]]]
-                    border-bottom: |
-                      [[[
-                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
-                        let last = -1; es.forEach((e, i) => { if (e !== 'none') last = i; });
-                        return last === 1 ? '2px solid black' : '1px solid black';
-                      ]]]
-                    transition: background 0.2s ease
-                    width: 60px
-                    height: '[[button_height]]'
-                  name:
-                    - font-size: 10px
-                    - font-weight: 600
-                    - color: black
-                    - white-space: nowrap
-                    - text-align: center
-                    - align-self: center
-                    - justify-self: center
-                    - margin-left: -22px
-                    - line-height: 1
-              - icon: none
-                entity: '[[b3_entity]]'
-                name: '[[b3_name]]'
-                show_state: false
-                tap_action:
-                  action: toggle
-                ripple: none
-                styles:
-                  button:
-                    display: |
-                      [[[ return '[[b3_entity]]' === 'none' ? 'none' : undefined ]]]
-                    background: |
-                      [[[ return states['[[b3_entity]]']?.state === 'on' ? 'var(--active-small)' : 'white'; ]]]
-                    border-radius: 0
-                    border-left: 2px solid black
-                    border-right: 2px solid black
-                    border-top: |
-                      [[[
-                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
-                        return es.findIndex(e => e !== 'none') === 2 ? '2px solid black' : '1px solid black';
-                      ]]]
-                    border-bottom: |
-                      [[[
-                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
-                        let last = -1; es.forEach((e, i) => { if (e !== 'none') last = i; });
-                        return last === 2 ? '2px solid black' : '1px solid black';
-                      ]]]
-                    transition: background 0.2s ease
-                    width: 60px
-                    height: '[[button_height]]'
-                  name:
-                    - font-size: 10px
-                    - font-weight: 600
-                    - color: black
-                    - white-space: nowrap
-                    - text-align: center
-                    - align-self: center
-                    - justify-self: center
-                    - margin-left: -22px
-                    - line-height: 1
-              - icon: none
-                entity: '[[b4_entity]]'
-                name: '[[b4_name]]'
-                show_state: false
-                tap_action:
-                  action: toggle
-                ripple: none
-                styles:
-                  button:
-                    display: |
-                      [[[ return '[[b4_entity]]' === 'none' ? 'none' : undefined ]]]
-                    background: |
-                      [[[ return states['[[b4_entity]]']?.state === 'on' ? 'var(--active-small)' : 'white'; ]]]
-                    border-radius: 0
-                    border-left: 2px solid black
-                    border-right: 2px solid black
-                    border-top: |
-                      [[[
-                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
-                        return es.findIndex(e => e !== 'none') === 3 ? '2px solid black' : '1px solid black';
-                      ]]]
-                    border-bottom: |
-                      [[[
-                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
-                        let last = -1; es.forEach((e, i) => { if (e !== 'none') last = i; });
-                        return last === 3 ? '2px solid black' : '1px solid black';
-                      ]]]
-                    transition: background 0.2s ease
-                    width: 60px
-                    height: '[[button_height]]'
-                  name:
-                    - font-size: 10px
-                    - font-weight: 600
-                    - color: black
-                    - white-space: nowrap
-                    - text-align: center
-                    - align-self: center
-                    - justify-self: center
-                    - margin-left: -22px
-                    - line-height: 1
-              - icon: none
-                entity: '[[b5_entity]]'
-                name: '[[b5_name]]'
-                show_state: false
-                tap_action:
-                  action: toggle
-                ripple: none
-                styles:
-                  button:
-                    display: |
-                      [[[ return '[[b5_entity]]' === 'none' ? 'none' : undefined ]]]
-                    background: |
-                      [[[ return states['[[b5_entity]]']?.state === 'on' ? 'var(--active-small)' : 'white'; ]]]
-                    border-radius: 0
-                    border-left: 2px solid black
-                    border-right: 2px solid black
-                    border-top: |
-                      [[[
-                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
-                        return es.findIndex(e => e !== 'none') === 4 ? '2px solid black' : '1px solid black';
-                      ]]]
-                    border-bottom: |
-                      [[[
-                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
-                        let last = -1; es.forEach((e, i) => { if (e !== 'none') last = i; });
-                        return last === 4 ? '2px solid black' : '1px solid black';
-                      ]]]
-                    transition: background 0.2s ease
-                    width: 60px
-                    height: '[[button_height]]'
-                  name:
-                    - font-size: 10px
-                    - font-weight: 600
-                    - color: black
-                    - white-space: nowrap
-                    - text-align: center
-                    - align-self: center
-                    - justify-self: center
-                    - margin-left: -22px
-                    - line-height: 1
-              - icon: none
-                entity: '[[b6_entity]]'
-                name: '[[b6_name]]'
-                show_state: false
-                tap_action:
-                  action: toggle
-                ripple: none
-                styles:
-                  button:
-                    display: |
-                      [[[ return '[[b6_entity]]' === 'none' ? 'none' : undefined ]]]
-                    background: |
-                      [[[ return states['[[b6_entity]]']?.state === 'on' ? 'var(--active-small)' : 'white'; ]]]
-                    border-radius: 0
-                    border-left: 2px solid black
-                    border-right: 2px solid black
-                    border-top: |
-                      [[[
-                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
-                        return es.findIndex(e => e !== 'none') === 5 ? '2px solid black' : '1px solid black';
-                      ]]]
-                    border-bottom: |
-                      [[[
-                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
-                        let last = -1; es.forEach((e, i) => { if (e !== 'none') last = i; });
-                        return last === 5 ? '2px solid black' : '1px solid black';
-                      ]]]
-                    transition: background 0.2s ease
-                    width: 60px
-                    height: '[[button_height]]'
-                  name:
-                    - font-size: 10px
-                    - font-weight: 600
-                    - color: black
-                    - white-space: nowrap
-                    - text-align: center
-                    - align-self: center
-                    - justify-self: center
-                    - margin-left: -22px
-                    - line-height: 1
-      styles:
-        grid:
-          - grid-template-areas: '"n switches" "i switches"'
-          - grid-template-columns: 1fr min-content
-          - grid-template-rows: min-content 1fr
-        card:
-          - padding: 22px
-          - height: 200px
-          - background-color: var(--gray100)
-          - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
-          - border: 1px solid rgba(255,255,255,0.1)
-        custom_fields:
-          switches:
-            - justify-content: end
-            - align-self: center
-        name:
-          - justify-self: start
-          - align-self: start
-          - font-size: 18px
-          - font-weight: 500
-          - color: black
-        img_cell:
-          - justify-content: start
-          - position: absolute
-          - width: 110px
-          - height: 110px
-          - left: 30px
-          - bottom: -20px
-          - margin: 0 0 0 -44px
-          - background: '[[circle_bg]]'
-          - border-radius: 500px
-        icon:
-          - position: relative
-          - width: 50px
-          - color: '[[icon_color]]'
-          - opacity: '1'
-      grid_options:
-        columns: 12
-        rows: auto
 kiosk_mode:
   non_admin_settings:
     hide_header: true
@@ -2144,26 +1845,273 @@ views:
                 grid_options:
                   columns: 12
                   rows: auto
-              - type: custom:decluttering-card
-                template: room_switch_panel
-                variables:
-                  - title: 거실 스위치
-                  - room_icon: mdi:sofa
-                  - circle_bg: '#feeacc'
-                  - icon_color: orange
-                  - button_height: 38px
-                  - b1_entity: light.geosil_zemiswitch_jomyeong_1
-                  - b1_name: 다운라이트
-                  - b2_entity: light.geosil_zemiswitch_jomyeong_3
-                  - b2_name: 메인등
-                  - b3_entity: light.geosil_zemiswitch_jomyeong_5
-                  - b3_name: 간접등
-                  - b4_entity: light.geosil_zemiswitch_jomyeong_2
-                  - b4_name: 실링팬
-                  - b5_entity: light.geosil_zemiswitch_jomyeong_4
-                  - b5_name: 에어컨
-                  - b6_entity: light.geosil_zemiswitch_jomyeong_6
-                  - b6_name: 전체
+              - type: custom:button-card
+                name: 거실 스위치
+                icon: mdi:sofa
+                custom_fields:
+                  btn1:
+                    card:
+                      type: custom:paper-buttons-row
+                      styles:
+                        display: flex
+                        flex-direction: column
+                        flex-wrap: wrap
+                      buttons:
+                        - icon: none
+                          entity: light.geosil_zemiswitch_jomyeong_1
+                          name: 다운라이트
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['light.geosil_zemiswitch_jomyeong_1']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-top: 2px solid black
+                              border-left: 2px solid black
+                              border-right: 1px solid black
+                              border-bottom: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 38px
+                              box-sizing: border-box
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: light.geosil_zemiswitch_jomyeong_3
+                          name: 메인등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['light.geosil_zemiswitch_jomyeong_3']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-top: 0px
+                              border-left: 2px solid black
+                              border-right: 1px solid black
+                              border-bottom: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 38px
+                              box-sizing: border-box
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: light.geosil_zemiswitch_jomyeong_5
+                          name: 간접등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['light.geosil_zemiswitch_jomyeong_5']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-top: 0px
+                              border-left: 2px solid black
+                              border-right: 1px solid black
+                              border-bottom: 2px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 38px
+                              box-sizing: border-box
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                  btn2:
+                    card:
+                      type: custom:paper-buttons-row
+                      styles:
+                        display: flex
+                        flex-direction: column
+                        flex-wrap: wrap
+                      buttons:
+                        - icon: none
+                          entity: light.geosil_zemiswitch_jomyeong_2
+                          name: 실링팬
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['light.geosil_zemiswitch_jomyeong_2']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-top: 2px solid black
+                              border-left: 0px
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 38px
+                              box-sizing: border-box
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: light.geosil_zemiswitch_jomyeong_4
+                          name: 에어컨
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['light.geosil_zemiswitch_jomyeong_4']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-top: 0px
+                              border-left: 0px
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 38px
+                              box-sizing: border-box
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: light.geosil_zemiswitch_jomyeong_6
+                          name: 전체
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['light.geosil_zemiswitch_jomyeong_6']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-top: 0px
+                              border-left: 0px
+                              border-right: 2px solid black
+                              border-bottom: 2px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 38px
+                              box-sizing: border-box
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                styles:
+                  grid:
+                    - grid-template-areas: '"n btn1 btn2" "i btn1 btn2"'
+                    - grid-template-columns: 1fr min-content min-content
+                    - grid-template-rows: min-content 1fr
+                  card:
+                    - padding: 22px
+                    - height: 200px
+                    - background-color: var(--gray100)
+                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
+                    - border: 1px solid rgba(255,255,255,0.1)
+                  custom_fields:
+                    btn1:
+                      - justify-content: end
+                      - align-self: center
+                      - margin-right: 0px
+                    btn2:
+                      - justify-content: end
+                      - align-self: center
+                  name:
+                    - justify-self: start
+                    - align-self: start
+                    - font-size: 18px
+                    - font-weight: 500
+                    - color: black
+                  img_cell:
+                    - justify-content: start
+                    - position: absolute
+                    - width: 110px
+                    - height: 110px
+                    - left: 30px
+                    - bottom: -20px
+                    - margin: 0 0 0 -44px
+                    - background: '#feeacc'
+                    - border-radius: 500px
+                  icon:
+                    - position: relative
+                    - width: 50px
+                    - color: orange
+                    - opacity: '1'
+                grid_options:
+                  rows: auto
+                  columns: 12
               - type: custom:gap-card
                 height: 15px
                 grid_options:
@@ -2253,26 +2201,273 @@ views:
                 grid_options:
                   columns: 12
                   rows: auto
-              - type: custom:decluttering-card
-                template: room_switch_panel
-                variables:
-                  - title: 주방 스위치
-                  - room_icon: mdi:kettle-steam
-                  - circle_bg: '#b2dfdb'
-                  - icon_color: '#00695c'
-                  - button_height: 38px
-                  - b1_entity: light.geosil_zemiswitch_jomyeong_1
-                  - b1_name: 메인등
-                  - b2_entity: light.geosil_zemiswitch_jomyeong_3
-                  - b2_name: 식탁등
-                  - b3_entity: light.geosil_zemiswitch_jomyeong_5
-                  - b3_name: 간접등
-                  - b4_entity: light.geosil_zemiswitch_jomyeong_2
-                  - b4_name: 실링팬
-                  - b5_entity: light.geosil_zemiswitch_jomyeong_4
-                  - b5_name: 에어컨
-                  - b6_entity: light.geosil_zemiswitch_jomyeong_6
-                  - b6_name: 전체
+              - type: custom:button-card
+                name: 주방 스위치
+                icon: mdi:kettle-steam
+                custom_fields:
+                  btn1:
+                    card:
+                      type: custom:paper-buttons-row
+                      styles:
+                        display: flex
+                        flex-direction: column
+                        flex-wrap: wrap
+                      buttons:
+                        - icon: none
+                          entity: light.geosil_zemiswitch_jomyeong_1
+                          name: 메인등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['light.geosil_zemiswitch_jomyeong_1']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-top: 2px solid black
+                              border-left: 2px solid black
+                              border-right: 1px solid black
+                              border-bottom: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 38px
+                              box-sizing: border-box
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: light.geosil_zemiswitch_jomyeong_3
+                          name: 식탁등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['light.geosil_zemiswitch_jomyeong_3']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-top: 0px
+                              border-left: 2px solid black
+                              border-right: 1px solid black
+                              border-bottom: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 38px
+                              box-sizing: border-box
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: light.geosil_zemiswitch_jomyeong_5
+                          name: 간접등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['light.geosil_zemiswitch_jomyeong_5']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-top: 0px
+                              border-left: 2px solid black
+                              border-right: 1px solid black
+                              border-bottom: 2px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 38px
+                              box-sizing: border-box
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                  btn2:
+                    card:
+                      type: custom:paper-buttons-row
+                      styles:
+                        display: flex
+                        flex-direction: column
+                        flex-wrap: wrap
+                      buttons:
+                        - icon: fan
+                          entity: light.geosil_zemiswitch_jomyeong_2
+                          name: 실링팬
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['light.geosil_zemiswitch_jomyeong_2']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-top: 2px solid black
+                              border-left: 0px
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 38px
+                              box-sizing: border-box
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: fan
+                          entity: light.geosil_zemiswitch_jomyeong_4
+                          name: 에어컨
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['light.geosil_zemiswitch_jomyeong_4']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-top: 0px
+                              border-left: 0px
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 38px
+                              box-sizing: border-box
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: light.geosil_zemiswitch_jomyeong_6
+                          name: 전체
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['light.geosil_zemiswitch_jomyeong_6']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-top: 0px
+                              border-left: 0px
+                              border-right: 2px solid black
+                              border-bottom: 2px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 38px
+                              box-sizing: border-box
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                styles:
+                  grid:
+                    - grid-template-areas: '"n btn1 btn2" "i btn1 btn2"'
+                    - grid-template-columns: 1fr min-content min-content
+                    - grid-template-rows: min-content 1fr
+                  card:
+                    - padding: 22px
+                    - height: 200px
+                    - background-color: var(--gray100)
+                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
+                    - border: 1px solid rgba(255,255,255,0.1)
+                  custom_fields:
+                    btn1:
+                      - justify-content: end
+                      - align-self: center
+                      - margin-right: 0px
+                    btn2:
+                      - justify-content: end
+                      - align-self: center
+                  name:
+                    - justify-self: start
+                    - align-self: start
+                    - font-size: 18px
+                    - font-weight: 500
+                    - color: black
+                  img_cell:
+                    - justify-content: start
+                    - position: absolute
+                    - width: 110px
+                    - height: 110px
+                    - left: 30px
+                    - bottom: -20px
+                    - margin: 0 0 0 -44px
+                    - background: '#b2dfdb'
+                    - border-radius: 500px
+                  icon:
+                    - position: relative
+                    - width: 50px
+                    - color: '#00695c'
+                    - opacity: '1'
+                grid_options:
+                  rows: auto
+                  columns: 12
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#bathroom1'
@@ -2307,26 +2502,192 @@ views:
                 grid_options:
                   columns: 12
                   rows: auto
-              - type: custom:decluttering-card
-                template: room_switch_panel
-                variables:
-                  - title: 거실화장실 스위치
-                  - room_icon: mdi:shower
-                  - circle_bg: '#ceeefd'
-                  - icon_color: '#1fb1f2'
-                  - button_height: 34px
-                  - b1_entity: switch.plug_toilet
-                  - b1_name: 메인등
-                  - b2_entity: switch.switch_toilet_right
-                  - b2_name: 간접등
-                  - b3_entity: switch.switch_toilet_left
-                  - b3_name: 환풍기
-                  - b4_entity: switch.plug_toilet
-                  - b4_name: 전체
-                  - b5_entity: none
-                  - b5_name: none
-                  - b6_entity: none
-                  - b6_name: none
+              - type: custom:button-card
+                name: 거실화장실 스위치
+                icon: mdi:shower
+                custom_fields:
+                  btn1:
+                    card:
+                      type: custom:paper-buttons-row
+                      styles:
+                        display: flex
+                        flex-direction: column
+                        flex-wrap: wrap
+                      buttons:
+                        - icon: none
+                          entity: switch.plug_toilet
+                          name: 메인등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_toilet']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 2px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 1
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_toilet_right
+                          name: 간접등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_toilet_right']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_toilet_left
+                          name: 환풍기
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_toilet_left']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.plug_toilet
+                          name: 전체
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_toilet']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 2px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 2
+                              position: relative
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                styles:
+                  grid:
+                    - grid-template-areas: '"n btn1" "i btn1"'
+                    - grid-template-columns: 1fr min-content
+                    - grid-template-rows: min-content 1fr
+                  card:
+                    - padding: 22px
+                    - height: 200px
+                    - background-color: var(--gray100)
+                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
+                    - border: 1px solid rgba(255,255,255,0.1)
+                  custom_fields:
+                    btn1:
+                      - justify-content: end
+                      - align-self: center
+                  name:
+                    - justify-self: start
+                    - align-self: start
+                    - font-size: 18px
+                    - font-weight: 500
+                    - color: black
+                  img_cell:
+                    - justify-content: start
+                    - position: absolute
+                    - width: 110px
+                    - height: 110px
+                    - left: 30px
+                    - bottom: -20px
+                    - margin: 0 0 0 -44px
+                    - background: '#ceeefd'
+                    - border-radius: 500px
+                  icon:
+                    - position: relative
+                    - width: 50px
+                    - color: '#1fb1f2'
+                    - opacity: '1'
+                grid_options:
+                  columns: 12
+                  rows: auto
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#bathroom2'
@@ -2361,26 +2722,192 @@ views:
                 grid_options:
                   columns: 12
                   rows: auto
-              - type: custom:decluttering-card
-                template: room_switch_panel
-                variables:
-                  - title: 안방화장실 스위치
-                  - room_icon: mdi:toilet
-                  - circle_bg: '#e1d8f1'
-                  - icon_color: purple
-                  - button_height: 34px
-                  - b1_entity: light.anbanghwajangsil_zemiswitch_jomyeong_1
-                  - b1_name: 실링팬
-                  - b2_entity: light.anbanghwajangsil_zemiswitch_jomyeong_2
-                  - b2_name: 에어컨
-                  - b3_entity: switch.switch_master_room_toilet_left
-                  - b3_name: 환풍기
-                  - b4_entity: switch.plug_master_room_toilet
-                  - b4_name: 전등
-                  - b5_entity: none
-                  - b5_name: none
-                  - b6_entity: none
-                  - b6_name: none
+              - type: custom:button-card
+                name: 안방화장실 스위치
+                icon: mdi:toilet
+                custom_fields:
+                  btn1:
+                    card:
+                      type: custom:paper-buttons-row
+                      styles:
+                        display: flex
+                        flex-direction: column
+                        flex-wrap: wrap
+                      buttons:
+                        - icon: none
+                          entity: light.anbanghwajangsil_zemiswitch_jomyeong_1
+                          name: 실링팬
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['light.anbanghwajangsil_zemiswitch_jomyeong_1']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 2px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 1
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: light.anbanghwajangsil_zemiswitch_jomyeong_2
+                          name: 에어컨
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['light.anbanghwajangsil_zemiswitch_jomyeong_2']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_master_room_toilet_left
+                          name: 환풍기
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_master_room_toilet_left']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.plug_master_room_toilet
+                          name: 전등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_master_room_toilet']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 2px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 2
+                              position: relative
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                styles:
+                  grid:
+                    - grid-template-areas: '"n btn1" "i btn1"'
+                    - grid-template-columns: 1fr min-content
+                    - grid-template-rows: min-content 1fr
+                  card:
+                    - padding: 22px
+                    - height: 200px
+                    - background-color: var(--gray100)
+                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
+                    - border: 1px solid rgba(255,255,255,0.1)
+                  custom_fields:
+                    btn1:
+                      - justify-content: end
+                      - align-self: center
+                  name:
+                    - justify-self: start
+                    - align-self: start
+                    - font-size: 18px
+                    - font-weight: 500
+                    - color: black
+                  img_cell:
+                    - justify-content: start
+                    - position: absolute
+                    - width: 110px
+                    - height: 110px
+                    - left: 30px
+                    - bottom: -20px
+                    - margin: 0 0 0 -44px
+                    - background: '#e1d8f1'
+                    - border-radius: 500px
+                  icon:
+                    - position: relative
+                    - width: 50px
+                    - color: purple
+                    - opacity: '1'
+                grid_options:
+                  columns: 12
+                  rows: auto
               - type: custom:gap-card
                 height: 10px
                 grid_options:
@@ -2610,26 +3137,124 @@ views:
                 grid_options:
                   columns: 12
                   rows: auto
-              - type: custom:decluttering-card
-                template: room_switch_panel
-                variables:
-                  - title: 실외기실 스위치
-                  - room_icon: mdi:fan
-                  - circle_bg: '#cfd8dc'
-                  - icon_color: '#455a64'
-                  - button_height: 34px
-                  - b1_entity: switch.plug_kitchen_lh
-                  - b1_name: 전등
-                  - b2_entity: switch.plug_kitchen_rh
-                  - b2_name: 전체
-                  - b3_entity: none
-                  - b3_name: none
-                  - b4_entity: none
-                  - b4_name: none
-                  - b5_entity: none
-                  - b5_name: none
-                  - b6_entity: none
-                  - b6_name: none
+              - type: custom:button-card
+                name: 실외기실 스위치
+                icon: mdi:fan
+                custom_fields:
+                  btn1:
+                    card:
+                      type: custom:paper-buttons-row
+                      styles:
+                        display: flex
+                        flex-direction: column
+                        flex-wrap: wrap
+                      buttons:
+                        - icon: none
+                          entity: switch.plug_kitchen_lh
+                          name: 전등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_kitchen_lh']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 2px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 1
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.plug_kitchen_rh
+                          name: 전체
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_kitchen_rh']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                styles:
+                  grid:
+                    - grid-template-areas: '"n btn1" "i btn1"'
+                    - grid-template-columns: 1fr min-content
+                    - grid-template-rows: min-content 1fr
+                  card:
+                    - padding: 22px
+                    - height: 200px
+                    - background-color: var(--gray100)
+                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
+                    - border: 1px solid rgba(255,255,255,0.1)
+                  custom_fields:
+                    btn1:
+                      - justify-content: end
+                      - align-self: center
+                  name:
+                    - justify-self: start
+                    - align-self: start
+                    - font-size: 18px
+                    - font-weight: 500
+                    - color: black
+                  img_cell:
+                    - justify-content: start
+                    - position: absolute
+                    - width: 110px
+                    - height: 110px
+                    - left: 30px
+                    - bottom: -20px
+                    - margin: 0 0 0 -44px
+                    - background: '#cfd8dc'
+                    - border-radius: 500px
+                  icon:
+                    - position: relative
+                    - width: 50px
+                    - color: '#455a64'
+                    - opacity: '1'
+                grid_options:
+                  columns: 12
+                  rows: auto
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#storage'
@@ -2664,26 +3289,124 @@ views:
                 grid_options:
                   columns: 12
                   rows: auto
-              - type: custom:decluttering-card
-                template: room_switch_panel
-                variables:
-                  - title: 창고 스위치
-                  - room_icon: mdi:archive-outline
-                  - circle_bg: '#d7ccc8'
-                  - icon_color: '#795548'
-                  - button_height: 34px
-                  - b1_entity: switch.plug_kitchen_lh
-                  - b1_name: 전등
-                  - b2_entity: switch.plug_kitchen_rh
-                  - b2_name: 전체
-                  - b3_entity: none
-                  - b3_name: none
-                  - b4_entity: none
-                  - b4_name: none
-                  - b5_entity: none
-                  - b5_name: none
-                  - b6_entity: none
-                  - b6_name: none
+              - type: custom:button-card
+                name: 창고 스위치
+                icon: mdi:archive-outline
+                custom_fields:
+                  btn1:
+                    card:
+                      type: custom:paper-buttons-row
+                      styles:
+                        display: flex
+                        flex-direction: column
+                        flex-wrap: wrap
+                      buttons:
+                        - icon: none
+                          entity: switch.plug_kitchen_lh
+                          name: 전등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_kitchen_lh']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 2px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 1
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.plug_kitchen_rh
+                          name: 전체
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_kitchen_rh']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                styles:
+                  grid:
+                    - grid-template-areas: '"n btn1" "i btn1"'
+                    - grid-template-columns: 1fr min-content
+                    - grid-template-rows: min-content 1fr
+                  card:
+                    - padding: 22px
+                    - height: 200px
+                    - background-color: var(--gray100)
+                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
+                    - border: 1px solid rgba(255,255,255,0.1)
+                  custom_fields:
+                    btn1:
+                      - justify-content: end
+                      - align-self: center
+                  name:
+                    - justify-self: start
+                    - align-self: start
+                    - font-size: 18px
+                    - font-weight: 500
+                    - color: black
+                  img_cell:
+                    - justify-content: start
+                    - position: absolute
+                    - width: 110px
+                    - height: 110px
+                    - left: 30px
+                    - bottom: -20px
+                    - margin: 0 0 0 -44px
+                    - background: '#d7ccc8'
+                    - border-radius: 500px
+                  icon:
+                    - position: relative
+                    - width: 50px
+                    - color: '#795548'
+                    - opacity: '1'
+                grid_options:
+                  columns: 12
+                  rows: auto
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#masterroom'
@@ -2718,26 +3441,192 @@ views:
                 grid_options:
                   columns: 12
                   rows: auto
-              - type: custom:decluttering-card
-                template: room_switch_panel
-                variables:
-                  - title: 안방 스위치
-                  - room_icon: mdi:account-multiple
-                  - circle_bg: '#fdd9d7'
-                  - icon_color: red
-                  - button_height: 34px
-                  - b1_entity: switch.plug_master_room
-                  - b1_name: 메인등
-                  - b2_entity: switch.switch_master_room
-                  - b2_name: 스탠드
-                  - b3_entity: switch.switch_working_room_l2
-                  - b3_name: 실링팬
-                  - b4_entity: switch.switch_working_room_l1
-                  - b4_name: 에어컨
-                  - b5_entity: none
-                  - b5_name: none
-                  - b6_entity: none
-                  - b6_name: none
+              - type: custom:button-card
+                name: 안방 스위치
+                icon: mdi:account-multiple
+                custom_fields:
+                  btn1:
+                    card:
+                      type: custom:paper-buttons-row
+                      styles:
+                        display: flex
+                        flex-direction: column
+                        flex-wrap: wrap
+                      buttons:
+                        - icon: none
+                          entity: switch.plug_master_room
+                          name: 메인등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_master_room']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 2px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 1
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_master_room
+                          name: 스탠드
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_master_room']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_working_room_l2
+                          name: 실링팬
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_working_room_l2']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_working_room_l1
+                          name: 에어컨
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_working_room_l1']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 2px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 2
+                              position: relative
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                styles:
+                  grid:
+                    - grid-template-areas: '"n btn1" "i btn1"'
+                    - grid-template-columns: 1fr min-content
+                    - grid-template-rows: min-content 1fr
+                  card:
+                    - padding: 22px
+                    - height: 200px
+                    - background-color: var(--gray100)
+                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
+                    - border: 1px solid rgba(255,255,255,0.1)
+                  custom_fields:
+                    btn1:
+                      - justify-content: end
+                      - align-self: center
+                  name:
+                    - justify-self: start
+                    - align-self: start
+                    - font-size: 18px
+                    - font-weight: 500
+                    - color: black
+                  img_cell:
+                    - justify-content: start
+                    - position: absolute
+                    - width: 110px
+                    - height: 110px
+                    - left: 30px
+                    - bottom: -20px
+                    - margin: 0 0 0 -44px
+                    - background: '#fdd9d7'
+                    - border-radius: 500px
+                  icon:
+                    - position: relative
+                    - width: 50px
+                    - color: red
+                    - opacity: '1'
+                grid_options:
+                  columns: 12
+                  rows: auto
               - type: custom:mushroom-climate-card
                 entity: climate.anbang_eeokeon
                 icon: mdi:air-conditioner
@@ -2815,26 +3704,192 @@ views:
                 grid_options:
                   columns: 12
                   rows: auto
-              - type: custom:decluttering-card
-                template: room_switch_panel
-                variables:
-                  - title: 준호방 스위치
-                  - room_icon: mdi:face-man-shimmer-outline
-                  - circle_bg: '#dbefdc'
-                  - icon_color: black
-                  - button_height: 34px
-                  - b1_entity: switch.plug_junho_room
-                  - b1_name: 메인등
-                  - b2_entity: switch.switch_junho_room_l2
-                  - b2_name: 스탠드
-                  - b3_entity: switch.switch_junho_room_l1
-                  - b3_name: 에어컨
-                  - b4_entity: switch.plug_junho_room
-                  - b4_name: 전체
-                  - b5_entity: none
-                  - b5_name: none
-                  - b6_entity: none
-                  - b6_name: none
+              - type: custom:button-card
+                name: 준호방 스위치
+                icon: mdi:face-man-shimmer-outline
+                custom_fields:
+                  btn1:
+                    card:
+                      type: custom:paper-buttons-row
+                      styles:
+                        display: flex
+                        flex-direction: column
+                        flex-wrap: wrap
+                      buttons:
+                        - icon: none
+                          entity: switch.plug_junho_room
+                          name: 메인등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_junho_room']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 2px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 1
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_junho_room_l2
+                          name: 스탠드
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_junho_room_l2']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_junho_room_l1
+                          name: 에어컨
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_junho_room_l1']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.plug_junho_room
+                          name: 전체
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_junho_room']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 2px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 2
+                              position: relative
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                styles:
+                  grid:
+                    - grid-template-areas: '"n btn1" "i btn1"'
+                    - grid-template-columns: 1fr min-content
+                    - grid-template-rows: min-content 1fr
+                  card:
+                    - padding: 22px
+                    - height: 200px
+                    - background-color: var(--gray100)
+                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
+                    - border: 1px solid rgba(255,255,255,0.1)
+                  custom_fields:
+                    btn1:
+                      - justify-content: end
+                      - align-self: center
+                  name:
+                    - justify-self: start
+                    - align-self: start
+                    - font-size: 18px
+                    - font-weight: 500
+                    - color: black
+                  img_cell:
+                    - justify-content: start
+                    - position: absolute
+                    - width: 110px
+                    - height: 110px
+                    - left: 30px
+                    - bottom: -20px
+                    - margin: 0 0 0 -44px
+                    - background: '#dbefdc'
+                    - border-radius: 500px
+                  icon:
+                    - position: relative
+                    - width: 50px
+                    - color: black
+                    - opacity: '1'
+                grid_options:
+                  columns: 12
+                  rows: auto
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#nakyungroom'
@@ -2869,26 +3924,192 @@ views:
                 grid_options:
                   columns: 12
                   rows: auto
-              - type: custom:decluttering-card
-                template: room_switch_panel
-                variables:
-                  - title: 나경방 스위치
-                  - room_icon: mdi:face-woman-outline
-                  - circle_bg: '#fcef83'
-                  - icon_color: black
-                  - button_height: 34px
-                  - b1_entity: switch.plug_nakyung_room
-                  - b1_name: 전등
-                  - b2_entity: switch.switch_nakyung_room_l2
-                  - b2_name: 스탠드
-                  - b3_entity: switch.switch_nakyung_room_l1
-                  - b3_name: 실링팬
-                  - b4_entity: switch.plug_nakyung_room
-                  - b4_name: 에어컨
-                  - b5_entity: none
-                  - b5_name: none
-                  - b6_entity: none
-                  - b6_name: none
+              - type: custom:button-card
+                name: 나경방 스위치
+                icon: mdi:face-woman-outline
+                custom_fields:
+                  btn1:
+                    card:
+                      type: custom:paper-buttons-row
+                      styles:
+                        display: flex
+                        flex-direction: column
+                        flex-wrap: wrap
+                      buttons:
+                        - icon: none
+                          entity: switch.plug_nakyung_room
+                          name: 전등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_nakyung_room']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 2px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 1
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_nakyung_room_l2
+                          name: 스탠드
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_nakyung_room_l2']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_nakyung_room_l1
+                          name: 실링팬
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_nakyung_room_l1']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.plug_nakyung_room
+                          name: 에어컨
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_nakyung_room']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 2px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 2
+                              position: relative
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                styles:
+                  grid:
+                    - grid-template-areas: '"n btn1" "i btn1"'
+                    - grid-template-columns: 1fr min-content
+                    - grid-template-rows: min-content 1fr
+                  card:
+                    - padding: 22px
+                    - height: 200px
+                    - background-color: var(--gray100)
+                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
+                    - border: 1px solid rgba(255,255,255,0.1)
+                  custom_fields:
+                    btn1:
+                      - justify-content: end
+                      - align-self: center
+                  name:
+                    - justify-self: start
+                    - align-self: start
+                    - font-size: 18px
+                    - font-weight: 500
+                    - color: black
+                  img_cell:
+                    - justify-content: start
+                    - position: absolute
+                    - width: 110px
+                    - height: 110px
+                    - left: 30px
+                    - bottom: -20px
+                    - margin: 0 0 0 -44px
+                    - background: '#fcef83'
+                    - border-radius: 500px
+                  icon:
+                    - position: relative
+                    - width: 50px
+                    - color: black
+                    - opacity: '1'
+                grid_options:
+                  columns: 12
+                  rows: auto
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#dressroom'
@@ -2923,26 +4144,192 @@ views:
                 grid_options:
                   columns: 12
                   rows: auto
-              - type: custom:decluttering-card
-                template: room_switch_panel
-                variables:
-                  - title: 드레스룸 스위치
-                  - room_icon: mdi:hanger
-                  - circle_bg: '#ffcc66'
-                  - icon_color: brown
-                  - button_height: 34px
-                  - b1_entity: switch.plug_bom_room
-                  - b1_name: 메인등
-                  - b2_entity: switch.switch_bom_room_l2
-                  - b2_name: 간접등
-                  - b3_entity: switch.switch_bom_room_l1
-                  - b3_name: 에어컨
-                  - b4_entity: switch.plug_bom_room
-                  - b4_name: 전체
-                  - b5_entity: none
-                  - b5_name: none
-                  - b6_entity: none
-                  - b6_name: none
+              - type: custom:button-card
+                name: 드레스룸 스위치
+                icon: mdi:hanger
+                custom_fields:
+                  btn1:
+                    card:
+                      type: custom:paper-buttons-row
+                      styles:
+                        display: flex
+                        flex-direction: column
+                        flex-wrap: wrap
+                      buttons:
+                        - icon: none
+                          entity: switch.plug_bom_room
+                          name: 메인등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_bom_room']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 2px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 1
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_bom_room_l2
+                          name: 간접등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_bom_room_l2']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_bom_room_l1
+                          name: 에어컨
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_bom_room_l1']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.plug_bom_room
+                          name: 전체
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_bom_room']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 2px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 2
+                              position: relative
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                styles:
+                  grid:
+                    - grid-template-areas: '"n btn1" "i btn1"'
+                    - grid-template-columns: 1fr min-content
+                    - grid-template-rows: min-content 1fr
+                  card:
+                    - padding: 22px
+                    - height: 200px
+                    - background-color: var(--gray100)
+                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
+                    - border: 1px solid rgba(255,255,255,0.1)
+                  custom_fields:
+                    btn1:
+                      - justify-content: end
+                      - align-self: center
+                  name:
+                    - justify-self: start
+                    - align-self: start
+                    - font-size: 18px
+                    - font-weight: 500
+                    - color: black
+                  img_cell:
+                    - justify-content: start
+                    - position: absolute
+                    - width: 110px
+                    - height: 110px
+                    - left: 30px
+                    - bottom: -20px
+                    - margin: 0 0 0 -44px
+                    - background: '#ffcc66'
+                    - border-radius: 500px
+                  icon:
+                    - position: relative
+                    - width: 50px
+                    - color: brown
+                    - opacity: '1'
+                grid_options:
+                  columns: 12
+                  rows: auto
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#studyroom'
@@ -2977,26 +4364,192 @@ views:
                 grid_options:
                   columns: 12
                   rows: auto
-              - type: custom:decluttering-card
-                template: room_switch_panel
-                variables:
-                  - title: 공부방 스위치
-                  - room_icon: mdi:desk
-                  - circle_bg: '#c8e6c9'
-                  - icon_color: '#2e7d32'
-                  - button_height: 34px
-                  - b1_entity: switch.plug_studyroom
-                  - b1_name: 메인등
-                  - b2_entity: switch.switch_studyroom_l2
-                  - b2_name: 간접등
-                  - b3_entity: switch.switch_studyroom_l1
-                  - b3_name: 실링팬
-                  - b4_entity: switch.plug_studyroom
-                  - b4_name: 에어컨
-                  - b5_entity: none
-                  - b5_name: none
-                  - b6_entity: none
-                  - b6_name: none
+              - type: custom:button-card
+                name: 공부방 스위치
+                icon: mdi:desk
+                custom_fields:
+                  btn1:
+                    card:
+                      type: custom:paper-buttons-row
+                      styles:
+                        display: flex
+                        flex-direction: column
+                        flex-wrap: wrap
+                      buttons:
+                        - icon: none
+                          entity: switch.plug_studyroom
+                          name: 메인등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_studyroom']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 2px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 1
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_studyroom_l2
+                          name: 간접등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_studyroom_l2']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_studyroom_l1
+                          name: 실링팬
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_studyroom_l1']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.plug_studyroom
+                          name: 에어컨
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_studyroom']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 2px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 2
+                              position: relative
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                styles:
+                  grid:
+                    - grid-template-areas: '"n btn1" "i btn1"'
+                    - grid-template-columns: 1fr min-content
+                    - grid-template-rows: min-content 1fr
+                  card:
+                    - padding: 22px
+                    - height: 200px
+                    - background-color: var(--gray100)
+                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
+                    - border: 1px solid rgba(255,255,255,0.1)
+                  custom_fields:
+                    btn1:
+                      - justify-content: end
+                      - align-self: center
+                  name:
+                    - justify-self: start
+                    - align-self: start
+                    - font-size: 18px
+                    - font-weight: 500
+                    - color: black
+                  img_cell:
+                    - justify-content: start
+                    - position: absolute
+                    - width: 110px
+                    - height: 110px
+                    - left: 30px
+                    - bottom: -20px
+                    - margin: 0 0 0 -44px
+                    - background: '#c8e6c9'
+                    - border-radius: 500px
+                  icon:
+                    - position: relative
+                    - width: 50px
+                    - color: '#2e7d32'
+                    - opacity: '1'
+                grid_options:
+                  columns: 12
+                  rows: auto
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#jiharoom'
@@ -3031,26 +4584,192 @@ views:
                 grid_options:
                   columns: 12
                   rows: auto
-              - type: custom:decluttering-card
-                template: room_switch_panel
-                variables:
-                  - title: 지하방 스위치
-                  - room_icon: mdi:face-woman-profile
-                  - circle_bg: '#e1bee7'
-                  - icon_color: '#6a1b9a'
-                  - button_height: 34px
-                  - b1_entity: switch.plug_guestroom
-                  - b1_name: 전등
-                  - b2_entity: switch.switch_guestroom_l2
-                  - b2_name: 에어컨
-                  - b3_entity: switch.switch_guestroom_l1
-                  - b3_name: 기타
-                  - b4_entity: switch.plug_guestroom
-                  - b4_name: 전체
-                  - b5_entity: none
-                  - b5_name: none
-                  - b6_entity: none
-                  - b6_name: none
+              - type: custom:button-card
+                name: 지하방 스위치
+                icon: mdi:face-woman-profile
+                custom_fields:
+                  btn1:
+                    card:
+                      type: custom:paper-buttons-row
+                      styles:
+                        display: flex
+                        flex-direction: column
+                        flex-wrap: wrap
+                      buttons:
+                        - icon: none
+                          entity: switch.plug_guestroom
+                          name: 전등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_guestroom']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 2px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 1
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_guestroom_l2
+                          name: 에어컨
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_guestroom_l2']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_guestroom_l1
+                          name: 기타
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_guestroom_l1']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.plug_guestroom
+                          name: 전체
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_guestroom']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 2px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 2
+                              position: relative
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                styles:
+                  grid:
+                    - grid-template-areas: '"n btn1" "i btn1"'
+                    - grid-template-columns: 1fr min-content
+                    - grid-template-rows: min-content 1fr
+                  card:
+                    - padding: 22px
+                    - height: 200px
+                    - background-color: var(--gray100)
+                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
+                    - border: 1px solid rgba(255,255,255,0.1)
+                  custom_fields:
+                    btn1:
+                      - justify-content: end
+                      - align-self: center
+                  name:
+                    - justify-self: start
+                    - align-self: start
+                    - font-size: 18px
+                    - font-weight: 500
+                    - color: black
+                  img_cell:
+                    - justify-content: start
+                    - position: absolute
+                    - width: 110px
+                    - height: 110px
+                    - left: 30px
+                    - bottom: -20px
+                    - margin: 0 0 0 -44px
+                    - background: '#e1bee7'
+                    - border-radius: 500px
+                  icon:
+                    - position: relative
+                    - width: 50px
+                    - color: '#6a1b9a'
+                    - opacity: '1'
+                grid_options:
+                  columns: 12
+                  rows: auto
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#cafe'
@@ -3085,26 +4804,192 @@ views:
                 grid_options:
                   columns: 12
                   rows: auto
-              - type: custom:decluttering-card
-                template: room_switch_panel
-                variables:
-                  - title: cafe 스위치
-                  - room_icon: mdi:coffee
-                  - circle_bg: '#ffccbc'
-                  - icon_color: '#d84315'
-                  - button_height: 34px
-                  - b1_entity: switch.plug_cafe
-                  - b1_name: 메인등
-                  - b2_entity: switch.switch_cafe_l2
-                  - b2_name: 실링팬
-                  - b3_entity: switch.switch_cafe_l1
-                  - b3_name: 에어컨
-                  - b4_entity: switch.plug_cafe
-                  - b4_name: 전체
-                  - b5_entity: none
-                  - b5_name: none
-                  - b6_entity: none
-                  - b6_name: none
+              - type: custom:button-card
+                name: cafe 스위치
+                icon: mdi:coffee
+                custom_fields:
+                  btn1:
+                    card:
+                      type: custom:paper-buttons-row
+                      styles:
+                        display: flex
+                        flex-direction: column
+                        flex-wrap: wrap
+                      buttons:
+                        - icon: none
+                          entity: switch.plug_cafe
+                          name: 메인등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_cafe']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 2px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 1
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_cafe_l2
+                          name: 실링팬
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_cafe_l2']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_cafe_l1
+                          name: 에어컨
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_cafe_l1']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.plug_cafe
+                          name: 전체
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_cafe']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 2px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 2
+                              position: relative
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                styles:
+                  grid:
+                    - grid-template-areas: '"n btn1" "i btn1"'
+                    - grid-template-columns: 1fr min-content
+                    - grid-template-rows: min-content 1fr
+                  card:
+                    - padding: 22px
+                    - height: 200px
+                    - background-color: var(--gray100)
+                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
+                    - border: 1px solid rgba(255,255,255,0.1)
+                  custom_fields:
+                    btn1:
+                      - justify-content: end
+                      - align-self: center
+                  name:
+                    - justify-self: start
+                    - align-self: start
+                    - font-size: 18px
+                    - font-weight: 500
+                    - color: black
+                  img_cell:
+                    - justify-content: start
+                    - position: absolute
+                    - width: 110px
+                    - height: 110px
+                    - left: 30px
+                    - bottom: -20px
+                    - margin: 0 0 0 -44px
+                    - background: '#ffccbc'
+                    - border-radius: 500px
+                  icon:
+                    - position: relative
+                    - width: 50px
+                    - color: '#d84315'
+                    - opacity: '1'
+                grid_options:
+                  columns: 12
+                  rows: auto
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#bathroom3'
@@ -3139,26 +5024,192 @@ views:
                 grid_options:
                   columns: 12
                   rows: auto
-              - type: custom:decluttering-card
-                template: room_switch_panel
-                variables:
-                  - title: 안방화장실 스위치
-                  - room_icon: mdi:shower-head
-                  - circle_bg: '#ceeefd'
-                  - icon_color: '#1fb1f2'
-                  - button_height: 34px
-                  - b1_entity: light.anbanghwajangsil_zemiswitch_jomyeong_1
-                  - b1_name: 메인등
-                  - b2_entity: light.anbanghwajangsil_zemiswitch_jomyeong_2
-                  - b2_name: 간접등
-                  - b3_entity: switch.switch_master_room_toilet_left
-                  - b3_name: 환풍기
-                  - b4_entity: switch.plug_master_room_toilet
-                  - b4_name: 전체
-                  - b5_entity: none
-                  - b5_name: none
-                  - b6_entity: none
-                  - b6_name: none
+              - type: custom:button-card
+                name: 안방화장실 스위치
+                icon: mdi:shower-head
+                custom_fields:
+                  btn1:
+                    card:
+                      type: custom:paper-buttons-row
+                      styles:
+                        display: flex
+                        flex-direction: column
+                        flex-wrap: wrap
+                      buttons:
+                        - icon: none
+                          entity: light.anbanghwajangsil_zemiswitch_jomyeong_1
+                          name: 메인등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['light.anbanghwajangsil_zemiswitch_jomyeong_1']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 2px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 1
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: light.anbanghwajangsil_zemiswitch_jomyeong_2
+                          name: 간접등
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['light.anbanghwajangsil_zemiswitch_jomyeong_2']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.switch_master_room_toilet_left
+                          name: 환풍기
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.switch_master_room_toilet_left']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 1px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                        - icon: none
+                          entity: switch.plug_master_room_toilet
+                          name: 전체
+                          show_state: false
+                          tap_action:
+                            action: toggle
+                          ripple: none
+                          styles:
+                            button:
+                              background: |
+                                [[[
+                                  return states['switch.plug_master_room_toilet']?.state === 'on'
+                                    ? 'var(--active-small)'
+                                    : 'white';
+                                ]]]
+                              border-radius: 0
+                              border-right: 2px solid black
+                              border-bottom: 2px solid black
+                              border-left: 2px solid black
+                              border-top: 1px solid black
+                              transition: background 0.2s ease
+                              width: 60px
+                              height: 34px
+                              z-index: 2
+                              position: relative
+                            name:
+                              - font-size: 10px
+                              - font-weight: 600
+                              - color: black
+                              - white-space: nowrap
+                              - text-align: center
+                              - align-self: center
+                              - justify-self: center
+                              - margin-left: -22px
+                              - line-height: 1
+                styles:
+                  grid:
+                    - grid-template-areas: '"n btn1" "i btn1"'
+                    - grid-template-columns: 1fr min-content
+                    - grid-template-rows: min-content 1fr
+                  card:
+                    - padding: 22px
+                    - height: 200px
+                    - background-color: var(--gray100)
+                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
+                    - border: 1px solid rgba(255,255,255,0.1)
+                  custom_fields:
+                    btn1:
+                      - justify-content: end
+                      - align-self: center
+                  name:
+                    - justify-self: start
+                    - align-self: start
+                    - font-size: 18px
+                    - font-weight: 500
+                    - color: black
+                  img_cell:
+                    - justify-content: start
+                    - position: absolute
+                    - width: 110px
+                    - height: 110px
+                    - left: 30px
+                    - bottom: -20px
+                    - margin: 0 0 0 -44px
+                    - background: '#ceeefd'
+                    - border-radius: 500px
+                  icon:
+                    - position: relative
+                    - width: 50px
+                    - color: '#1fb1f2'
+                    - opacity: '1'
+                grid_options:
+                  columns: 12
+                  rows: auto
               - type: custom:gap-card
                 height: 10px
                 grid_options:

@@ -11,3 +11,4 @@ custom_components/
 www/community/
 zigbee2mqtt/
 *.sh
+'Claude outputs'

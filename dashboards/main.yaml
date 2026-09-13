@@ -206,39 +206,260 @@ decluttering_templates:
       name: '[[title]]'
       icon: '[[room_icon]]'
       custom_fields:
-        switches: |
-          [[[
-            const raw = [
-              { entity: '[[b1_entity]]', name: '[[b1_name]]' },
-              { entity: '[[b2_entity]]', name: '[[b2_name]]' },
-              { entity: '[[b3_entity]]', name: '[[b3_name]]' },
-              { entity: '[[b4_entity]]', name: '[[b4_name]]' },
-              { entity: '[[b5_entity]]', name: '[[b5_name]]' },
-              { entity: '[[b6_entity]]', name: '[[b6_name]]' },
-            ].filter(b => b.entity !== 'none');
-
-            const cols = raw.length > 4 ? 2 : 1;
-            const perCol = Math.ceil(raw.length / cols);
-            const columns = [];
-            for (let c = 0; c < cols; c++) {
-              columns.push(raw.slice(c * perCol, c * perCol + perCol));
-            }
-            const h = '[[button_height]]';
-
-            const renderCol = (col, colIndex) => {
-              const leftBorder = colIndex === 0 ? '2px' : '0px';
-              const rightBorder = (colIndex === cols - 1) ? '2px' : '1px';
-              return col.map((b, i) => {
-                const on = states[b.entity]?.state === 'on';
-                const topBorder = i === 0 ? '2px' : '0px';
-                const bottomBorder = i === col.length - 1 ? '2px' : '1px';
-                const domain = b.entity.split('.')[0];
-                return `<div onclick="event.stopPropagation(); hass.callService('${domain}','toggle',{entity_id:'${b.entity}'})" style="width:60px;height:${h};box-sizing:border-box;display:flex;align-items:center;justify-content:center;cursor:pointer;background:${on ? 'var(--active-small)' : 'white'};border-top:${topBorder} solid black;border-bottom:${bottomBorder} solid black;border-left:${leftBorder} solid black;border-right:${rightBorder} solid black;font-size:10px;font-weight:600;color:black;text-align:center;line-height:1;">${b.name}</div>`;
-              }).join('');
-            };
-
-            return `<div style="display:flex;">${columns.map((col, idx) => `<div style="display:flex;flex-direction:column;">${renderCol(col, idx)}</div>`).join('')}</div>`;
-          ]]]
+        switches:
+          card:
+            type: custom:paper-buttons-row
+            styles:
+              display: block
+              column-gap: 0px
+              column-fill: balance
+              column-count: |
+                [[[
+                  const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
+                  const count = es.filter(e => e !== 'none').length;
+                  return count > 4 ? 2 : 1;
+                ]]]
+            buttons:
+              - icon: none
+                entity: '[[b1_entity]]'
+                name: '[[b1_name]]'
+                show_state: false
+                tap_action:
+                  action: toggle
+                ripple: none
+                styles:
+                  button:
+                    display: |
+                      [[[ return '[[b1_entity]]' === 'none' ? 'none' : undefined ]]]
+                    background: |
+                      [[[ return states['[[b1_entity]]']?.state === 'on' ? 'var(--active-small)' : 'white'; ]]]
+                    border-radius: 0
+                    border-left: 2px solid black
+                    border-right: 2px solid black
+                    border-top: |
+                      [[[
+                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
+                        return es.findIndex(e => e !== 'none') === 0 ? '2px solid black' : '1px solid black';
+                      ]]]
+                    border-bottom: |
+                      [[[
+                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
+                        let last = -1; es.forEach((e, i) => { if (e !== 'none') last = i; });
+                        return last === 0 ? '2px solid black' : '1px solid black';
+                      ]]]
+                    transition: background 0.2s ease
+                    width: 60px
+                    height: '[[button_height]]'
+                  name:
+                    - font-size: 10px
+                    - font-weight: 600
+                    - color: black
+                    - white-space: nowrap
+                    - text-align: center
+                    - align-self: center
+                    - justify-self: center
+                    - margin-left: -22px
+                    - line-height: 1
+              - icon: none
+                entity: '[[b2_entity]]'
+                name: '[[b2_name]]'
+                show_state: false
+                tap_action:
+                  action: toggle
+                ripple: none
+                styles:
+                  button:
+                    display: |
+                      [[[ return '[[b2_entity]]' === 'none' ? 'none' : undefined ]]]
+                    background: |
+                      [[[ return states['[[b2_entity]]']?.state === 'on' ? 'var(--active-small)' : 'white'; ]]]
+                    border-radius: 0
+                    border-left: 2px solid black
+                    border-right: 2px solid black
+                    border-top: |
+                      [[[
+                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
+                        return es.findIndex(e => e !== 'none') === 1 ? '2px solid black' : '1px solid black';
+                      ]]]
+                    border-bottom: |
+                      [[[
+                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
+                        let last = -1; es.forEach((e, i) => { if (e !== 'none') last = i; });
+                        return last === 1 ? '2px solid black' : '1px solid black';
+                      ]]]
+                    transition: background 0.2s ease
+                    width: 60px
+                    height: '[[button_height]]'
+                  name:
+                    - font-size: 10px
+                    - font-weight: 600
+                    - color: black
+                    - white-space: nowrap
+                    - text-align: center
+                    - align-self: center
+                    - justify-self: center
+                    - margin-left: -22px
+                    - line-height: 1
+              - icon: none
+                entity: '[[b3_entity]]'
+                name: '[[b3_name]]'
+                show_state: false
+                tap_action:
+                  action: toggle
+                ripple: none
+                styles:
+                  button:
+                    display: |
+                      [[[ return '[[b3_entity]]' === 'none' ? 'none' : undefined ]]]
+                    background: |
+                      [[[ return states['[[b3_entity]]']?.state === 'on' ? 'var(--active-small)' : 'white'; ]]]
+                    border-radius: 0
+                    border-left: 2px solid black
+                    border-right: 2px solid black
+                    border-top: |
+                      [[[
+                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
+                        return es.findIndex(e => e !== 'none') === 2 ? '2px solid black' : '1px solid black';
+                      ]]]
+                    border-bottom: |
+                      [[[
+                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
+                        let last = -1; es.forEach((e, i) => { if (e !== 'none') last = i; });
+                        return last === 2 ? '2px solid black' : '1px solid black';
+                      ]]]
+                    transition: background 0.2s ease
+                    width: 60px
+                    height: '[[button_height]]'
+                  name:
+                    - font-size: 10px
+                    - font-weight: 600
+                    - color: black
+                    - white-space: nowrap
+                    - text-align: center
+                    - align-self: center
+                    - justify-self: center
+                    - margin-left: -22px
+                    - line-height: 1
+              - icon: none
+                entity: '[[b4_entity]]'
+                name: '[[b4_name]]'
+                show_state: false
+                tap_action:
+                  action: toggle
+                ripple: none
+                styles:
+                  button:
+                    display: |
+                      [[[ return '[[b4_entity]]' === 'none' ? 'none' : undefined ]]]
+                    background: |
+                      [[[ return states['[[b4_entity]]']?.state === 'on' ? 'var(--active-small)' : 'white'; ]]]
+                    border-radius: 0
+                    border-left: 2px solid black
+                    border-right: 2px solid black
+                    border-top: |
+                      [[[
+                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
+                        return es.findIndex(e => e !== 'none') === 3 ? '2px solid black' : '1px solid black';
+                      ]]]
+                    border-bottom: |
+                      [[[
+                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
+                        let last = -1; es.forEach((e, i) => { if (e !== 'none') last = i; });
+                        return last === 3 ? '2px solid black' : '1px solid black';
+                      ]]]
+                    transition: background 0.2s ease
+                    width: 60px
+                    height: '[[button_height]]'
+                  name:
+                    - font-size: 10px
+                    - font-weight: 600
+                    - color: black
+                    - white-space: nowrap
+                    - text-align: center
+                    - align-self: center
+                    - justify-self: center
+                    - margin-left: -22px
+                    - line-height: 1
+              - icon: none
+                entity: '[[b5_entity]]'
+                name: '[[b5_name]]'
+                show_state: false
+                tap_action:
+                  action: toggle
+                ripple: none
+                styles:
+                  button:
+                    display: |
+                      [[[ return '[[b5_entity]]' === 'none' ? 'none' : undefined ]]]
+                    background: |
+                      [[[ return states['[[b5_entity]]']?.state === 'on' ? 'var(--active-small)' : 'white'; ]]]
+                    border-radius: 0
+                    border-left: 2px solid black
+                    border-right: 2px solid black
+                    border-top: |
+                      [[[
+                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
+                        return es.findIndex(e => e !== 'none') === 4 ? '2px solid black' : '1px solid black';
+                      ]]]
+                    border-bottom: |
+                      [[[
+                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
+                        let last = -1; es.forEach((e, i) => { if (e !== 'none') last = i; });
+                        return last === 4 ? '2px solid black' : '1px solid black';
+                      ]]]
+                    transition: background 0.2s ease
+                    width: 60px
+                    height: '[[button_height]]'
+                  name:
+                    - font-size: 10px
+                    - font-weight: 600
+                    - color: black
+                    - white-space: nowrap
+                    - text-align: center
+                    - align-self: center
+                    - justify-self: center
+                    - margin-left: -22px
+                    - line-height: 1
+              - icon: none
+                entity: '[[b6_entity]]'
+                name: '[[b6_name]]'
+                show_state: false
+                tap_action:
+                  action: toggle
+                ripple: none
+                styles:
+                  button:
+                    display: |
+                      [[[ return '[[b6_entity]]' === 'none' ? 'none' : undefined ]]]
+                    background: |
+                      [[[ return states['[[b6_entity]]']?.state === 'on' ? 'var(--active-small)' : 'white'; ]]]
+                    border-radius: 0
+                    border-left: 2px solid black
+                    border-right: 2px solid black
+                    border-top: |
+                      [[[
+                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
+                        return es.findIndex(e => e !== 'none') === 5 ? '2px solid black' : '1px solid black';
+                      ]]]
+                    border-bottom: |
+                      [[[
+                        const es = ['[[b1_entity]]','[[b2_entity]]','[[b3_entity]]','[[b4_entity]]','[[b5_entity]]','[[b6_entity]]'];
+                        let last = -1; es.forEach((e, i) => { if (e !== 'none') last = i; });
+                        return last === 5 ? '2px solid black' : '1px solid black';
+                      ]]]
+                    transition: background 0.2s ease
+                    width: 60px
+                    height: '[[button_height]]'
+                  name:
+                    - font-size: 10px
+                    - font-weight: 600
+                    - color: black
+                    - white-space: nowrap
+                    - text-align: center
+                    - align-self: center
+                    - justify-self: center
+                    - margin-left: -22px
+                    - line-height: 1
       styles:
         grid:
           - grid-template-areas: '"n switches" "i switches"'
@@ -278,6 +499,61 @@ decluttering_templates:
       grid_options:
         columns: 12
         rows: auto
+  room_overview_card:
+    card:
+      type: custom:button-card
+      tap_action:
+        action: navigate
+        navigation_path: '#[[hash]]'
+        haptic: medium
+      icon: '[[icon]]'
+      name: '[[name]]'
+      view_layout:
+        grid-area: '[[hash]]'
+      custom_fields:
+        temp: |
+          [[[
+            var temp = states['[[temp_entity]]']?.state;
+            var hum = states['[[humid_entity]]']?.state;
+            temp = temp && !isNaN(temp) ? parseFloat(temp).toFixed(1) : 'N/A';
+            hum = hum && !isNaN(hum) ? parseFloat(hum).toFixed(0) : 'N/A';
+            return `${temp}° <span style= "font-size:14px;font-weight:400;opacity:0.6">${hum}%</span>`;
+          ]]]
+      styles:
+        card:
+          - padding: 8px
+          - height: 148px
+          - border-radius: '[[border_radius]]'
+          - background: var(--gray100)
+          - box-shadow: 8px 8px 16px var(--gray300)
+        grid:
+          - grid-template-areas: '"n i" "temp temp"'
+          - grid-template-rows: 1fr min-content
+          - grid-template-columns: min-content 1fr
+        icon:
+          - width: 26px
+          - color: '[[icon_color]]'
+        img_cell:
+          - justify-self: end
+          - align-self: start
+          - background: '[[img_bg]]'
+          - border-radius: 100%
+          - width: 48px
+          - height: 48px
+        name:
+          - justify-self: start
+          - align-self: start
+          - font-size: 16px
+          - font-weight: 700
+          - color: black
+          - padding: 14px
+        custom_fields:
+          temp:
+            - justify-self: start
+            - font-size: 34px
+            - line-height: 40px
+            - color: black
+            - padding: 0 0 6px 14px
 kiosk_mode:
   non_admin_settings:
     hide_header: true
@@ -730,330 +1006,68 @@ views:
                     - type: custom:layout-card
                       layout_type: custom:grid-layout
                       cards:
-                        - type: custom:button-card
-                          tap_action:
-                            action: navigate
-                            navigation_path: '#livingroom'
-                            haptic: medium
-                          icon: mdi:sofa
-                          name: 거실
-                          view_layout:
-                            grid-area: livingroom
-                          custom_fields:
-                            temp: |
-                              [[[
-                                var temp = states['sensor.temperature_sensor_temperature']?.state;
-                                var hum = states['sensor.temperature_sensor_humidity']?.state;
-                                temp = temp && !isNaN(temp) ? parseFloat(temp).toFixed(1) : 'N/A';
-                                hum = hum && !isNaN(hum) ? parseFloat(hum).toFixed(0) : 'N/A';
-                                return `${temp}° <span style= "font-size:14px;font-weight:400;opacity:0.6">${hum}%</span>`;
-                              ]]]
-                          styles:
-                            card:
-                              - padding: 8px
-                              - height: 100%
-                              - border-radius: 36px 6px 6px 36px
-                              - background: var(--gray100)
-                              - box-shadow: 8px 8px 16px var(--gray300)
-                            grid:
-                              - grid-template-areas: '"n i" "temp temp"'
-                              - grid-template-rows: 1fr min-content
-                              - grid-template-columns: min-content 1fr
-                            icon:
-                              - width: 26px
-                              - color: orange
-                            img_cell:
-                              - justify-self: end
-                              - align-self: start
-                              - background: '#feeacc'
-                              - border-radius: 100%
-                              - width: 48px
-                              - height: 48px
-                            name:
-                              - justify-self: start
-                              - align-self: start
-                              - font-size: 16px
-                              - font-weight: '700'
-                              - color: black
-                              - padding: 14px
-                            custom_fields:
-                              temp:
-                                - justify-self: start
-                                - font-size: 34px
-                                - line-height: 40px
-                                - color: black
-                                - padding: 0 0 6px 14px
-                        - type: custom:button-card
-                          tap_action:
-                            action: navigate
-                            navigation_path: '#kitchen'
-                            haptic: medium
-                          icon: mdi:kettle-steam
-                          name: 주방
-                          view_layout:
-                            grid-area: kitchen
-                          custom_fields:
-                            temp: |
-                              [[[
-                                var temp = states['sensor.temperature_sensor_temperature']?.state;
-                                var hum = states['sensor.temperature_sensor_humidity']?.state;
-                                temp = temp && !isNaN(temp) ? parseFloat(temp).toFixed(1) : 'N/A';
-                                hum = hum && !isNaN(hum) ? parseFloat(hum).toFixed(0) : 'N/A';
-                                return `${temp}° <span style= "font-size:14px;font-weight:400;opacity:0.6">${hum}%</span>`;
-                              ]]]
-                          styles:
-                            card:
-                              - padding: 8px
-                              - height: 100%
-                              - border-radius: 0px 0px 0px 0px
-                              - background: var(--gray100)
-                              - box-shadow: 8px 8px 16px var(--gray300)
-                            grid:
-                              - grid-template-areas: '"n i" "temp temp"'
-                              - grid-template-rows: 1fr min-content
-                              - grid-template-columns: min-content 1fr
-                            icon:
-                              - width: 26px
-                              - color: '#00695c'
-                            img_cell:
-                              - justify-self: end
-                              - align-self: start
-                              - background: '#c2efeb'
-                              - border-radius: 100%
-                              - width: 48px
-                              - height: 48px
-                            name:
-                              - justify-self: start
-                              - align-self: start
-                              - font-size: 16px
-                              - font-weight: 700
-                              - color: black
-                              - padding: 14px
-                            custom_fields:
-                              temp:
-                                - justify-self: start
-                                - font-size: 34px
-                                - line-height: 40px
-                                - color: black
-                                - padding: 0 0 6px 14px
-                        - type: custom:button-card
-                          tap_action:
-                            action: navigate
-                            navigation_path: '#bathroom1'
-                            haptic: medium
-                          icon: mdi:shower
-                          name: 거실화장실
-                          view_layout:
-                            grid-area: bathroom1
-                          custom_fields:
-                            temp: |
-                              [[[
-                                var temp = states['sensor.temperature_sensor_temperature']?.state;
-                                var hum = states['sensor.temperature_sensor_humidity']?.state;
-                                temp = temp && !isNaN(temp) ? parseFloat(temp).toFixed(1) : 'N/A';
-                                hum = hum && !isNaN(hum) ? parseFloat(hum).toFixed(0) : 'N/A';
-                                return `${temp}° <span style= "font-size:14px;font-weight:400;opacity:0.6">${hum}%</span>`;
-                              ]]]
-                          styles:
-                            card:
-                              - padding: 8px
-                              - height: 100%
-                              - border-radius: 6px 36px 36px 6px
-                              - background: var(--gray100)
-                              - box-shadow: 8px 8px 16px var(--gray300)
-                            grid:
-                              - grid-template-areas: '"n i" "temp temp"'
-                              - grid-template-rows: 1fr min-content
-                              - grid-template-columns: min-content 1fr
-                            icon:
-                              - width: 26px
-                              - color: '#1fb1f2'
-                            img_cell:
-                              - justify-self: end
-                              - align-self: start
-                              - background: '#ceeefd'
-                              - border-radius: 100%
-                              - width: 48px
-                              - height: 48px
-                            name:
-                              - justify-self: start
-                              - align-self: start
-                              - font-size: 16px
-                              - font-weight: 700
-                              - color: black
-                              - padding: 14px
-                            custom_fields:
-                              temp:
-                                - justify-self: start
-                                - font-size: 34px
-                                - line-height: 40px
-                                - color: black
-                                - padding: 0 0 6px 14px
-                        - type: custom:button-card
-                          tap_action:
-                            action: navigate
-                            navigation_path: '#bathroom2'
-                            haptic: medium
-                          icon: mdi:toilet
-                          name: 안방화장실
-                          view_layout:
-                            grid-area: bathroom2
-                          custom_fields:
-                            temp: |
-                              [[[
-                                var temp = states['sensor.temperature_sensor_temperature']?.state;
-                                var hum = states['sensor.temperature_sensor_humidity']?.state;
-                                temp = temp && !isNaN(temp) ? parseFloat(temp).toFixed(1) : 'N/A';
-                                hum = hum && !isNaN(hum) ? parseFloat(hum).toFixed(0) : 'N/A';
-                                return `${temp}° <span style= "font-size:14px;font-weight:400;opacity:0.6">${hum}%</span>`;
-                              ]]]
-                          styles:
-                            card:
-                              - padding: 8px
-                              - height: 100%
-                              - border-radius: 36px 6px 6px 36px
-                              - background: var(--gray100)
-                              - box-shadow: 8px 8px 16px var(--gray300)
-                            grid:
-                              - grid-template-areas: '"n i" "temp temp"'
-                              - grid-template-rows: 1fr min-content
-                              - grid-template-columns: min-content 1fr
-                            icon:
-                              - width: 26px
-                              - color: purple
-                            img_cell:
-                              - justify-self: end
-                              - align-self: start
-                              - background: '#e1d8f1'
-                              - border-radius: 100%
-                              - width: 48px
-                              - height: 48px
-                            name:
-                              - justify-self: start
-                              - align-self: start
-                              - font-size: 16px
-                              - font-weight: 700
-                              - color: black
-                              - padding: 14px
-                            custom_fields:
-                              temp:
-                                - justify-self: start
-                                - font-size: 34px
-                                - line-height: 40px
-                                - color: black
-                                - padding: 0 0 6px 14px
-                        - type: custom:button-card
-                          tap_action:
-                            action: navigate
-                            navigation_path: '#outdoorunit'
-                            haptic: medium
-                          icon: mdi:fan
-                          name: 실외기실
-                          view_layout:
-                            grid-area: outdoorunit
-                          custom_fields:
-                            temp: |
-                              [[[
-                                var temp = states['sensor.temperature_sensor_temperature']?.state;
-                                var hum = states['sensor.temperature_sensor_humidity']?.state;
-                                temp = temp && !isNaN(temp) ? parseFloat(temp).toFixed(1) : 'N/A';
-                                hum = hum && !isNaN(hum) ? parseFloat(hum).toFixed(0) : 'N/A';
-                                return `${temp}° <span style= "font-size:14px;font-weight:400;opacity:0.6">${hum}%</span>`;
-                              ]]]
-                          styles:
-                            card:
-                              - padding: 8px
-                              - height: 100%
-                              - border-radius: 0px 0px 0px 0px
-                              - background: var(--gray100)
-                              - box-shadow: 8px 8px 16px var(--gray300)
-                            grid:
-                              - grid-template-areas: '"n i" "temp temp"'
-                              - grid-template-rows: 1fr min-content
-                              - grid-template-columns: min-content 1fr
-                            icon:
-                              - width: 26px
-                              - color: '#455a64'
-                            img_cell:
-                              - justify-self: end
-                              - align-self: start
-                              - background: '#cfd8dc'
-                              - border-radius: 100%
-                              - width: 42px
-                              - height: 42px
-                            name:
-                              - justify-self: start
-                              - align-self: start
-                              - font-size: 16px
-                              - font-weight: 700
-                              - color: black
-                              - padding: 14px
-                            custom_fields:
-                              temp:
-                                - justify-self: start
-                                - font-size: 34px
-                                - line-height: 40px
-                                - color: black
-                                - padding: 0 0 6px 14px
-                        - type: custom:button-card
-                          tap_action:
-                            action: navigate
-                            navigation_path: '#storage'
-                            haptic: medium
-                          icon: mdi:archive-outline
-                          name: 창고
-                          view_layout:
-                            grid-area: storage
-                          custom_fields:
-                            temp: |
-                              [[[
-                                var temp = states['sensor.temperature_sensor_temperature']?.state;
-                                var hum = states['sensor.temperature_sensor_humidity']?.state;
-                                temp = temp && !isNaN(temp) ? parseFloat(temp).toFixed(1) : 'N/A';
-                                hum = hum && !isNaN(hum) ? parseFloat(hum).toFixed(0) : 'N/A';
-                                return `${temp}° <span style= "font-size:14px;font-weight:400;opacity:0.6">${hum}%</span>`;
-                              ]]]
-                          styles:
-                            card:
-                              - padding: 8px
-                              - height: 100%
-                              - border-radius: 6px 36px 36px 6px
-                              - background: var(--gray100)
-                              - box-shadow: 8px 8px 16px var(--gray300)
-                            grid:
-                              - grid-template-areas: '"n i" "temp temp"'
-                              - grid-template-rows: 1fr min-content
-                              - grid-template-columns: min-content 1fr
-                            icon:
-                              - width: 26px
-                              - color: '#795548'
-                            img_cell:
-                              - justify-self: end
-                              - align-self: start
-                              - background: '#d7ccc8'
-                              - border-radius: 100%
-                              - width: 42px
-                              - height: 42px
-                            name:
-                              - justify-self: start
-                              - align-self: start
-                              - font-size: 16px
-                              - font-weight: 700
-                              - color: black
-                              - padding: 14px
-                            custom_fields:
-                              temp:
-                                - justify-self: start
-                                - font-size: 34px
-                                - line-height: 40px
-                                - color: black
-                                - padding: 0 0 6px 14px
+                        - type: custom:decluttering-card
+                          template: room_overview_card
+                          variables:
+                            - hash: livingroom
+                            - icon: mdi:sofa
+                            - name: 거실
+                            - border_radius: 36px 6px 6px 36px
+                            - icon_color: orange
+                            - img_bg: '#feeacc'
+                            - temp_entity: sensor.temperature_sensor_temperature
+                            - humid_entity: sensor.temperature_sensor_humidity
+                        - type: custom:decluttering-card
+                          template: room_overview_card
+                          variables:
+                            - hash: kitchen
+                            - icon: mdi:kettle-steam
+                            - name: 주방
+                            - border_radius: 6px 36px 3px 6px
+                            - icon_color: '#00695c'
+                            - img_bg: '#c2efeb'
+                            - temp_entity: sensor.temperature_sensor_temperature
+                            - humid_entity: sensor.temperature_sensor_humidity
+                        - type: custom:decluttering-card
+                          template: room_overview_card
+                          variables:
+                            - hash: bathroom1
+                            - icon: mdi:shower
+                            - name: 거실화장실
+                            - border_radius: 36px 6px 6px 36px
+                            - icon_color: '#1fb1f2'
+                            - img_bg: '#ceeefd'
+                            - temp_entity: sensor.temperature_sensor_temperature
+                            - humid_entity: sensor.temperature_sensor_humidity
+                        - type: custom:decluttering-card
+                          template: room_overview_card
+                          variables:
+                            - hash: hallway
+                            - icon: mdi:image-frame
+                            - name: 현관
+                            - border_radius: 6px 36px 36px 6px
+                            - icon_color: '#455a64'
+                            - img_bg: '#cfd8dc'
+                            - temp_entity: sensor.temperature_sensor_temperature
+                            - humid_entity: sensor.temperature_sensor_humidity
+                        - type: custom:decluttering-card
+                          template: room_overview_card
+                          variables:
+                            - hash: dressroom
+                            - icon: mdi:hanger
+                            - name: 드레스룸
+                            - border_radius: 36px 6px 6px 36px
+                            - icon_color: brown
+                            - img_bg: '#ffcc66'
+                            - temp_entity: sensor.temperature_sensor_temperature
+                            - humid_entity: sensor.temperature_sensor_humidity
                       layout:
-                        grid-template-columns: 1fr 1fr 1fr
-                        grid-template-rows: 160px 160px
+                        grid-template-columns: 1fr 1fr
+                        grid-template-rows: 160px 160px 160px
                         grid-template-areas: |
-                          "livingroom kitchen bathroom1"
-                          "bathroom2 outdoorunit storage"
+                          "livingroom kitchen"
+                          "bathroom1 bathroom2"
+                          "outdoorunit ."
               - type: custom:local-conditional-card
                 id: master
                 default: hide
@@ -1244,218 +1258,50 @@ views:
                     - type: custom:layout-card
                       layout_type: custom:grid-layout
                       cards:
-                        - type: custom:button-card
-                          tap_action:
-                            action: navigate
-                            navigation_path: '#masterroom'
-                            haptic: medium
-                          icon: mdi:account-multiple
-                          name: 안방
-                          view_layout:
-                            grid-area: masterroom
-                          custom_fields:
-                            temp: |
-                              [[[
-                                var temp = states['sensor.temperature_sensor_temperature']?.state;
-                                var hum = states['sensor.temperature_sensor_humidity']?.state;
-                                temp = temp && !isNaN(temp) ? parseFloat(temp).toFixed(1) : 'N/A';
-                                hum = hum && !isNaN(hum) ? parseFloat(hum).toFixed(0) : 'N/A';
-                                return `${temp}° <span style= "font-size:14px;font-weight:400;opacity:0.6">${hum}%</span>`;
-                              ]]]
-                          styles:
-                            card:
-                              - padding: 8px
-                              - height: 100%
-                              - border-radius: 36px 6px 6px 36px
-                              - background: var(--gray100)
-                              - box-shadow: 8px 8px 16px var(--gray300)
-                            grid:
-                              - grid-template-areas: '"n i" "temp temp"'
-                              - grid-template-rows: 1fr min-content
-                              - grid-template-columns: min-content 1fr
-                            icon:
-                              - width: 26px
-                              - color: red
-                            img_cell:
-                              - justify-self: end
-                              - align-self: start
-                              - background: '#fdd9d7'
-                              - border-radius: 100%
-                              - width: 48px
-                              - height: 48px
-                            name:
-                              - justify-self: start
-                              - align-self: start
-                              - font-size: 16px
-                              - font-weight: 700
-                              - color: black
-                              - padding: 14px
-                            custom_fields:
-                              temp:
-                                - justify-self: start
-                                - font-size: 34px
-                                - line-height: 40px
-                                - color: black
-                                - padding: 0 0 6px 14px
-                        - type: custom:button-card
-                          tap_action:
-                            action: navigate
-                            navigation_path: '#junhoroom'
-                            haptic: medium
-                          icon: mdi:face-man-shimmer-outline
-                          name: 준호방
-                          view_layout:
-                            grid-area: junhoroom
-                          custom_fields:
-                            temp: |
-                              [[[
-                                var temp = states['sensor.temperature_sensor_temperature']?.state;
-                                var hum = states['sensor.temperature_sensor_humidity']?.state;
-                                temp = temp && !isNaN(temp) ? parseFloat(temp).toFixed(1) : 'N/A';
-                                hum = hum && !isNaN(hum) ? parseFloat(hum).toFixed(0) : 'N/A';
-                                return `${temp}° <span style= "font-size:14px;font-weight:400;opacity:0.6">${hum}%</span>`;
-                              ]]]
-                          styles:
-                            card:
-                              - padding: 8px
-                              - height: 100%
-                              - border-radius: 6px 36px 36px 6px
-                              - background: var(--gray100)
-                              - box-shadow: 8px 8px 16px var(--gray300)
-                            grid:
-                              - grid-template-areas: '"n i" "temp temp"'
-                              - grid-template-rows: 1fr min-content
-                              - grid-template-columns: min-content 1fr
-                            icon:
-                              - width: 26px
-                              - color: black
-                            img_cell:
-                              - justify-self: end
-                              - align-self: start
-                              - background: '#dbefdc'
-                              - border-radius: 100%
-                              - width: 48px
-                              - height: 48px
-                            name:
-                              - justify-self: start
-                              - align-self: start
-                              - font-size: 16px
-                              - font-weight: 700
-                              - color: black
-                              - padding: 14px
-                            custom_fields:
-                              temp:
-                                - justify-self: start
-                                - font-size: 34px
-                                - line-height: 40px
-                                - color: black
-                                - padding: 0 0 6px 14px
-                        - type: custom:button-card
-                          tap_action:
-                            action: navigate
-                            navigation_path: '#nakyungroom'
-                            haptic: medium
-                          icon: mdi:face-woman
-                          name: 나경방
-                          view_layout:
-                            grid-area: nakyungroom
-                          custom_fields:
-                            temp: |
-                              [[[
-                                var temp = states['sensor.temperature_sensor_temperature']?.state;
-                                var hum = states['sensor.temperature_sensor_humidity']?.state;
-                                temp = temp && !isNaN(temp) ? parseFloat(temp).toFixed(1) : 'N/A';
-                                hum = hum && !isNaN(hum) ? parseFloat(hum).toFixed(0) : 'N/A';
-                                return `${temp}° <span style= "font-size:14px;font-weight:400;opacity:0.6">${hum}%</span>`;
-                              ]]]
-                          styles:
-                            card:
-                              - padding: 8px
-                              - height: 100%
-                              - border-radius: 36px 6px 6px 36px
-                              - background: var(--gray100)
-                              - box-shadow: 8px 8px 16px var(--gray300)
-                            grid:
-                              - grid-template-areas: '"n i" "temp temp"'
-                              - grid-template-rows: 1fr min-content
-                              - grid-template-columns: min-content 1fr
-                            icon:
-                              - width: 26px
-                              - color: black
-                            img_cell:
-                              - justify-self: end
-                              - align-self: start
-                              - background: '#fbef83'
-                              - border-radius: 100%
-                              - width: 48px
-                              - height: 48px
-                            name:
-                              - justify-self: start
-                              - align-self: start
-                              - font-size: 16px
-                              - font-weight: 700
-                              - color: black
-                              - padding: 14px
-                            custom_fields:
-                              temp:
-                                - justify-self: start
-                                - font-size: 34px
-                                - line-height: 40px
-                                - color: black
-                                - padding: 0 0 6px 14px
-                        - type: custom:button-card
-                          tap_action:
-                            action: navigate
-                            navigation_path: '#dressroom'
-                            haptic: medium
-                          icon: mdi:hanger
-                          name: 드레스룸
-                          view_layout:
-                            grid-area: dressroom
-                          custom_fields:
-                            temp: |
-                              [[[
-                                var temp = states['sensor.temperature_sensor_temperature']?.state;
-                                var hum = states['sensor.temperature_sensor_humidity']?.state;
-                                temp = temp && !isNaN(temp) ? parseFloat(temp).toFixed(1) : 'N/A';
-                                hum = hum && !isNaN(hum) ? parseFloat(hum).toFixed(0) : 'N/A';
-                                return `${temp}° <span style= "font-size:14px;font-weight:400;opacity:0.6">${hum}%</span>`;
-                              ]]]
-                          styles:
-                            card:
-                              - padding: 8px
-                              - height: 100%
-                              - border-radius: 6px 36px 36px 6px
-                              - background: var(--gray100)
-                              - box-shadow: 8px 8px 16px var(--gray300)
-                            grid:
-                              - grid-template-areas: '"n i" "temp temp"'
-                              - grid-template-rows: 1fr min-content
-                              - grid-template-columns: min-content 1fr
-                            icon:
-                              - width: 26px
-                              - color: brown
-                            img_cell:
-                              - justify-self: end
-                              - align-self: start
-                              - background: '#ffcc66'
-                              - border-radius: 100%
-                              - width: 48px
-                              - height: 48px
-                            name:
-                              - justify-self: start
-                              - align-self: start
-                              - font-size: 16px
-                              - font-weight: 700
-                              - color: black
-                              - padding: 14px
-                            custom_fields:
-                              temp:
-                                - justify-self: start
-                                - font-size: 34px
-                                - line-height: 40px
-                                - color: black
-                                - padding: 0 0 6px 14px
+                        - type: custom:decluttering-card
+                          template: room_overview_card
+                          variables:
+                            - hash: masterroom
+                            - icon: mdi:account-multiple
+                            - name: 안방
+                            - border_radius: 36px 6px 6px 36px
+                            - icon_color: red
+                            - img_bg: '#fdd9d7'
+                            - temp_entity: sensor.temperature_sensor_temperature
+                            - humid_entity: sensor.temperature_sensor_humidity
+                        - type: custom:decluttering-card
+                          template: room_overview_card
+                          variables:
+                            - hash: bathroom2
+                            - icon: mdi:toilet
+                            - name: 안방화장실
+                            - border_radius: 6px 36px 36px 6px
+                            - icon_color: purple
+                            - img_bg: '#e1d8f1'
+                            - temp_entity: sensor.temperature_sensor_temperature
+                            - humid_entity: sensor.temperature_sensor_humidity
+                        - type: custom:decluttering-card
+                          template: room_overview_card
+                          variables:
+                            - hash: nakyungroom
+                            - icon: mdi:face-woman
+                            - name: 나경방
+                            - border_radius: 36px 6px 6px 36px
+                            - icon_color: black
+                            - img_bg: '#fbef83'
+                            - temp_entity: sensor.temperature_sensor_temperature
+                            - humid_entity: sensor.temperature_sensor_humidity
+                        - type: custom:decluttering-card
+                          template: room_overview_card
+                          variables:
+                            - hash: junhoroom
+                            - icon: mdi:face-man-shimmer-outline
+                            - name: 준호방
+                            - border_radius: 6px 36px 36px 6px
+                            - icon_color: black
+                            - img_bg: '#dbefdc'
+                            - temp_entity: sensor.temperature_sensor_temperature
+                            - humid_entity: sensor.temperature_sensor_humidity
                       layout:
                         grid-template-columns: 1fr 1fr
                         grid-template-rows: 160px 160px
@@ -1652,218 +1498,50 @@ views:
                     - type: custom:layout-card
                       layout_type: custom:grid-layout
                       cards:
-                        - type: custom:button-card
-                          tap_action:
-                            action: navigate
-                            navigation_path: '#studyroom'
-                            haptic: medium
-                          icon: mdi:desk
-                          name: 공부방
-                          view_layout:
-                            grid-area: studyroom
-                          custom_fields:
-                            temp: |
-                              [[[
-                                var temp = states['sensor.temperature_sensor_temperature']?.state;
-                                var hum = states['sensor.temperature_sensor_humidity']?.state;
-                                temp = temp && !isNaN(temp) ? parseFloat(temp).toFixed(1) : 'N/A';
-                                hum = hum && !isNaN(hum) ? parseFloat(hum).toFixed(0) : 'N/A';
-                                return `${temp}° <span style= "font-size:14px;font-weight:400;opacity:0.6">${hum}%</span>`;
-                              ]]]
-                          styles:
-                            card:
-                              - padding: 8px
-                              - height: 100%
-                              - border-radius: 36px 6px 6px 36px
-                              - background: var(--gray100)
-                              - box-shadow: 8px 8px 16px var(--gray300)
-                            grid:
-                              - grid-template-areas: '"n i" "temp temp"'
-                              - grid-template-rows: 1fr min-content
-                              - grid-template-columns: min-content 1fr
-                            icon:
-                              - width: 26px
-                              - color: '#2e7d32'
-                            img_cell:
-                              - justify-self: end
-                              - align-self: start
-                              - background: '#c8e6c9'
-                              - border-radius: 100%
-                              - width: 48px
-                              - height: 48px
-                            name:
-                              - justify-self: start
-                              - align-self: start
-                              - font-size: 16px
-                              - font-weight: 700
-                              - color: black
-                              - padding: 14px
-                            custom_fields:
-                              temp:
-                                - justify-self: start
-                                - font-size: 34px
-                                - line-height: 40px
-                                - color: black
-                                - padding: 0 0 6px 14px
-                        - type: custom:button-card
-                          tap_action:
-                            action: navigate
-                            navigation_path: '#jiharoom'
-                            haptic: medium
-                          icon: mdi:face-woman-shimmer-outline
-                          name: 지하방
-                          view_layout:
-                            grid-area: jiharoom
-                          custom_fields:
-                            temp: |
-                              [[[
-                                var temp = states['sensor.temperature_sensor_temperature']?.state;
-                                var hum = states['sensor.temperature_sensor_humidity']?.state;
-                                temp = temp && !isNaN(temp) ? parseFloat(temp).toFixed(1) : 'N/A';
-                                hum = hum && !isNaN(hum) ? parseFloat(hum).toFixed(0) : 'N/A';
-                                return `${temp}° <span style= "font-size:14px;font-weight:400;opacity:0.6">${hum}%</span>`;
-                              ]]]
-                          styles:
-                            card:
-                              - padding: 8px
-                              - height: 100%
-                              - border-radius: 6px 36px 36px 6px
-                              - background: var(--gray100)
-                              - box-shadow: 8px 8px 16px var(--gray300)
-                            grid:
-                              - grid-template-areas: '"n i" "temp temp"'
-                              - grid-template-rows: 1fr min-content
-                              - grid-template-columns: min-content 1fr
-                            icon:
-                              - width: 26px
-                              - color: '#6a1b9a'
-                            img_cell:
-                              - justify-self: end
-                              - align-self: start
-                              - background: '#e1bee7'
-                              - border-radius: 100%
-                              - width: 48px
-                              - height: 48px
-                            name:
-                              - justify-self: start
-                              - align-self: start
-                              - font-size: 16px
-                              - font-weight: 700
-                              - color: black
-                              - padding: 14px
-                            custom_fields:
-                              temp:
-                                - justify-self: start
-                                - font-size: 34px
-                                - line-height: 40px
-                                - color: black
-                                - padding: 0 0 6px 14px
-                        - type: custom:button-card
-                          tap_action:
-                            action: navigate
-                            navigation_path: '#cafe'
-                            haptic: medium
-                          icon: mdi:coffee
-                          name: cafe
-                          view_layout:
-                            grid-area: cafe
-                          custom_fields:
-                            temp: |
-                              [[[
-                                var temp = states['sensor.temperature_sensor_temperature']?.state;
-                                var hum = states['sensor.temperature_sensor_humidity']?.state;
-                                temp = temp && !isNaN(temp) ? parseFloat(temp).toFixed(1) : 'N/A';
-                                hum = hum && !isNaN(hum) ? parseFloat(hum).toFixed(0) : 'N/A';
-                                return `${temp}° <span style= "font-size:14px;font-weight:400;opacity:0.6">${hum}%</span>`;
-                              ]]]
-                          styles:
-                            card:
-                              - padding: 8px
-                              - height: 100%
-                              - border-radius: 36px 6px 6px 36px
-                              - background: var(--gray100)
-                              - box-shadow: 8px 8px 16px var(--gray300)
-                            grid:
-                              - grid-template-areas: '"n i" "temp temp"'
-                              - grid-template-rows: 1fr min-content
-                              - grid-template-columns: min-content 1fr
-                            icon:
-                              - width: 26px
-                              - color: '#d84315'
-                            img_cell:
-                              - justify-self: end
-                              - align-self: start
-                              - background: '#ffccbc'
-                              - border-radius: 100%
-                              - width: 48px
-                              - height: 48px
-                            name:
-                              - justify-self: start
-                              - align-self: start
-                              - font-size: 16px
-                              - font-weight: 700
-                              - color: black
-                              - padding: 14px
-                            custom_fields:
-                              temp:
-                                - justify-self: start
-                                - font-size: 34px
-                                - line-height: 40px
-                                - color: black
-                                - padding: 0 0 6px 14px
-                        - type: custom:button-card
-                          tap_action:
-                            action: navigate
-                            navigation_path: '#bathroom3'
-                            haptic: medium
-                          icon: mdi:shower-head
-                          name: 복층화장실
-                          view_layout:
-                            grid-area: bathroom3
-                          custom_fields:
-                            temp: |
-                              [[[
-                                var temp = states['sensor.temperature_sensor_temperature']?.state;
-                                var hum = states['sensor.temperature_sensor_humidity']?.state;
-                                temp = temp && !isNaN(temp) ? parseFloat(temp).toFixed(1) : 'N/A';
-                                hum = hum && !isNaN(hum) ? parseFloat(hum).toFixed(0) : 'N/A';
-                                return `${temp}° <span style= "font-size:14px;font-weight:400;opacity:0.6">${hum}%</span>`;
-                              ]]]
-                          styles:
-                            card:
-                              - padding: 8px
-                              - height: 100%
-                              - border-radius: 6px 36px 36px 6px
-                              - background: var(--gray100)
-                              - box-shadow: 8px 8px 16px var(--gray300)
-                            grid:
-                              - grid-template-areas: '"n i" "temp temp"'
-                              - grid-template-rows: 1fr min-content
-                              - grid-template-columns: min-content 1fr
-                            icon:
-                              - width: 26px
-                              - color: '#1fb1f2'
-                            img_cell:
-                              - justify-self: end
-                              - align-self: start
-                              - background: '#ceeefd'
-                              - border-radius: 100%
-                              - width: 48px
-                              - height: 48px
-                            name:
-                              - justify-self: start
-                              - align-self: start
-                              - font-size: 16px
-                              - font-weight: 700
-                              - color: black
-                              - padding: 14px
-                            custom_fields:
-                              temp:
-                                - justify-self: start
-                                - font-size: 34px
-                                - line-height: 40px
-                                - color: black
-                                - padding: 0 0 6px 14px
+                        - type: custom:decluttering-card
+                          template: room_overview_card
+                          variables:
+                            - hash: studyroom
+                            - icon: mdi:desk
+                            - name: 공부방
+                            - border_radius: 36px 6px 6px 36px
+                            - icon_color: '#2e7d32'
+                            - img_bg: '#c8e6c9'
+                            - temp_entity: sensor.temperature_sensor_temperature
+                            - humid_entity: sensor.temperature_sensor_humidity
+                        - type: custom:decluttering-card
+                          template: room_overview_card
+                          variables:
+                            - hash: jiharoom
+                            - icon: mdi:face-woman-shimmer-outline
+                            - name: 지하방
+                            - border_radius: 6px 36px 36px 6px
+                            - icon_color: '#6a1b9a'
+                            - img_bg: '#e1bee7'
+                            - temp_entity: sensor.temperature_sensor_temperature
+                            - humid_entity: sensor.temperature_sensor_humidity
+                        - type: custom:decluttering-card
+                          template: room_overview_card
+                          variables:
+                            - hash: cafe
+                            - icon: mdi:coffee
+                            - name: cafe
+                            - border_radius: 36px 6px 6px 36px
+                            - icon_color: '#d84315'
+                            - img_bg: '#ffccbc'
+                            - temp_entity: sensor.temperature_sensor_temperature
+                            - humid_entity: sensor.temperature_sensor_humidity
+                        - type: custom:decluttering-card
+                          template: room_overview_card
+                          variables:
+                            - hash: bathroom3
+                            - icon: mdi:shower-head
+                            - name: 복층화장실
+                            - border_radius: 6px 36px 36px 6px
+                            - icon_color: '#1fb1f2'
+                            - img_bg: '#ceeefd'
+                            - temp_entity: sensor.temperature_sensor_temperature
+                            - humid_entity: sensor.temperature_sensor_humidity
                       layout:
                         grid-template-columns: 1fr 1fr
                         grid-template-rows: 160px 160px
@@ -2064,7 +1742,7 @@ views:
               - type: custom:decluttering-card
                 template: room_switch_panel
                 variables:
-                  - title: 거실화장실 스위치
+                  - title: 화장실 스위치
                   - room_icon: mdi:shower
                   - circle_bg: '#ceeefd'
                   - icon_color: '#1fb1f2'
@@ -2085,7 +1763,7 @@ views:
             card_type: pop-up
             hash: '#bathroom2'
             name: 안방화장실
-            icon: mdi:toilet
+            icon: mdi:shower-head
             is_sidebar_hidden: true
             styles: '.bubble-icon-container { --bubble-icon-background-color: #e1d8f1
               !important; opacity: 1!important; } .bubble-icon { color: purple !important;
@@ -2116,7 +1794,7 @@ views:
               - type: custom:decluttering-card
                 template: room_switch_panel
                 variables:
-                  - title: 안방화장실 스위치
+                  - title: 화장실 스위치
                   - room_icon: mdi:toilet
                   - circle_bg: '#e1d8f1'
                   - icon_color: purple
@@ -2330,9 +2008,9 @@ views:
                   rows: auto
           - type: custom:bubble-card
             card_type: pop-up
-            hash: '#outdoorunit'
-            name: 실외기실
-            icon: mdi:fan
+            hash: '#hallway'
+            name: 현관
+            icon: mdi:image-frame
             is_sidebar_hidden: true
             styles: '.bubble-icon-container { --bubble-icon-background-color: #cfd8dc
               !important; opacity: 1!important; } .bubble-icon { color: #455a64!important;
@@ -2363,71 +2041,19 @@ views:
               - type: custom:decluttering-card
                 template: room_switch_panel
                 variables:
-                  - title: 실외기실 스위치
-                  - room_icon: mdi:fan
+                  - title: 현관 스위치
+                  - room_icon: mdi:image-frame
                   - circle_bg: '#cfd8dc'
                   - icon_color: '#455a64'
                   - button_height: 34px
                   - b1_entity: switch.plug_kitchen_lh
-                  - b1_name: 전등
+                  - b1_name: 신발장
                   - b2_entity: switch.plug_kitchen_rh
-                  - b2_name: 전체
-                  - b3_entity: none
-                  - b3_name: none
-                  - b4_entity: none
-                  - b4_name: none
-                  - b5_entity: none
-                  - b5_name: none
-                  - b6_entity: none
-                  - b6_name: none
-          - type: custom:bubble-card
-            card_type: pop-up
-            hash: '#storage'
-            name: 창고
-            icon: mdi:archive-outline
-            is_sidebar_hidden: true
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #d7ccc8
-              !important; opacity: 1!important; } .bubble-icon { color: #795548!important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
-            width_desktop: 35%
-            margin_top_desktop: 30px
-            margin_top_mobile: 30px
-            bg_blur: 10
-            back_open: true
-            button_type: name
-            sub_button:
-              main: []
-              bottom: []
-            cards:
-              - type: custom:decluttering-card
-                template: room_temp_card
-                variables:
-                  - temp_entity: sensor.temperature_sensor_temperature
-                  - humidity_entity: sensor.temperature_sensor_humidity
-                  - boiler_entity: none
-                  - climate_entity: none
-                  - fan_entity: none
-              - type: custom:gap-card
-                height: 10px
-                grid_options:
-                  columns: 12
-                  rows: auto
-              - type: custom:decluttering-card
-                template: room_switch_panel
-                variables:
-                  - title: 창고 스위치
-                  - room_icon: mdi:archive-outline
-                  - circle_bg: '#d7ccc8'
-                  - icon_color: '#795548'
-                  - button_height: 34px
-                  - b1_entity: switch.plug_kitchen_lh
-                  - b1_name: 전등
-                  - b2_entity: switch.plug_kitchen_rh
-                  - b2_name: 전체
-                  - b3_entity: none
-                  - b3_name: none
-                  - b4_entity: none
-                  - b4_name: none
+                  - b2_name: 복도
+                  - b3_entity: switch.plug_kitchen_2rh
+                  - b3_name: 외출
+                  - b4_entity: switch.plug_kitchen_2rh
+                  - b4_name: 소등
                   - b5_entity: none
                   - b5_name: none
                   - b6_entity: none
@@ -2874,7 +2500,7 @@ views:
               - type: custom:decluttering-card
                 template: room_switch_panel
                 variables:
-                  - title: 안방화장실 스위치
+                  - title: 화장실 스위치
                   - room_icon: mdi:shower-head
                   - circle_bg: '#ceeefd'
                   - icon_color: '#1fb1f2'
@@ -3303,7 +2929,7 @@ views:
               - type: horizontal-stack
                 cards:
                   - type: custom:button-card
-                    name: 안방화장실
+                    name: 현관
                     show_state: false
                     show_icon: false
                     styles:
@@ -4201,7 +3827,7 @@ views:
                                 - type: custom:button-card
                                   icon: mdi:face-man
                                   entity: input_boolean.vacuum_woojin
-                                  name: 준호방
+                                  name: 안방화장실
                                   view_layout:
                                     grid-area: woojin
                                   tap_action:
@@ -4246,7 +3872,7 @@ views:
                                 - type: custom:button-card
                                   icon: mdi:face-woman
                                   entity: input_boolean.vacuum_woojoo
-                                  name: 나경방
+                                  name: 준호방
                                   view_layout:
                                     grid-area: woojoo
                                   tap_action:
@@ -5064,7 +4690,7 @@ views:
               - type: custom:mushroom-climate-card
                 entity: climate.anbang_eeokeon
                 icon: mdi:face-woman
-                name: 나경방
+                name: 준호방
                 show_temperature_control: true
                 fill_container: false
                 grid_options:
@@ -5084,7 +4710,7 @@ views:
               - type: custom:mushroom-climate-card
                 entity: climate.geosil_eeokeon
                 icon: mdi:hanger
-                name: 드레스룸
+                name: 나경방
                 show_temperature_control: true
                 fill_container: false
                 grid_options:
@@ -5102,7 +4728,7 @@ views:
               - type: custom:mushroom-climate-card
                 entity: climate.geosil_eeokeon
                 icon: mdi:face-man
-                name: 준호방
+                name: 안방화장실
                 show_temperature_control: true
                 fill_container: false
                 grid_options:
