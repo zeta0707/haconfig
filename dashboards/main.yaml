@@ -116,7 +116,7 @@ decluttering_templates:
             cards:
               - type: custom:button-card
                 icon: mdi:fire
-                entity: boilerEntity
+                entity: '[[boiler_entity]]'
                 show_name: false
                 show_state: false
                 tap_action:
@@ -130,6 +130,9 @@ decluttering_templates:
                     - padding: '0'
                 card_mod:
                   style: |
+                    ha-card {
+                      display: {{ 'none' if '[[boiler_entity]]' == 'none' else 'flex' }} !important;
+                    }
                     @keyframes heater-pulse {
                       0%, 100% { transform: scale(1); }
                       50% { transform: scale(1.40); }
@@ -145,7 +148,7 @@ decluttering_templates:
                     }
               - type: custom:button-card
                 icon: mdi:snowflake
-                entity: climate.anbang_eeokeon
+                entity: '[[climate_entity]]'
                 show_name: false
                 show_state: false
                 styles:
@@ -157,6 +160,9 @@ decluttering_templates:
                     - padding: '0'
                 card_mod:
                   style: |
+                    ha-card {
+                      display: {{ 'none' if '[[climate_entity]]' == 'none' else 'flex' }} !important;
+                    }
                     @keyframes ac-spin {
                       from { transform: rotate(0deg); }
                       to { transform: rotate(360deg); }
@@ -165,14 +171,14 @@ decluttering_templates:
                       --mdc-icon-size: 32px !important;
                       width: 32px !important;
                       height: 32px !important;
-                      color: {{ '#4FC3F7' if not is_state('[[climate_entity]]', 'off') else 'var(--gray300)' }} !important;
-                      animation: {{ 'ac-spin 1.6s linear infinite' if not is_state('[[climate_entity]]', 'off') else 'none' }} !important;
+                      color: {{ '#4FC3F7' if ('[[climate_entity]]' != 'none' and not is_state('[[climate_entity]]', 'off')) else 'var(--gray300)' }} !important;
+                      animation: {{ 'ac-spin 1.6s linear infinite' if ('[[climate_entity]]' != 'none' and not is_state('[[climate_entity]]', 'off')) else 'none' }} !important;
                       display: inline-block !important;
                       transform-origin: center;
                     }
               - type: custom:button-card
                 icon: mdi:fan
-                entity: fan.anbang_silringpaen
+                entity: '[[fan_entity]]'
                 show_name: false
                 show_state: false
                 styles:
@@ -184,6 +190,9 @@ decluttering_templates:
                     - padding: '0'
                 card_mod:
                   style: |
+                    ha-card {
+                      display: {{ 'none' if '[[fan_entity]]' == 'none' else 'flex' }} !important;
+                    }
                     @keyframes fan-spin {
                       from { transform: rotate(0deg); }
                       to { transform: rotate(360deg); }
@@ -1046,8 +1055,8 @@ views:
                             - icon: mdi:image-frame
                             - name: 현관
                             - border_radius: 6px 36px 36px 6px
-                            - icon_color: '#455a64'
-                            - img_bg: '#cfd8dc'
+                            - icon_color: red
+                            - img_bg: '#fdd9d7'
                             - temp_entity: sensor.temperature_sensor_temperature
                             - humid_entity: sensor.temperature_sensor_humidity
                         - type: custom:decluttering-card
@@ -1572,7 +1581,7 @@ views:
                 variables:
                   - temp_entity: sensor.temperature_sensor_temperature
                   - humidity_entity: sensor.temperature_sensor_humidity
-                  - boiler_entity: input_boolean.boiler_placeholder
+                  - boiler_entity: input_boolean.geosil_boiler_placeholder
                   - climate_entity: climate.geosil_eeokeon
                   - fan_entity: fan.geosil_silringpaen
               - type: custom:gap-card
@@ -1589,17 +1598,17 @@ views:
                   - icon_color: orange
                   - button_height: 38px
                   - b1_entity: light.geosil_zemiswitch_jomyeong_1
-                  - b1_name: 다운라이트
+                  - b1_name: 우물조명
                   - b2_entity: light.geosil_zemiswitch_jomyeong_3
-                  - b2_name: 메인등
+                  - b2_name: 메인조명
                   - b3_entity: light.geosil_zemiswitch_jomyeong_5
-                  - b3_name: 간접등
+                  - b3_name: 베란다조명
                   - b4_entity: light.geosil_zemiswitch_jomyeong_2
-                  - b4_name: 실링팬
+                  - b4_name: 복도
                   - b5_entity: light.geosil_zemiswitch_jomyeong_4
-                  - b5_name: 에어컨
+                  - b5_name: 실링팬
                   - b6_entity: light.geosil_zemiswitch_jomyeong_6
-                  - b6_name: 전체
+                  - b6_name: 에어컨
               - type: custom:gap-card
                 height: 15px
                 grid_options:
@@ -1679,8 +1688,8 @@ views:
                 variables:
                   - temp_entity: sensor.temperature_sensor_temperature
                   - humidity_entity: sensor.temperature_sensor_humidity
-                  - boiler_entity: none
-                  - climate_entity: none
+                  - boiler_entity: input_boolean.jubang_boilreo
+                  - climate_entity: climate.jubang_eeokeon
                   - fan_entity: none
               - type: custom:gap-card
                 height: 10px
@@ -1698,15 +1707,43 @@ views:
                   - b1_entity: light.geosil_zemiswitch_jomyeong_1
                   - b1_name: 메인등
                   - b2_entity: light.geosil_zemiswitch_jomyeong_3
-                  - b2_name: 식탁등
+                  - b2_name: 상부장LED
                   - b3_entity: light.geosil_zemiswitch_jomyeong_5
-                  - b3_name: 간접등
+                  - b3_name: 확장부등
                   - b4_entity: light.geosil_zemiswitch_jomyeong_2
-                  - b4_name: 실링팬
+                  - b4_name: 식탁등
                   - b5_entity: light.geosil_zemiswitch_jomyeong_4
-                  - b5_name: 에어컨
+                  - b5_name: 실링팬
                   - b6_entity: light.geosil_zemiswitch_jomyeong_6
-                  - b6_name: 전체
+                  - b6_name: 에어컨
+              - type: custom:gap-card
+                height: 15px
+                grid_options:
+                  columns: 12
+                  rows: auto
+              - type: custom:mushroom-climate-card
+                entity: climate.jubang_eeokeon
+                icon: mdi:air-conditioner
+                name: 주방 에어컨
+                show_temperature_control: true
+                hvac_modes:
+                  - 'off'
+                  - cool
+                  - dry
+                  - fan_only
+                fill_container: false
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 16px;
+                      padding: 12px;
+                    }
+                grid_options:
+                  rows: auto
+                  columns: 9
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#bathroom1'
@@ -1783,9 +1820,9 @@ views:
                 variables:
                   - temp_entity: sensor.temperature_sensor_temperature
                   - humidity_entity: sensor.temperature_sensor_humidity
-                  - boiler_entity: input_boolean.boiler_placeholder
-                  - climate_entity: climate.anbang_eeokeon
-                  - fan_entity: fan.anbang_silringpaen
+                  - boiler_entity: none
+                  - climate_entity: none
+                  - fan_entity: none
               - type: custom:gap-card
                 height: 10px
                 grid_options:
@@ -1800,13 +1837,13 @@ views:
                   - icon_color: purple
                   - button_height: 34px
                   - b1_entity: light.anbanghwajangsil_zemiswitch_jomyeong_1
-                  - b1_name: 실링팬
+                  - b1_name: 메인등
                   - b2_entity: light.anbanghwajangsil_zemiswitch_jomyeong_2
-                  - b2_name: 에어컨
+                  - b2_name: 간접등
                   - b3_entity: switch.switch_master_room_toilet_left
                   - b3_name: 환풍기
                   - b4_entity: switch.plug_master_room_toilet
-                  - b4_name: 전등
+                  - b4_name: 전체
                   - b5_entity: none
                   - b5_name: none
                   - b6_entity: none
@@ -1816,49 +1853,6 @@ views:
                 grid_options:
                   columns: 12
                   rows: auto
-              - type: custom:mushroom-climate-card
-                entity: climate.anbang_eeokeon
-                icon: mdi:air-conditioner
-                name: 안방 에어컨
-                show_temperature_control: true
-                hvac_modes:
-                  - 'off'
-                  - cool
-                  - dry
-                  - fan_only
-                fill_container: false
-                card_mod:
-                  style: |
-                    ha-card {
-                      background-color: var(--gray100);
-                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
-                      border: 1px solid rgba(255,255,255,0.1);
-                      border-radius: 16px;
-                      padding: 12px;
-                    }
-                grid_options:
-                  rows: auto
-                  columns: 7
-              - type: custom:mushroom-fan-card
-                name: 안방 실링팬
-                icon: mdi:ceiling-fan
-                show_percentage_control: true
-                show_oscillate_control: false
-                fill_container: false
-                entity: fan.anbang_silringpaen
-                grid_options:
-                  rows: auto
-                  columns: 5
-                show_direction_control: false
-                card_mod:
-                  style: |
-                    ha-card {
-                      background-color: var(--gray100);
-                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
-                      border: 1px solid rgba(255,255,255,0.1);
-                      border-radius: 20px;
-                      padding: 10px;
-                    }
               - type: custom:button-card
                 name: 도어
                 icon: mdi:door
@@ -2012,8 +2006,8 @@ views:
             name: 현관
             icon: mdi:image-frame
             is_sidebar_hidden: true
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #cfd8dc
-              !important; opacity: 1!important; } .bubble-icon { color: #455a64!important;
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #fdd9d7
+              !important; opacity: 1!important; } .bubble-icon { color: red!important;
               opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 35%
             margin_top_desktop: 30px
@@ -2043,17 +2037,17 @@ views:
                 variables:
                   - title: 현관 스위치
                   - room_icon: mdi:image-frame
-                  - circle_bg: '#cfd8dc'
-                  - icon_color: '#455a64'
+                  - circle_bg: '#fdd9d7'
+                  - icon_color: red
                   - button_height: 34px
                   - b1_entity: switch.plug_kitchen_lh
-                  - b1_name: 신발장
+                  - b1_name: 현관등
                   - b2_entity: switch.plug_kitchen_rh
-                  - b2_name: 복도
+                  - b2_name: 복도등
                   - b3_entity: switch.plug_kitchen_2rh
-                  - b3_name: 외출
+                  - b3_name: 거실전체
                   - b4_entity: switch.plug_kitchen_2rh
-                  - b4_name: 소등
+                  - b4_name: 일괄소등
                   - b5_entity: none
                   - b5_name: none
                   - b6_entity: none
@@ -2082,7 +2076,7 @@ views:
                 variables:
                   - temp_entity: sensor.temperature_sensor_temperature
                   - humidity_entity: sensor.temperature_sensor_humidity
-                  - boiler_entity: input_boolean.boiler_placeholder
+                  - boiler_entity: input_boolean.anbang_boilreo
                   - climate_entity: climate.anbang_eeokeon
                   - fan_entity: fan.anbang_silringpaen
               - type: custom:gap-card
@@ -2177,8 +2171,8 @@ views:
                 variables:
                   - temp_entity: sensor.temperature_sensor_temperature
                   - humidity_entity: sensor.temperature_sensor_humidity
-                  - boiler_entity: none
-                  - climate_entity: none
+                  - boiler_entity: input_boolean.junhobang_boilreo
+                  - climate_entity: climate.junhobang_eeokeon
                   - fan_entity: none
               - type: custom:gap-card
                 height: 10px
@@ -2205,6 +2199,34 @@ views:
                   - b5_name: none
                   - b6_entity: none
                   - b6_name: none
+              - type: custom:gap-card
+                height: 15px
+                grid_options:
+                  columns: 12
+                  rows: auto
+              - type: custom:mushroom-climate-card
+                entity: climate.junhobang_eeokeon
+                icon: mdi:air-conditioner
+                name: 준호방 에어컨
+                show_temperature_control: true
+                hvac_modes:
+                  - 'off'
+                  - cool
+                  - dry
+                  - fan_only
+                fill_container: false
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 16px;
+                      padding: 12px;
+                    }
+                grid_options:
+                  rows: 2
+                  columns: 9
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#nakyungroom'
@@ -2229,9 +2251,9 @@ views:
                 variables:
                   - temp_entity: sensor.temperature_sensor_temperature
                   - humidity_entity: sensor.temperature_sensor_humidity
-                  - boiler_entity: none
-                  - climate_entity: none
-                  - fan_entity: none
+                  - boiler_entity: input_boolean.nagyeongbang_boilreo
+                  - climate_entity: climate.nagyeongbang_eeokeon
+                  - fan_entity: fan.nagyeongbang_silringpaen
               - type: custom:gap-card
                 height: 10px
                 grid_options:
@@ -2246,9 +2268,9 @@ views:
                   - icon_color: black
                   - button_height: 34px
                   - b1_entity: switch.plug_nakyung_room
-                  - b1_name: 전등
+                  - b1_name: 메인등
                   - b2_entity: switch.switch_nakyung_room_l2
-                  - b2_name: 스탠드
+                  - b2_name: 화장대간접
                   - b3_entity: switch.switch_nakyung_room_l1
                   - b3_name: 실링팬
                   - b4_entity: switch.plug_nakyung_room
@@ -2257,6 +2279,54 @@ views:
                   - b5_name: none
                   - b6_entity: none
                   - b6_name: none
+              - type: custom:gap-card
+                height: 15px
+                grid_options:
+                  columns: 12
+                  rows: auto
+              - type: custom:mushroom-climate-card
+                entity: climate.nagyeongbang_eeokeon
+                icon: mdi:air-conditioner
+                name: 나경방 에어컨
+                show_temperature_control: true
+                hvac_modes:
+                  - 'off'
+                  - cool
+                  - dry
+                  - fan_only
+                fill_container: false
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 16px;
+                      padding: 12px;
+                    }
+                grid_options:
+                  rows: auto
+                  columns: 7
+              - type: custom:mushroom-fan-card
+                name: 나경방 실링팬
+                icon: mdi:ceiling-fan
+                show_percentage_control: true
+                show_oscillate_control: false
+                fill_container: false
+                entity: fan.nagyeongbang_silringpaen
+                grid_options:
+                  rows: auto
+                  columns: 5
+                show_direction_control: false
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 20px;
+                      padding: 10px;
+                    }
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#dressroom'
@@ -2281,8 +2351,8 @@ views:
                 variables:
                   - temp_entity: sensor.temperature_sensor_temperature
                   - humidity_entity: sensor.temperature_sensor_humidity
-                  - boiler_entity: none
-                  - climate_entity: none
+                  - boiler_entity: input_boolean.deureseurum_boilreo
+                  - climate_entity: climate.deureseurum_eeokeon
                   - fan_entity: none
               - type: custom:gap-card
                 height: 10px
@@ -2300,15 +2370,43 @@ views:
                   - b1_entity: switch.plug_bom_room
                   - b1_name: 메인등
                   - b2_entity: switch.switch_bom_room_l2
-                  - b2_name: 간접등
+                  - b2_name: 에어컨
                   - b3_entity: switch.switch_bom_room_l1
-                  - b3_name: 에어컨
+                  - b3_name: 제습기
                   - b4_entity: switch.plug_bom_room
                   - b4_name: 전체
                   - b5_entity: none
                   - b5_name: none
                   - b6_entity: none
                   - b6_name: none
+              - type: custom:gap-card
+                height: 15px
+                grid_options:
+                  columns: 12
+                  rows: auto
+              - type: custom:mushroom-climate-card
+                entity: climate.deureseurum_eeokeon
+                icon: mdi:air-conditioner
+                name: 드레스룸 에어컨
+                show_temperature_control: true
+                hvac_modes:
+                  - 'off'
+                  - cool
+                  - dry
+                  - fan_only
+                fill_container: false
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 16px;
+                      padding: 12px;
+                    }
+                grid_options:
+                  rows: auto
+                  columns: 9
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#studyroom'
@@ -2333,9 +2431,9 @@ views:
                 variables:
                   - temp_entity: sensor.temperature_sensor_temperature
                   - humidity_entity: sensor.temperature_sensor_humidity
-                  - boiler_entity: none
-                  - climate_entity: none
-                  - fan_entity: none
+                  - boiler_entity: input_boolean.gongbubang_boilreo
+                  - climate_entity: climate.gongbubang_eeokeon
+                  - fan_entity: fan.gongbubang_silringpaen
               - type: custom:gap-card
                 height: 10px
                 grid_options:
@@ -2352,7 +2450,7 @@ views:
                   - b1_entity: switch.plug_studyroom
                   - b1_name: 메인등
                   - b2_entity: switch.switch_studyroom_l2
-                  - b2_name: 간접등
+                  - b2_name: 벽등
                   - b3_entity: switch.switch_studyroom_l1
                   - b3_name: 실링팬
                   - b4_entity: switch.plug_studyroom
@@ -2361,6 +2459,54 @@ views:
                   - b5_name: none
                   - b6_entity: none
                   - b6_name: none
+              - type: custom:gap-card
+                height: 15px
+                grid_options:
+                  columns: 12
+                  rows: auto
+              - type: custom:mushroom-climate-card
+                entity: climate.gongbubang_eeokeon
+                icon: mdi:air-conditioner
+                name: 공부방 에어컨
+                show_temperature_control: true
+                hvac_modes:
+                  - 'off'
+                  - cool
+                  - dry
+                  - fan_only
+                fill_container: false
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 16px;
+                      padding: 12px;
+                    }
+                grid_options:
+                  rows: auto
+                  columns: 7
+              - type: custom:mushroom-fan-card
+                name: 공부방 실링팬
+                icon: mdi:ceiling-fan
+                show_percentage_control: true
+                show_oscillate_control: false
+                fill_container: false
+                entity: fan.gongbubang_silringpaen
+                grid_options:
+                  rows: auto
+                  columns: 5
+                show_direction_control: false
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 20px;
+                      padding: 10px;
+                    }
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#jiharoom'
@@ -2385,8 +2531,8 @@ views:
                 variables:
                   - temp_entity: sensor.temperature_sensor_temperature
                   - humidity_entity: sensor.temperature_sensor_humidity
-                  - boiler_entity: none
-                  - climate_entity: none
+                  - boiler_entity: input_boolean.jihabang_boilreo
+                  - climate_entity: climate.jihabang_eeokeon
                   - fan_entity: none
               - type: custom:gap-card
                 height: 10px
@@ -2402,17 +2548,45 @@ views:
                   - icon_color: '#6a1b9a'
                   - button_height: 34px
                   - b1_entity: switch.plug_guestroom
-                  - b1_name: 전등
+                  - b1_name: 메인등
                   - b2_entity: switch.switch_guestroom_l2
                   - b2_name: 에어컨
                   - b3_entity: switch.switch_guestroom_l1
-                  - b3_name: 기타
+                  - b3_name: 스탠드
                   - b4_entity: switch.plug_guestroom
                   - b4_name: 전체
                   - b5_entity: none
                   - b5_name: none
                   - b6_entity: none
                   - b6_name: none
+              - type: custom:gap-card
+                height: 15px
+                grid_options:
+                  columns: 12
+                  rows: auto
+              - type: custom:mushroom-climate-card
+                entity: climate.jihabang_eeokeon
+                icon: mdi:air-conditioner
+                name: 지하방 에어컨
+                show_temperature_control: true
+                hvac_modes:
+                  - 'off'
+                  - cool
+                  - dry
+                  - fan_only
+                fill_container: false
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 16px;
+                      padding: 12px;
+                    }
+                grid_options:
+                  rows: auto
+                  columns: 9
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#cafe'
@@ -2438,8 +2612,8 @@ views:
                   - temp_entity: sensor.temperature_sensor_temperature
                   - humidity_entity: sensor.temperature_sensor_humidity
                   - boiler_entity: none
-                  - climate_entity: none
-                  - fan_entity: none
+                  - climate_entity: climate.cafe_eeokeon
+                  - fan_entity: fan.cafe_silringpaen
               - type: custom:gap-card
                 height: 10px
                 grid_options:
@@ -2456,15 +2630,63 @@ views:
                   - b1_entity: switch.plug_cafe
                   - b1_name: 메인등
                   - b2_entity: switch.switch_cafe_l2
-                  - b2_name: 실링팬
+                  - b2_name: 선풍기
                   - b3_entity: switch.switch_cafe_l1
-                  - b3_name: 에어컨
+                  - b3_name: 제습기
                   - b4_entity: switch.plug_cafe
-                  - b4_name: 전체
+                  - b4_name: 에어컨
                   - b5_entity: none
                   - b5_name: none
                   - b6_entity: none
                   - b6_name: none
+              - type: custom:gap-card
+                height: 15px
+                grid_options:
+                  columns: 12
+                  rows: auto
+              - type: custom:mushroom-climate-card
+                entity: climate.cafe_eeokeon
+                icon: mdi:air-conditioner
+                name: cafe 에어컨
+                show_temperature_control: true
+                hvac_modes:
+                  - 'off'
+                  - cool
+                  - dry
+                  - fan_only
+                fill_container: false
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 16px;
+                      padding: 12px;
+                    }
+                grid_options:
+                  rows: auto
+                  columns: 7
+              - type: custom:mushroom-fan-card
+                name: cafe 실링팬
+                icon: mdi:ceiling-fan
+                show_percentage_control: true
+                show_oscillate_control: false
+                fill_container: false
+                entity: fan.cafe_silringpaen
+                grid_options:
+                  rows: auto
+                  columns: 5
+                show_direction_control: false
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 20px;
+                      padding: 10px;
+                    }
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#bathroom3'
@@ -2489,9 +2711,9 @@ views:
                 variables:
                   - temp_entity: sensor.temperature_sensor_temperature
                   - humidity_entity: sensor.temperature_sensor_humidity
-                  - boiler_entity: input_boolean.boiler_placeholder
-                  - climate_entity: climate.anbangac
-                  - fan_entity: fan.geosil_silringpaen
+                  - boiler_entity: none
+                  - climate_entity: none
+                  - fan_entity: none
               - type: custom:gap-card
                 height: 10px
                 grid_options:
@@ -2521,153 +2743,6 @@ views:
                 height: 10px
                 grid_options:
                   columns: 12
-                  rows: auto
-              - type: custom:button-card
-                name: 도어
-                icon: mdi:door
-                entity: binary_sensor.contact_sensor_door
-                show_state: false
-                custom_fields:
-                  status: |
-                    [[[
-                      const s = states['binary_sensor.contact_sensor_door']?.state;
-                      if (s === 'on') return '열림';
-                      if (s === 'off') return '닫힘';
-                      return '—';
-                    ]]]
-                styles:
-                  grid:
-                    - grid-template-areas: '"n" "i" "status"'
-                    - grid-template-rows: min-content min-content min-content
-                    - justify-items: center
-                  card:
-                    - padding: 16px 8px
-                    - background-color: var(--gray100)
-                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
-                    - border: 1px solid rgba(255,255,255,0.1)
-                    - border-left: |
-                        [[[
-                          const s = states['binary_sensor.contact_sensor_door']?.state;
-                          return s === 'on' ? '4px solid #00C853' : '4px solid #F97316';
-                        ]]]
-                  name:
-                    - font-size: 13px
-                    - font-weight: 500
-                    - color: black
-                    - padding-bottom: 4px
-                  icon:
-                    - width: 26px
-                    - color: |
-                        [[[
-                          const s = states['binary_sensor.contact_sensor_door']?.state;
-                          return s === 'on' ? '#00C853' : '#F97316';
-                        ]]]
-                  custom_fields:
-                    status:
-                      - font-size: 14px
-                      - font-weight: 700
-                      - padding-top: 6px
-                      - text-align: center
-                grid_options:
-                  columns: 4
-                  rows: auto
-              - type: custom:button-card
-                name: mmWave
-                icon: mdi:radar
-                entity: binary_sensor.mwave_sensor_presence
-                show_state: false
-                custom_fields:
-                  status: |
-                    [[[
-                      const s = states['binary_sensor.mwave_sensor_presence']?.state;
-                      if (s === 'on') return '감지';
-                      if (s === 'off') return '없음';
-                      return '—';
-                    ]]]
-                styles:
-                  grid:
-                    - grid-template-areas: '"n" "i" "status"'
-                    - grid-template-rows: min-content min-content min-content
-                    - justify-items: center
-                  card:
-                    - padding: 16px 8px
-                    - background-color: var(--gray100)
-                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
-                    - border: 1px solid rgba(255,255,255,0.1)
-                    - border-left: |
-                        [[[
-                          const s = states['binary_sensor.mwave_sensor_presence']?.state;
-                          return s === 'on' ? '4px solid #00C853' : '4px solid #F97316';
-                        ]]]
-                  name:
-                    - font-size: 13px
-                    - font-weight: 500
-                    - color: black
-                    - padding-bottom: 4px
-                  icon:
-                    - width: 26px
-                    - color: |
-                        [[[
-                          const s = states['binary_sensor.mwave_sensor_presence']?.state;
-                          return s === 'on' ? '#00C853' : '#F97316';
-                        ]]]
-                  custom_fields:
-                    status:
-                      - font-size: 14px
-                      - font-weight: 700
-                      - padding-top: 6px
-                      - text-align: center
-                grid_options:
-                  columns: 4
-                  rows: auto
-              - type: custom:button-card
-                name: PIR
-                icon: mdi:motion-sensor
-                entity: binary_sensor.presense_sensor_occupancy
-                show_state: false
-                custom_fields:
-                  status: |
-                    [[[
-                      const s = states['binary_sensor.presense_sensor_occupancy']?.state;
-                      if (s === 'on') return '감지';
-                      if (s === 'off') return '없음';
-                      return '—';
-                    ]]]
-                styles:
-                  grid:
-                    - grid-template-areas: '"n" "i" "status"'
-                    - grid-template-rows: min-content min-content min-content
-                    - justify-items: center
-                  card:
-                    - padding: 16px 8px
-                    - background-color: var(--gray100)
-                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
-                    - border: 1px solid rgba(255,255,255,0.1)
-                    - border-left: |
-                        [[[
-                          const s = states['binary_sensor.presense_sensor_occupancy']?.state;
-                          return s === 'on' ? '4px solid #00C853' : '4px solid #F97316';
-                        ]]]
-                  name:
-                    - font-size: 13px
-                    - font-weight: 500
-                    - color: black
-                    - padding-bottom: 4px
-                  icon:
-                    - width: 26px
-                    - color: |
-                        [[[
-                          const s = states['binary_sensor.presense_sensor_occupancy']?.state;
-                          return s === 'on' ? '#00C853' : '#F97316';
-                        ]]]
-                  custom_fields:
-                    status:
-                      - font-size: 14px
-                      - font-weight: 700
-                      - padding-top: 6px
-                      - text-align: center
-                grid_options:
-                  columns: 4
                   rows: auto
           - type: custom:bubble-card
             card_type: pop-up
@@ -3826,10 +3901,10 @@ views:
                                       - padding: 14px
                                 - type: custom:button-card
                                   icon: mdi:face-man
-                                  entity: input_boolean.vacuum_woojin
-                                  name: 안방화장실
+                                  entity: input_boolean.vacuum_junho
+                                  name: 준호방
                                   view_layout:
-                                    grid-area: woojin
+                                    grid-area: junho
                                   tap_action:
                                     action: toggle
                                   state:
@@ -3871,10 +3946,10 @@ views:
                                       - padding: 14px
                                 - type: custom:button-card
                                   icon: mdi:face-woman
-                                  entity: input_boolean.vacuum_woojoo
-                                  name: 준호방
+                                  entity: input_boolean.vacuum_nakyung
+                                  name: 나경방
                                   view_layout:
-                                    grid-area: woojoo
+                                    grid-area: nakyung
                                   tap_action:
                                     action: toggle
                                   state:
@@ -3960,8 +4035,8 @@ views:
                                 grid-template-areas: |
                                   "livingroom kitchen"
                                   "corridor master"
-                                  "woojin start"
-                                  "woojoo start"
+                                  "junho start"
+                                  "nakyung start"
                   - type: custom:local-conditional-card
                     id: tab_2
                     default: hide
@@ -4688,8 +4763,8 @@ views:
                   columns: 4
                   rows: 2
               - type: custom:mushroom-climate-card
-                entity: climate.anbang_eeokeon
-                icon: mdi:face-woman
+                entity: climate.junhobang_eeokeon
+                icon: mdi:face-man-shimmer-outline
                 name: 준호방
                 show_temperature_control: true
                 fill_container: false
@@ -4708,8 +4783,8 @@ views:
               - type: custom:gap-card
                 height: 10px
               - type: custom:mushroom-climate-card
-                entity: climate.geosil_eeokeon
-                icon: mdi:hanger
+                entity: climate.nagyeongbang_eeokeon
+                icon: mdi:face-woman-outline
                 name: 나경방
                 show_temperature_control: true
                 fill_container: false
@@ -4726,9 +4801,9 @@ views:
                       padding: 12px;
                     }
               - type: custom:mushroom-climate-card
-                entity: climate.geosil_eeokeon
-                icon: mdi:face-man
-                name: 안방화장실
+                entity: climate.deureseurum_eeokeon
+                icon: mdi:hanger
+                name: 드레스룸
                 show_temperature_control: true
                 fill_container: false
                 grid_options:
@@ -4744,9 +4819,9 @@ views:
                       padding: 12px;
                     }
               - type: custom:mushroom-climate-card
-                entity: climate.geosil_eeokeon
+                entity: climate.jubang_eeokeon
                 icon: mdi:kettle-steam
-                name: 부엌
+                name: 주방
                 show_temperature_control: true
                 fill_container: false
                 card_mod:
@@ -4764,7 +4839,7 @@ views:
               - type: custom:gap-card
                 height: 10px
               - type: custom:mushroom-climate-card
-                entity: climate.geosil_eeokeon
+                entity: climate.gongbubang_eeokeon
                 icon: mdi:desk
                 name: 공부방
                 show_temperature_control: true
@@ -4782,8 +4857,8 @@ views:
                       padding: 12px;
                     }
               - type: custom:mushroom-climate-card
-                entity: climate.anbang_eeokeon
-                icon: mdi:face-woman-shimmer-outline
+                entity: climate.jihabang_eeokeon
+                icon: mdi:face-woman-profile
                 name: 지하방
                 show_temperature_control: true
                 fill_container: false
@@ -4800,7 +4875,7 @@ views:
                   columns: 4
                   rows: 2
               - type: custom:mushroom-climate-card
-                entity: climate.anbang_eeokeon
+                entity: climate.cafe_eeokeon
                 icon: mdi:coffee
                 name: cafe
                 show_temperature_control: true
