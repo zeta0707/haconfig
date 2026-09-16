@@ -23,6 +23,12 @@ input_boolean:
     name: "공부방 실링팬 전원"
   cafe_ceiling_fan_state:
     name: "cafe 실링팬 전원"
+  bathroom1_exhaust_fan_state:
+    name: "거실화장실 환풍기 전원"
+  bathroom2_exhaust_fan_state:
+    name: "안방화장실 환풍기 전원"
+  bathroom3_exhaust_fan_state:
+    name: "복층화장실 환풍기 전원"
 
 input_number:
   virtual_ac_temp_livingroom:
@@ -746,6 +752,48 @@ template:
           - action: input_boolean.turn_on
             target:
               entity_id: input_boolean.cafe_ceiling_fan_state
+
+      - name: "거실화장실 환풍기"
+        unique_id: bathroom1_exhaust_fan
+        state: "{{ states('input_boolean.bathroom1_exhaust_fan_state') }}"
+
+        turn_on:
+          - action: input_boolean.turn_on
+            target:
+              entity_id: input_boolean.bathroom1_exhaust_fan_state
+
+        turn_off:
+          - action: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.bathroom1_exhaust_fan_state
+
+      - name: "안방화장실 환풍기"
+        unique_id: bathroom2_exhaust_fan
+        state: "{{ states('input_boolean.bathroom2_exhaust_fan_state') }}"
+
+        turn_on:
+          - action: input_boolean.turn_on
+            target:
+              entity_id: input_boolean.bathroom2_exhaust_fan_state
+
+        turn_off:
+          - action: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.bathroom2_exhaust_fan_state
+
+      - name: "복층화장실 환풍기"
+        unique_id: bathroom3_exhaust_fan
+        state: "{{ states('input_boolean.bathroom3_exhaust_fan_state') }}"
+
+        turn_on:
+          - action: input_boolean.turn_on
+            target:
+              entity_id: input_boolean.bathroom3_exhaust_fan_state
+
+        turn_off:
+          - action: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.bathroom3_exhaust_fan_state
 
   - sensor:
       - name: "vnd_krw_100"

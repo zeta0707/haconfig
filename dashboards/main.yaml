@@ -526,7 +526,7 @@ decluttering_templates:
             var hum = states['[[humid_entity]]']?.state;
             temp = temp && !isNaN(temp) ? parseFloat(temp).toFixed(1) : 'N/A';
             hum = hum && !isNaN(hum) ? parseFloat(hum).toFixed(0) : 'N/A';
-            return `${temp}° <span style= "font-size:14px;font-weight:400;opacity:0.6">${hum}%</span>`;
+            return `${temp}° <span style= "font-size:20px;font-weight:400;opacity:0.6">${hum}%</span>`;
           ]]]
       styles:
         card:
@@ -620,16 +620,7 @@ views:
                   action: navigate
                   navigation_path: '#weather'
                   haptic: medium
-                name: "[[[\n  const st = states['weather.forecast_home']?.state;\n\
-                  \  if (!st || st === 'unknown' || st === 'unavailable') return '—';\n\
-                  \  \n  const krMap = {\n    'clear-night': '맑은 밤',\n    'cloudy':\
-                  \ '흐림',\n    'exceptional': '일기경보',\n    'fog': '안개',\n    'hail':\
-                  \ '우박',\n    'lightning': '번개',\n    'lightning-rainy': '뇌우',\n\
-                  \    'partlycloudy': '구름 많음',\n    'mostly-cloudy': '구름 많음',\n \
-                  \   'partly-cloudy': '구름 많음',\n    'pouring': '폭우',\n    'rainy':\
-                  \ '비',\n    'snowy': '눈',\n    'snowy-rainy': '진눈깨비',\n    'sunny':\
-                  \ '맑음',\n    'windy': '바람',\n    'windy-variant': '바람'\n  };\n \
-                  \ return krMap[st] || st;\n]]]\n"
+                name: "[[[\n  const st = states['weather.forecast_home']?.state;\n  if (!st || st === 'unknown' || st === 'unavailable') return '—';\n  \n  const krMap = {\n    'clear-night': '맑은 밤',\n    'cloudy': '흐림',\n    'exceptional': '일기경보',\n    'fog': '안개',\n    'hail': '우박',\n    'lightning': '번개',\n    'lightning-rainy': '뇌우',\n    'partlycloudy': '구름 많음',\n    'mostly-cloudy': '구름 많음',\n    'partly-cloudy': '구름 많음',\n    'pouring': '폭우',\n    'rainy': '비',\n    'snowy': '눈',\n    'snowy-rainy': '진눈깨비',\n    'sunny': '맑음',\n    'windy': '바람',\n    'windy-variant': '바람'\n  };\n  return krMap[st] || st;\n]]]\n"
                 label: |
                   [[[
                     const w = states['weather.forecast_home'];
@@ -717,13 +708,13 @@ views:
             card:
               type: grid
               square: false
-              columns: 8
+              columns: 9
               cards:
                 - type: custom:button-card
-                  icon: mdi:power
+                  icon: mdi:weather-cloudy-clock
                   tap_action:
                     action: navigate
-                    navigation_path: '#electro'
+                    navigation_path: '#weather'
                   styles:
                     card:
                       - background: none
@@ -733,10 +724,10 @@ views:
                       - color: '#cceeee'
                       - filter: drop-shadow(0px 0px 5px rgba(204, 255, 255, 0.4))
                 - type: custom:button-card
-                  icon: mdi:weather-cloudy-clock
+                  icon: mdi:power
                   tap_action:
                     action: navigate
-                    navigation_path: '#weather'
+                    navigation_path: '#electro'
                   styles:
                     card:
                       - background: none
@@ -823,6 +814,19 @@ views:
                     icon:
                       - color: '#cceeee'
                       - filter: drop-shadow(0px 0px 5px rgba(204, 255, 255, 0.4))
+                - type: custom:button-card
+                  icon: mdi:fan
+                  tap_action:
+                    action: navigate
+                    navigation_path: '#fan'
+                  styles:
+                    card:
+                      - background: none
+                      - padding: 0
+                      - box-shadow: none
+                    icon:
+                      - color: '#cceeee'
+                      - filter: drop-shadow(0px 0px 5px rgba(204, 255, 255, 0.4))
           - type: vertical-stack
             cards:
               - type: custom:local-conditional-card
@@ -834,8 +838,7 @@ views:
                     - type: custom:layout-card
                       layout_type: custom:grid-layout
                       layout:
-                        grid-template-columns: max-content max-content 1fr max-content
-                          max-content max-content max-content
+                        grid-template-columns: max-content max-content 1fr max-content max-content max-content max-content
                         grid-template-rows: min-content
                         grid-template-areas: |
                           "six four . five two three seven"
@@ -1052,7 +1055,7 @@ views:
                           template: room_overview_card
                           variables:
                             - hash: hallway
-                            - icon: mdi:image-frame
+                            - icon: mdi:walk
                             - name: 현관
                             - border_radius: 6px 36px 36px 6px
                             - icon_color: red
@@ -1064,7 +1067,7 @@ views:
                           variables:
                             - hash: dressroom
                             - icon: mdi:hanger
-                            - name: 드레스룸
+                            - name: 옷방
                             - border_radius: 36px 6px 6px 36px
                             - icon_color: brown
                             - img_bg: '#ffcc66'
@@ -1086,8 +1089,7 @@ views:
                     - type: custom:layout-card
                       layout_type: custom:grid-layout
                       layout:
-                        grid-template-columns: max-content max-content 1fr max-content
-                          max-content max-content max-content
+                        grid-template-columns: max-content max-content 1fr max-content max-content max-content max-content
                         grid-template-rows: min-content
                         grid-template-areas: |
                           "six four . five two three seven"
@@ -1326,8 +1328,7 @@ views:
                     - type: custom:layout-card
                       layout_type: custom:grid-layout
                       layout:
-                        grid-template-columns: max-content max-content 1fr max-content
-                          max-content max-content max-content
+                        grid-template-columns: max-content max-content 1fr max-content max-content max-content max-content
                         grid-template-rows: min-content
                         grid-template-areas: |
                           "six four . five two three seven"
@@ -1563,9 +1564,7 @@ views:
             name: 거실
             icon: mdi:sofa
             is_sidebar_hidden: true
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #feeacc
-              !important; opacity: 1!important; } .bubble-icon { color: orange!important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #feeacc !important; opacity: 1!important; } .bubble-icon { color: orange!important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 35%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -1585,7 +1584,7 @@ views:
                   - climate_entity: climate.geosil_eeokeon
                   - fan_entity: fan.geosil_silringpaen
               - type: custom:gap-card
-                height: 10px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -1610,7 +1609,7 @@ views:
                   - b6_entity: light.geosil_zemiswitch_jomyeong_6
                   - b6_name: 에어컨
               - type: custom:gap-card
-                height: 15px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -1660,7 +1659,7 @@ views:
                       padding: 10px;
                     }
               - type: custom:gap-card
-                height: 12px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -1670,9 +1669,7 @@ views:
             name: 주방
             icon: mdi:kettle-steam
             is_sidebar_hidden: true
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #c2efeb
-              !important; opacity: 1!important; } .bubble-icon { color: #00695c!important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #c2efeb !important; opacity: 1!important; } .bubble-icon { color: #00695c!important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 35%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -1692,7 +1689,7 @@ views:
                   - climate_entity: climate.jubang_eeokeon
                   - fan_entity: none
               - type: custom:gap-card
-                height: 10px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -1704,20 +1701,20 @@ views:
                   - circle_bg: '#b2dfdb'
                   - icon_color: '#00695c'
                   - button_height: 38px
-                  - b1_entity: light.geosil_zemiswitch_jomyeong_1
+                  - b1_entity: light.jubang_zemiswitch_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: light.geosil_zemiswitch_jomyeong_3
+                  - b2_entity: light.jubang_zemiswitch_jomyeong_3
                   - b2_name: 상부장LED
-                  - b3_entity: light.geosil_zemiswitch_jomyeong_5
+                  - b3_entity: light.jubang_zemiswitch_jomyeong_5
                   - b3_name: 확장부등
-                  - b4_entity: light.geosil_zemiswitch_jomyeong_2
+                  - b4_entity: light.jubang_zemiswitch_jomyeong_2
                   - b4_name: 식탁등
-                  - b5_entity: light.geosil_zemiswitch_jomyeong_4
+                  - b5_entity: light.jubang_zemiswitch_jomyeong_4
                   - b5_name: 실링팬
-                  - b6_entity: light.geosil_zemiswitch_jomyeong_6
+                  - b6_entity: light.jubang_zemiswitch_jomyeong_6
                   - b6_name: 에어컨
               - type: custom:gap-card
-                height: 15px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -1743,16 +1740,14 @@ views:
                     }
                 grid_options:
                   rows: auto
-                  columns: 9
+                  columns: 7
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#bathroom1'
             name: 거실화장실
             icon: mdi:shower
             is_sidebar_hidden: true
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #ceeefd
-              !important; opacity: 1!important; } .bubble-icon { color: #1fb1f2 !important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #ceeefd !important; opacity: 1!important; } .bubble-icon { color: #1fb1f2 !important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 35%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -1770,9 +1765,9 @@ views:
                   - humidity_entity: sensor.temperature_sensor_humidity
                   - boiler_entity: none
                   - climate_entity: none
-                  - fan_entity: none
+                  - fan_entity: fan.geosilhwajangsil_hwanpunggi
               - type: custom:gap-card
-                height: 10px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -1784,13 +1779,13 @@ views:
                   - circle_bg: '#ceeefd'
                   - icon_color: '#1fb1f2'
                   - button_height: 34px
-                  - b1_entity: switch.plug_toilet
+                  - b1_entity: light.geosilhwajangsil_zemiswitch_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: switch.switch_toilet_right
+                  - b2_entity: light.geosilhwajangsil_zemiswitch_jomyeong_2
                   - b2_name: 간접등
-                  - b3_entity: switch.switch_toilet_left
+                  - b3_entity: light.anbanghwajangsil_zemiswitch_jomyeong_2
                   - b3_name: 환풍기
-                  - b4_entity: switch.plug_toilet
+                  - b4_entity: light.geosilhwajangsil_zemiswitch_jomyeong_4
                   - b4_name: 전체
                   - b5_entity: none
                   - b5_name: none
@@ -1802,9 +1797,7 @@ views:
             name: 안방화장실
             icon: mdi:shower-head
             is_sidebar_hidden: true
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #e1d8f1
-              !important; opacity: 1!important; } .bubble-icon { color: purple !important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #e1d8f1 !important; opacity: 1!important; } .bubble-icon { color: purple !important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 35%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -1822,9 +1815,9 @@ views:
                   - humidity_entity: sensor.temperature_sensor_humidity
                   - boiler_entity: none
                   - climate_entity: none
-                  - fan_entity: none
+                  - fan_entity: fan.anbanghwajangsil_hwanpunggi
               - type: custom:gap-card
-                height: 10px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -1840,16 +1833,16 @@ views:
                   - b1_name: 메인등
                   - b2_entity: light.anbanghwajangsil_zemiswitch_jomyeong_2
                   - b2_name: 간접등
-                  - b3_entity: switch.switch_master_room_toilet_left
+                  - b3_entity: light.anbanghwajangsil_zemiswitch_jomyeong_2
                   - b3_name: 환풍기
-                  - b4_entity: switch.plug_master_room_toilet
+                  - b4_entity: light.anbanghwajangsil_zemiswitch_jomyeong_4
                   - b4_name: 전체
                   - b5_entity: none
                   - b5_name: none
                   - b6_entity: none
                   - b6_name: none
               - type: custom:gap-card
-                height: 10px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -2004,11 +1997,9 @@ views:
             card_type: pop-up
             hash: '#hallway'
             name: 현관
-            icon: mdi:image-frame
+            icon: mdi:walk
             is_sidebar_hidden: true
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #fdd9d7
-              !important; opacity: 1!important; } .bubble-icon { color: red!important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #fdd9d7 !important; opacity: 1!important; } .bubble-icon { color: red!important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 35%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -2028,7 +2019,7 @@ views:
                   - climate_entity: none
                   - fan_entity: none
               - type: custom:gap-card
-                height: 10px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -2036,17 +2027,17 @@ views:
                 template: room_switch_panel
                 variables:
                   - title: 현관 스위치
-                  - room_icon: mdi:image-frame
+                  - room_icon: mdi:walk
                   - circle_bg: '#fdd9d7'
                   - icon_color: red
                   - button_height: 34px
-                  - b1_entity: switch.plug_kitchen_lh
+                  - b1_entity: light.hyeongwan_zemiswitch_jomyeong_1
                   - b1_name: 현관등
-                  - b2_entity: switch.plug_kitchen_rh
+                  - b2_entity: light.hyeongwan_zemiswitch_jomyeong_2
                   - b2_name: 복도등
-                  - b3_entity: switch.plug_kitchen_2rh
+                  - b3_entity: light.hyeongwan_zemiswitch_jomyeong_3
                   - b3_name: 거실전체
-                  - b4_entity: switch.plug_kitchen_2rh
+                  - b4_entity: light.hyeongwan_zemiswitch_jomyeong_4
                   - b4_name: 일괄소등
                   - b5_entity: none
                   - b5_name: none
@@ -2058,9 +2049,7 @@ views:
             name: 안방
             icon: mdi:account-multiple
             is_sidebar_hidden: true
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #fdd9d7
-              !important; opacity: 1!important; } .bubble-icon { color: red !important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #fdd9d7 !important; opacity: 1!important; } .bubble-icon { color: red !important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 35%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -2080,7 +2069,7 @@ views:
                   - climate_entity: climate.anbang_eeokeon
                   - fan_entity: fan.anbang_silringpaen
               - type: custom:gap-card
-                height: 10px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -2092,13 +2081,13 @@ views:
                   - circle_bg: '#fdd9d7'
                   - icon_color: red
                   - button_height: 34px
-                  - b1_entity: switch.plug_master_room
+                  - b1_entity: light.anbang_zemiswitch_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: switch.switch_master_room
+                  - b2_entity: light.anbang_zemiswitch_jomyeong_2
                   - b2_name: 스탠드
-                  - b3_entity: switch.switch_working_room_l2
+                  - b3_entity: light.anbang_zemiswitch_jomyeong_3
                   - b3_name: 실링팬
-                  - b4_entity: switch.switch_working_room_l1
+                  - b4_entity: light.anbang_zemiswitch_jomyeong_4
                   - b4_name: 에어컨
                   - b5_entity: none
                   - b5_name: none
@@ -2153,9 +2142,7 @@ views:
             name: 준호방
             icon: mdi:face-man-shimmer-outline
             is_sidebar_hidden: true
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #dbefdc!important;
-              opacity: 1!important; } .bubble-icon { color:black !important; opacity:
-              1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #dbefdc!important; opacity: 1!important; } .bubble-icon { color:black !important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 35%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -2175,7 +2162,7 @@ views:
                   - climate_entity: climate.junhobang_eeokeon
                   - fan_entity: none
               - type: custom:gap-card
-                height: 10px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -2187,13 +2174,13 @@ views:
                   - circle_bg: '#dbefdc'
                   - icon_color: black
                   - button_height: 34px
-                  - b1_entity: switch.plug_junho_room
+                  - b1_entity: light.junhobang_zemiswitch_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: switch.switch_junho_room_l2
+                  - b2_entity: light.junhobang_zemiswitch_jomyeong_2
                   - b2_name: 스탠드
-                  - b3_entity: switch.switch_junho_room_l1
+                  - b3_entity: light.junhobang_zemiswitch_jomyeong_3
                   - b3_name: 에어컨
-                  - b4_entity: switch.plug_junho_room
+                  - b4_entity: light.junhobang_zemiswitch_jomyeong_4
                   - b4_name: 전체
                   - b5_entity: none
                   - b5_name: none
@@ -2226,16 +2213,14 @@ views:
                     }
                 grid_options:
                   rows: 2
-                  columns: 9
+                  columns: 7
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#nakyungroom'
             name: 나경방
             icon: mdi:face-woman-outline
             is_sidebar_hidden: true
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #fbef83!important;
-              opacity: 1!important; } .bubble-icon { color: black!important; opacity:
-              1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #fbef83!important; opacity: 1!important; } .bubble-icon { color: black!important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 35%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -2255,7 +2240,7 @@ views:
                   - climate_entity: climate.nagyeongbang_eeokeon
                   - fan_entity: fan.nagyeongbang_silringpaen
               - type: custom:gap-card
-                height: 10px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -2267,20 +2252,20 @@ views:
                   - circle_bg: '#fcef83'
                   - icon_color: black
                   - button_height: 34px
-                  - b1_entity: switch.plug_nakyung_room
+                  - b1_entity: light.nagyeongbang_zemiswitch_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: switch.switch_nakyung_room_l2
+                  - b2_entity: light.nagyeongbang_zemiswitch_jomyeong_2
                   - b2_name: 화장대간접
-                  - b3_entity: switch.switch_nakyung_room_l1
+                  - b3_entity: light.nagyeongbang_zemiswitch_jomyeong_3
                   - b3_name: 실링팬
-                  - b4_entity: switch.plug_nakyung_room
+                  - b4_entity: light.nagyeongbang_zemiswitch_jomyeong_4
                   - b4_name: 에어컨
                   - b5_entity: none
                   - b5_name: none
                   - b6_entity: none
                   - b6_name: none
               - type: custom:gap-card
-                height: 15px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -2330,12 +2315,10 @@ views:
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#dressroom'
-            name: 드레스룸
+            name: 옷방
             icon: mdi:hanger
             is_sidebar_hidden: true
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffcc66
-              !important; opacity: 1!important; } .bubble-icon { color: brown !important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffcc66 !important; opacity: 1!important; } .bubble-icon { color: brown !important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 35%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -2351,43 +2334,43 @@ views:
                 variables:
                   - temp_entity: sensor.temperature_sensor_temperature
                   - humidity_entity: sensor.temperature_sensor_humidity
-                  - boiler_entity: input_boolean.deureseurum_boilreo
+                  - boiler_entity: input_boolean.osbang_boilreo
                   - climate_entity: climate.deureseurum_eeokeon
                   - fan_entity: none
               - type: custom:gap-card
-                height: 10px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
               - type: custom:decluttering-card
                 template: room_switch_panel
                 variables:
-                  - title: 드레스룸 스위치
+                  - title: 옷방 스위치
                   - room_icon: mdi:hanger
                   - circle_bg: '#ffcc66'
                   - icon_color: brown
                   - button_height: 34px
-                  - b1_entity: switch.plug_bom_room
+                  - b1_entity: light.osbang_zemiswitch_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: switch.switch_bom_room_l2
+                  - b2_entity: light.osbang_zemiswitch_jomyeong_2
                   - b2_name: 에어컨
-                  - b3_entity: switch.switch_bom_room_l1
+                  - b3_entity: light.osbang_zemiswitch_jomyeong_3
                   - b3_name: 제습기
-                  - b4_entity: switch.plug_bom_room
+                  - b4_entity: light.osbang_zemiswitch_jomyeong_4
                   - b4_name: 전체
                   - b5_entity: none
                   - b5_name: none
                   - b6_entity: none
                   - b6_name: none
               - type: custom:gap-card
-                height: 15px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
               - type: custom:mushroom-climate-card
                 entity: climate.deureseurum_eeokeon
                 icon: mdi:air-conditioner
-                name: 드레스룸 에어컨
+                name: 옷방 에어컨
                 show_temperature_control: true
                 hvac_modes:
                   - 'off'
@@ -2406,16 +2389,14 @@ views:
                     }
                 grid_options:
                   rows: auto
-                  columns: 9
+                  columns: 7
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#studyroom'
             name: 공부방
             icon: mdi:desk
             is_sidebar_hidden: true
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #c8e6c9
-              !important; opacity: 1!important; } .bubble-icon { color: #2e7d32 !important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #c8e6c9 !important; opacity: 1!important; } .bubble-icon { color: #2e7d32 !important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 35%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -2435,7 +2416,7 @@ views:
                   - climate_entity: climate.gongbubang_eeokeon
                   - fan_entity: fan.gongbubang_silringpaen
               - type: custom:gap-card
-                height: 10px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -2447,20 +2428,20 @@ views:
                   - circle_bg: '#c8e6c9'
                   - icon_color: '#2e7d32'
                   - button_height: 34px
-                  - b1_entity: switch.plug_studyroom
+                  - b1_entity: light.gongbubang_zemiswitch_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: switch.switch_studyroom_l2
+                  - b2_entity: light.gongbubang_zemiswitch_jomyeong_2
                   - b2_name: 벽등
-                  - b3_entity: switch.switch_studyroom_l1
+                  - b3_entity: light.gongbubang_zemiswitch_jomyeong_3
                   - b3_name: 실링팬
-                  - b4_entity: switch.plug_studyroom
+                  - b4_entity: light.gongbubang_zemiswitch_jomyeong_4
                   - b4_name: 에어컨
                   - b5_entity: none
                   - b5_name: none
                   - b6_entity: none
                   - b6_name: none
               - type: custom:gap-card
-                height: 15px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -2513,9 +2494,7 @@ views:
             name: 지하방
             icon: mdi:face-woman-profile
             is_sidebar_hidden: true
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #e1bee7!important;
-              opacity: 1!important; } .bubble-icon { color: #6a1b9a!important; opacity:
-              1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #e1bee7!important; opacity: 1!important; } .bubble-icon { color: #6a1b9a!important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 35%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -2535,7 +2514,7 @@ views:
                   - climate_entity: climate.jihabang_eeokeon
                   - fan_entity: none
               - type: custom:gap-card
-                height: 10px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -2547,20 +2526,20 @@ views:
                   - circle_bg: '#e1bee7'
                   - icon_color: '#6a1b9a'
                   - button_height: 34px
-                  - b1_entity: switch.plug_guestroom
+                  - b1_entity: light.jihabang_zemiswitch_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: switch.switch_guestroom_l2
+                  - b2_entity: light.jihabang_zemiswitch_jomyeong_2
                   - b2_name: 에어컨
-                  - b3_entity: switch.switch_guestroom_l1
+                  - b3_entity: light.jihabang_zemiswitch_jomyeong_3
                   - b3_name: 스탠드
-                  - b4_entity: switch.plug_guestroom
+                  - b4_entity: light.jihabang_zemiswitch_jomyeong_4
                   - b4_name: 전체
                   - b5_entity: none
                   - b5_name: none
                   - b6_entity: none
                   - b6_name: none
               - type: custom:gap-card
-                height: 15px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -2586,16 +2565,14 @@ views:
                     }
                 grid_options:
                   rows: auto
-                  columns: 9
+                  columns: 7
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#cafe'
             name: cafe
             icon: mdi:coffee
             is_sidebar_hidden: true
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffddcc!important;
-              opacity: 1!important; } .bubble-icon { color: #d84315 !important; opacity:
-              1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffddcc!important; opacity: 1!important; } .bubble-icon { color: #d84315 !important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 35%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -2615,7 +2592,7 @@ views:
                   - climate_entity: climate.cafe_eeokeon
                   - fan_entity: fan.cafe_silringpaen
               - type: custom:gap-card
-                height: 10px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -2627,20 +2604,20 @@ views:
                   - circle_bg: '#ffccbc'
                   - icon_color: '#d84315'
                   - button_height: 34px
-                  - b1_entity: switch.plug_cafe
+                  - b1_entity: light.cafe_zemiswitch_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: switch.switch_cafe_l2
+                  - b2_entity: light.cafe_zemiswitch_jomyeong_2
                   - b2_name: 선풍기
-                  - b3_entity: switch.switch_cafe_l1
+                  - b3_entity: light.cafe_zemiswitch_jomyeong_3
                   - b3_name: 제습기
-                  - b4_entity: switch.plug_cafe
+                  - b4_entity: light.cafe_zemiswitch_jomyeong_4
                   - b4_name: 에어컨
                   - b5_entity: none
                   - b5_name: none
                   - b6_entity: none
                   - b6_name: none
               - type: custom:gap-card
-                height: 15px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -2693,9 +2670,7 @@ views:
             name: 복층화장실
             icon: mdi:shower-head
             is_sidebar_hidden: true
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #ceeefd
-              !important; opacity: 1!important; } .bubble-icon { color: #1fb1f2 !important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #ceeefd !important; opacity: 1!important; } .bubble-icon { color: #1fb1f2 !important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 35%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -2713,9 +2688,9 @@ views:
                   - humidity_entity: sensor.temperature_sensor_humidity
                   - boiler_entity: none
                   - climate_entity: none
-                  - fan_entity: none
+                  - fan_entity: fan.bogceunghwajangsil_hwanpunggi
               - type: custom:gap-card
-                height: 10px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -2727,20 +2702,20 @@ views:
                   - circle_bg: '#ceeefd'
                   - icon_color: '#1fb1f2'
                   - button_height: 34px
-                  - b1_entity: light.anbanghwajangsil_zemiswitch_jomyeong_1
+                  - b1_entity: light.bogceunghwajangsil_zemiswitch_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: light.anbanghwajangsil_zemiswitch_jomyeong_2
+                  - b2_entity: light.bogceunghwajangsil_zemiswitch_jomyeong_2
                   - b2_name: 간접등
-                  - b3_entity: switch.switch_master_room_toilet_left
+                  - b3_entity: light.anbanghwajangsil_zemiswitch_jomyeong_2
                   - b3_name: 환풍기
-                  - b4_entity: switch.plug_master_room_toilet
+                  - b4_entity: light.bogceunghwajangsil_zemiswitch_jomyeong_4
                   - b4_name: 전체
                   - b5_entity: none
                   - b5_name: none
                   - b6_entity: none
                   - b6_name: none
               - type: custom:gap-card
-                height: 10px
+                height: 5px
                 grid_options:
                   columns: 12
                   rows: auto
@@ -2749,9 +2724,7 @@ views:
             hash: '#floor'
             name: HOME VIEW
             icon: mdi:home-search-outline
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee
-              !important; opacity: 1!important; } .bubble-icon { color: orange!important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee !important; opacity: 1!important; } .bubble-icon { color: orange!important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 40%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -2777,9 +2750,7 @@ views:
             hash: '#electro'
             name: 가전 제품
             icon: mdi:power
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee
-              !important; opacity: 1!important; } .bubble-icon { color: orange!important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee !important; opacity: 1!important; } .bubble-icon { color: orange!important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 40%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -2838,9 +2809,7 @@ views:
             hash: '#weather'
             name: 날씨
             icon: mdi:weather-cloudy
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee
-              !important; opacity: 1!important; } .bubble-icon { color: orange!important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee !important; opacity: 1!important; } .bubble-icon { color: orange!important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 40%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -2876,9 +2845,7 @@ views:
             hash: '#flash'
             name: 조명
             icon: mdi:lightbulb-on-30
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee
-              !important; opacity: 1!important; } .bubble-icon { color: orange!important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee !important; opacity: 1!important; } .bubble-icon { color: orange!important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 40%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -2900,6 +2867,7 @@ views:
                         - background: none
                         - box-shadow: none
                         - padding: 10px 4px
+                        - border: none
                       name:
                         - font-size: 15px
                         - font-weight: 700
@@ -2916,9 +2884,10 @@ views:
                         area_id: geosil
                     styles:
                       card:
-                        - background: none
-                        - box-shadow: none
-                        - padding: 4px 10px
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
                       grid:
                         - grid-template-areas: '"i n"'
                         - grid-template-columns: min-content 1fr
@@ -2942,9 +2911,10 @@ views:
                         area_id: geosil
                     styles:
                       card:
-                        - background: none
-                        - box-shadow: none
-                        - padding: 4px 10px
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
                       grid:
                         - grid-template-areas: '"i n"'
                         - grid-template-columns: min-content 1fr
@@ -2996,15 +2966,30 @@ views:
                             - font-size: 11px
                             - opacity: 0.6
                             - padding-left: 8px
+                  exclude:
+                    - entity_id: light.geosil_zemiswitch_jomyeong_4
+                    - entity_id: light.geosil_zemiswitch_jomyeong_6
                 sort:
                   method: friendly_name
                 show_empty: false
-              - type: custom:gap-card
-                height: 16px
+              - type: custom:button-card
+                show_name: false
+                show_icon: false
+                show_state: false
+                styles:
+                  card:
+                    - height: 2px
+                    - min-height: 2px
+                    - padding: '0'
+                    - margin: '0'
+                    - background: var(--gray300)
+                    - box-shadow: none
+                    - border: none
+                    - border-radius: '0'
               - type: horizontal-stack
                 cards:
                   - type: custom:button-card
-                    name: 현관
+                    name: 주방
                     show_state: false
                     show_icon: false
                     styles:
@@ -3012,6 +2997,261 @@ views:
                         - background: none
                         - box-shadow: none
                         - padding: 10px 4px
+                        - border: none
+                      name:
+                        - font-size: 15px
+                        - font-weight: 700
+                        - color: black
+                        - justify-self: start
+                  - type: custom:button-card
+                    name: 모두 켜기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_on
+                      target:
+                        area_id: jubang
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#f5a623'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+                  - type: custom:button-card
+                    name: 모두 끄기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_off
+                      target:
+                        area_id: jubang
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#9e9e9e'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+              - type: custom:auto-entities
+                card:
+                  type: grid
+                  columns: 3
+                  square: false
+                card_param: cards
+                filter:
+                  include:
+                    - domain: light
+                      area: jubang
+                      options:
+                        type: custom:button-card
+                        show_state: true
+                        show_icon: true
+                        tap_action:
+                          action: toggle
+                        styles:
+                          card:
+                            - padding: 10px
+                            - background: var(--gray100)
+                            - box-shadow: 4px 4px 10px var(--gray300)
+                            - border-radius: 14px
+                          grid:
+                            - grid-template-areas: '"i n" "i s"'
+                            - grid-template-columns: min-content 1fr
+                            - grid-template-rows: 1fr 1fr
+                          icon:
+                            - width: 22px
+                          name:
+                            - justify-self: start
+                            - font-size: 13px
+                            - font-weight: 600
+                            - color: black
+                            - padding-left: 8px
+                          state:
+                            - justify-self: start
+                            - font-size: 11px
+                            - opacity: 0.6
+                            - padding-left: 8px
+                sort:
+                  method: friendly_name
+                show_empty: false
+              - type: custom:button-card
+                show_name: false
+                show_icon: false
+                show_state: false
+                styles:
+                  card:
+                    - height: 2px
+                    - min-height: 2px
+                    - padding: '0'
+                    - margin: '0'
+                    - background: var(--gray300)
+                    - box-shadow: none
+                    - border: none
+                    - border-radius: '0'
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    name: 거실화장실
+                    show_state: false
+                    show_icon: false
+                    styles:
+                      card:
+                        - background: none
+                        - box-shadow: none
+                        - padding: 10px 4px
+                        - border: none
+                      name:
+                        - font-size: 15px
+                        - font-weight: 700
+                        - color: black
+                        - justify-self: start
+                  - type: custom:button-card
+                    name: 모두 켜기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_on
+                      target:
+                        area_id: geosilhwajangsil
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#f5a623'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+                  - type: custom:button-card
+                    name: 모두 끄기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_off
+                      target:
+                        area_id: geosilhwajangsil
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#9e9e9e'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+              - type: custom:auto-entities
+                card:
+                  type: grid
+                  columns: 3
+                  square: false
+                card_param: cards
+                filter:
+                  include:
+                    - domain: light
+                      area: geosilhwajangsil
+                      options:
+                        type: custom:button-card
+                        show_state: true
+                        show_icon: true
+                        tap_action:
+                          action: toggle
+                        styles:
+                          card:
+                            - padding: 10px
+                            - background: var(--gray100)
+                            - box-shadow: 4px 4px 10px var(--gray300)
+                            - border-radius: 14px
+                          grid:
+                            - grid-template-areas: '"i n" "i s"'
+                            - grid-template-columns: min-content 1fr
+                            - grid-template-rows: 1fr 1fr
+                          icon:
+                            - width: 22px
+                          name:
+                            - justify-self: start
+                            - font-size: 13px
+                            - font-weight: 600
+                            - color: black
+                            - padding-left: 8px
+                          state:
+                            - justify-self: start
+                            - font-size: 11px
+                            - opacity: 0.6
+                            - padding-left: 8px
+                sort:
+                  method: friendly_name
+                show_empty: false
+              - type: custom:button-card
+                show_name: false
+                show_icon: false
+                show_state: false
+                styles:
+                  card:
+                    - height: 2px
+                    - min-height: 2px
+                    - padding: '0'
+                    - margin: '0'
+                    - background: var(--gray300)
+                    - box-shadow: none
+                    - border: none
+                    - border-radius: '0'
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    name: 안방화장실
+                    show_state: false
+                    show_icon: false
+                    styles:
+                      card:
+                        - background: none
+                        - box-shadow: none
+                        - padding: 10px 4px
+                        - border: none
                       name:
                         - font-size: 15px
                         - font-weight: 700
@@ -3028,9 +3268,10 @@ views:
                         area_id: anbanghwajangsil
                     styles:
                       card:
-                        - background: none
-                        - box-shadow: none
-                        - padding: 4px 10px
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
                       grid:
                         - grid-template-areas: '"i n"'
                         - grid-template-columns: min-content 1fr
@@ -3054,9 +3295,10 @@ views:
                         area_id: anbanghwajangsil
                     styles:
                       card:
-                        - background: none
-                        - box-shadow: none
-                        - padding: 4px 10px
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
                       grid:
                         - grid-template-areas: '"i n"'
                         - grid-template-columns: min-content 1fr
@@ -3108,6 +3350,1151 @@ views:
                             - font-size: 11px
                             - opacity: 0.6
                             - padding-left: 8px
+                  exclude:
+                    - entity_id: light.anbanghwajangsil_zemiswitch_jomyeong_2
+                sort:
+                  method: friendly_name
+                show_empty: false
+              - type: custom:button-card
+                show_name: false
+                show_icon: false
+                show_state: false
+                styles:
+                  card:
+                    - height: 2px
+                    - min-height: 2px
+                    - padding: '0'
+                    - margin: '0'
+                    - background: var(--gray300)
+                    - box-shadow: none
+                    - border: none
+                    - border-radius: '0'
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    name: 현관
+                    show_state: false
+                    show_icon: false
+                    styles:
+                      card:
+                        - background: none
+                        - box-shadow: none
+                        - padding: 10px 4px
+                        - border: none
+                      name:
+                        - font-size: 15px
+                        - font-weight: 700
+                        - color: black
+                        - justify-self: start
+                  - type: custom:button-card
+                    name: 모두 켜기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_on
+                      target:
+                        area_id: hyeongwan
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#f5a623'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+                  - type: custom:button-card
+                    name: 모두 끄기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_off
+                      target:
+                        area_id: hyeongwan
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#9e9e9e'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+              - type: custom:auto-entities
+                card:
+                  type: grid
+                  columns: 3
+                  square: false
+                card_param: cards
+                filter:
+                  include:
+                    - domain: light
+                      area: hyeongwan
+                      options:
+                        type: custom:button-card
+                        show_state: true
+                        show_icon: true
+                        tap_action:
+                          action: toggle
+                        styles:
+                          card:
+                            - padding: 10px
+                            - background: var(--gray100)
+                            - box-shadow: 4px 4px 10px var(--gray300)
+                            - border-radius: 14px
+                          grid:
+                            - grid-template-areas: '"i n" "i s"'
+                            - grid-template-columns: min-content 1fr
+                            - grid-template-rows: 1fr 1fr
+                          icon:
+                            - width: 22px
+                          name:
+                            - justify-self: start
+                            - font-size: 13px
+                            - font-weight: 600
+                            - color: black
+                            - padding-left: 8px
+                          state:
+                            - justify-self: start
+                            - font-size: 11px
+                            - opacity: 0.6
+                            - padding-left: 8px
+                sort:
+                  method: friendly_name
+                show_empty: false
+              - type: custom:button-card
+                show_name: false
+                show_icon: false
+                show_state: false
+                styles:
+                  card:
+                    - height: 2px
+                    - min-height: 2px
+                    - padding: '0'
+                    - margin: '0'
+                    - background: var(--gray300)
+                    - box-shadow: none
+                    - border: none
+                    - border-radius: '0'
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    name: 안방
+                    show_state: false
+                    show_icon: false
+                    styles:
+                      card:
+                        - background: none
+                        - box-shadow: none
+                        - padding: 10px 4px
+                        - border: none
+                      name:
+                        - font-size: 15px
+                        - font-weight: 700
+                        - color: black
+                        - justify-self: start
+                  - type: custom:button-card
+                    name: 모두 켜기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_on
+                      target:
+                        area_id: anbang
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#f5a623'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+                  - type: custom:button-card
+                    name: 모두 끄기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_off
+                      target:
+                        area_id: anbang
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#9e9e9e'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+              - type: custom:auto-entities
+                card:
+                  type: grid
+                  columns: 3
+                  square: false
+                card_param: cards
+                filter:
+                  include:
+                    - domain: light
+                      area: anbang
+                      options:
+                        type: custom:button-card
+                        show_state: true
+                        show_icon: true
+                        tap_action:
+                          action: toggle
+                        styles:
+                          card:
+                            - padding: 10px
+                            - background: var(--gray100)
+                            - box-shadow: 4px 4px 10px var(--gray300)
+                            - border-radius: 14px
+                          grid:
+                            - grid-template-areas: '"i n" "i s"'
+                            - grid-template-columns: min-content 1fr
+                            - grid-template-rows: 1fr 1fr
+                          icon:
+                            - width: 22px
+                          name:
+                            - justify-self: start
+                            - font-size: 13px
+                            - font-weight: 600
+                            - color: black
+                            - padding-left: 8px
+                          state:
+                            - justify-self: start
+                            - font-size: 11px
+                            - opacity: 0.6
+                            - padding-left: 8px
+                sort:
+                  method: friendly_name
+                show_empty: false
+              - type: custom:button-card
+                show_name: false
+                show_icon: false
+                show_state: false
+                styles:
+                  card:
+                    - height: 2px
+                    - min-height: 2px
+                    - padding: '0'
+                    - margin: '0'
+                    - background: var(--gray300)
+                    - box-shadow: none
+                    - border: none
+                    - border-radius: '0'
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    name: 준호방
+                    show_state: false
+                    show_icon: false
+                    styles:
+                      card:
+                        - background: none
+                        - box-shadow: none
+                        - padding: 10px 4px
+                        - border: none
+                      name:
+                        - font-size: 15px
+                        - font-weight: 700
+                        - color: black
+                        - justify-self: start
+                  - type: custom:button-card
+                    name: 모두 켜기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_on
+                      target:
+                        area_id: junhobang
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#f5a623'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+                  - type: custom:button-card
+                    name: 모두 끄기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_off
+                      target:
+                        area_id: junhobang
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#9e9e9e'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+              - type: custom:auto-entities
+                card:
+                  type: grid
+                  columns: 3
+                  square: false
+                card_param: cards
+                filter:
+                  include:
+                    - domain: light
+                      area: junhobang
+                      options:
+                        type: custom:button-card
+                        show_state: true
+                        show_icon: true
+                        tap_action:
+                          action: toggle
+                        styles:
+                          card:
+                            - padding: 10px
+                            - background: var(--gray100)
+                            - box-shadow: 4px 4px 10px var(--gray300)
+                            - border-radius: 14px
+                          grid:
+                            - grid-template-areas: '"i n" "i s"'
+                            - grid-template-columns: min-content 1fr
+                            - grid-template-rows: 1fr 1fr
+                          icon:
+                            - width: 22px
+                          name:
+                            - justify-self: start
+                            - font-size: 13px
+                            - font-weight: 600
+                            - color: black
+                            - padding-left: 8px
+                          state:
+                            - justify-self: start
+                            - font-size: 11px
+                            - opacity: 0.6
+                            - padding-left: 8px
+                sort:
+                  method: friendly_name
+                show_empty: false
+              - type: custom:button-card
+                show_name: false
+                show_icon: false
+                show_state: false
+                styles:
+                  card:
+                    - height: 2px
+                    - min-height: 2px
+                    - padding: '0'
+                    - margin: '0'
+                    - background: var(--gray300)
+                    - box-shadow: none
+                    - border: none
+                    - border-radius: '0'
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    name: 나경방
+                    show_state: false
+                    show_icon: false
+                    styles:
+                      card:
+                        - background: none
+                        - box-shadow: none
+                        - padding: 10px 4px
+                        - border: none
+                      name:
+                        - font-size: 15px
+                        - font-weight: 700
+                        - color: black
+                        - justify-self: start
+                  - type: custom:button-card
+                    name: 모두 켜기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_on
+                      target:
+                        area_id: nagyeongbang
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#f5a623'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+                  - type: custom:button-card
+                    name: 모두 끄기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_off
+                      target:
+                        area_id: nagyeongbang
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#9e9e9e'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+              - type: custom:auto-entities
+                card:
+                  type: grid
+                  columns: 3
+                  square: false
+                card_param: cards
+                filter:
+                  include:
+                    - domain: light
+                      area: nagyeongbang
+                      options:
+                        type: custom:button-card
+                        show_state: true
+                        show_icon: true
+                        tap_action:
+                          action: toggle
+                        styles:
+                          card:
+                            - padding: 10px
+                            - background: var(--gray100)
+                            - box-shadow: 4px 4px 10px var(--gray300)
+                            - border-radius: 14px
+                          grid:
+                            - grid-template-areas: '"i n" "i s"'
+                            - grid-template-columns: min-content 1fr
+                            - grid-template-rows: 1fr 1fr
+                          icon:
+                            - width: 22px
+                          name:
+                            - justify-self: start
+                            - font-size: 13px
+                            - font-weight: 600
+                            - color: black
+                            - padding-left: 8px
+                          state:
+                            - justify-self: start
+                            - font-size: 11px
+                            - opacity: 0.6
+                            - padding-left: 8px
+                sort:
+                  method: friendly_name
+                show_empty: false
+              - type: custom:button-card
+                show_name: false
+                show_icon: false
+                show_state: false
+                styles:
+                  card:
+                    - height: 2px
+                    - min-height: 2px
+                    - padding: '0'
+                    - margin: '0'
+                    - background: var(--gray300)
+                    - box-shadow: none
+                    - border: none
+                    - border-radius: '0'
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    name: 옷방
+                    show_state: false
+                    show_icon: false
+                    styles:
+                      card:
+                        - background: none
+                        - box-shadow: none
+                        - padding: 10px 4px
+                        - border: none
+                      name:
+                        - font-size: 15px
+                        - font-weight: 700
+                        - color: black
+                        - justify-self: start
+                  - type: custom:button-card
+                    name: 모두 켜기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_on
+                      target:
+                        area_id: osbang
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#f5a623'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+                  - type: custom:button-card
+                    name: 모두 끄기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_off
+                      target:
+                        area_id: osbang
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#9e9e9e'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+              - type: custom:auto-entities
+                card:
+                  type: grid
+                  columns: 3
+                  square: false
+                card_param: cards
+                filter:
+                  include:
+                    - domain: light
+                      area: osbang
+                      options:
+                        type: custom:button-card
+                        show_state: true
+                        show_icon: true
+                        tap_action:
+                          action: toggle
+                        styles:
+                          card:
+                            - padding: 10px
+                            - background: var(--gray100)
+                            - box-shadow: 4px 4px 10px var(--gray300)
+                            - border-radius: 14px
+                          grid:
+                            - grid-template-areas: '"i n" "i s"'
+                            - grid-template-columns: min-content 1fr
+                            - grid-template-rows: 1fr 1fr
+                          icon:
+                            - width: 22px
+                          name:
+                            - justify-self: start
+                            - font-size: 13px
+                            - font-weight: 600
+                            - color: black
+                            - padding-left: 8px
+                          state:
+                            - justify-self: start
+                            - font-size: 11px
+                            - opacity: 0.6
+                            - padding-left: 8px
+                sort:
+                  method: friendly_name
+                show_empty: false
+              - type: custom:button-card
+                show_name: false
+                show_icon: false
+                show_state: false
+                styles:
+                  card:
+                    - height: 2px
+                    - min-height: 2px
+                    - padding: '0'
+                    - margin: '0'
+                    - background: var(--gray300)
+                    - box-shadow: none
+                    - border: none
+                    - border-radius: '0'
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    name: 공부방
+                    show_state: false
+                    show_icon: false
+                    styles:
+                      card:
+                        - background: none
+                        - box-shadow: none
+                        - padding: 10px 4px
+                        - border: none
+                      name:
+                        - font-size: 15px
+                        - font-weight: 700
+                        - color: black
+                        - justify-self: start
+                  - type: custom:button-card
+                    name: 모두 켜기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_on
+                      target:
+                        area_id: gongbubang
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#f5a623'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+                  - type: custom:button-card
+                    name: 모두 끄기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_off
+                      target:
+                        area_id: gongbubang
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#9e9e9e'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+              - type: custom:auto-entities
+                card:
+                  type: grid
+                  columns: 3
+                  square: false
+                card_param: cards
+                filter:
+                  include:
+                    - domain: light
+                      area: gongbubang
+                      options:
+                        type: custom:button-card
+                        show_state: true
+                        show_icon: true
+                        tap_action:
+                          action: toggle
+                        styles:
+                          card:
+                            - padding: 10px
+                            - background: var(--gray100)
+                            - box-shadow: 4px 4px 10px var(--gray300)
+                            - border-radius: 14px
+                          grid:
+                            - grid-template-areas: '"i n" "i s"'
+                            - grid-template-columns: min-content 1fr
+                            - grid-template-rows: 1fr 1fr
+                          icon:
+                            - width: 22px
+                          name:
+                            - justify-self: start
+                            - font-size: 13px
+                            - font-weight: 600
+                            - color: black
+                            - padding-left: 8px
+                          state:
+                            - justify-self: start
+                            - font-size: 11px
+                            - opacity: 0.6
+                            - padding-left: 8px
+                sort:
+                  method: friendly_name
+                show_empty: false
+              - type: custom:button-card
+                show_name: false
+                show_icon: false
+                show_state: false
+                styles:
+                  card:
+                    - height: 2px
+                    - min-height: 2px
+                    - padding: '0'
+                    - margin: '0'
+                    - background: var(--gray300)
+                    - box-shadow: none
+                    - border: none
+                    - border-radius: '0'
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    name: 지하방
+                    show_state: false
+                    show_icon: false
+                    styles:
+                      card:
+                        - background: none
+                        - box-shadow: none
+                        - padding: 10px 4px
+                        - border: none
+                      name:
+                        - font-size: 15px
+                        - font-weight: 700
+                        - color: black
+                        - justify-self: start
+                  - type: custom:button-card
+                    name: 모두 켜기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_on
+                      target:
+                        area_id: jihabang
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#f5a623'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+                  - type: custom:button-card
+                    name: 모두 끄기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_off
+                      target:
+                        area_id: jihabang
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#9e9e9e'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+              - type: custom:auto-entities
+                card:
+                  type: grid
+                  columns: 3
+                  square: false
+                card_param: cards
+                filter:
+                  include:
+                    - domain: light
+                      area: jihabang
+                      options:
+                        type: custom:button-card
+                        show_state: true
+                        show_icon: true
+                        tap_action:
+                          action: toggle
+                        styles:
+                          card:
+                            - padding: 10px
+                            - background: var(--gray100)
+                            - box-shadow: 4px 4px 10px var(--gray300)
+                            - border-radius: 14px
+                          grid:
+                            - grid-template-areas: '"i n" "i s"'
+                            - grid-template-columns: min-content 1fr
+                            - grid-template-rows: 1fr 1fr
+                          icon:
+                            - width: 22px
+                          name:
+                            - justify-self: start
+                            - font-size: 13px
+                            - font-weight: 600
+                            - color: black
+                            - padding-left: 8px
+                          state:
+                            - justify-self: start
+                            - font-size: 11px
+                            - opacity: 0.6
+                            - padding-left: 8px
+                sort:
+                  method: friendly_name
+                show_empty: false
+              - type: custom:button-card
+                show_name: false
+                show_icon: false
+                show_state: false
+                styles:
+                  card:
+                    - height: 2px
+                    - min-height: 2px
+                    - padding: '0'
+                    - margin: '0'
+                    - background: var(--gray300)
+                    - box-shadow: none
+                    - border: none
+                    - border-radius: '0'
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    name: cafe
+                    show_state: false
+                    show_icon: false
+                    styles:
+                      card:
+                        - background: none
+                        - box-shadow: none
+                        - padding: 10px 4px
+                        - border: none
+                      name:
+                        - font-size: 15px
+                        - font-weight: 700
+                        - color: black
+                        - justify-self: start
+                  - type: custom:button-card
+                    name: 모두 켜기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_on
+                      target:
+                        area_id: cafe
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#f5a623'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+                  - type: custom:button-card
+                    name: 모두 끄기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_off
+                      target:
+                        area_id: cafe
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#9e9e9e'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+              - type: custom:auto-entities
+                card:
+                  type: grid
+                  columns: 3
+                  square: false
+                card_param: cards
+                filter:
+                  include:
+                    - domain: light
+                      area: cafe
+                      options:
+                        type: custom:button-card
+                        show_state: true
+                        show_icon: true
+                        tap_action:
+                          action: toggle
+                        styles:
+                          card:
+                            - padding: 10px
+                            - background: var(--gray100)
+                            - box-shadow: 4px 4px 10px var(--gray300)
+                            - border-radius: 14px
+                          grid:
+                            - grid-template-areas: '"i n" "i s"'
+                            - grid-template-columns: min-content 1fr
+                            - grid-template-rows: 1fr 1fr
+                          icon:
+                            - width: 22px
+                          name:
+                            - justify-self: start
+                            - font-size: 13px
+                            - font-weight: 600
+                            - color: black
+                            - padding-left: 8px
+                          state:
+                            - justify-self: start
+                            - font-size: 11px
+                            - opacity: 0.6
+                            - padding-left: 8px
+                sort:
+                  method: friendly_name
+                show_empty: false
+              - type: custom:button-card
+                show_name: false
+                show_icon: false
+                show_state: false
+                styles:
+                  card:
+                    - height: 2px
+                    - min-height: 2px
+                    - padding: '0'
+                    - margin: '0'
+                    - background: var(--gray300)
+                    - box-shadow: none
+                    - border: none
+                    - border-radius: '0'
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    name: 복층화장실
+                    show_state: false
+                    show_icon: false
+                    styles:
+                      card:
+                        - background: none
+                        - box-shadow: none
+                        - padding: 10px 4px
+                        - border: none
+                      name:
+                        - font-size: 15px
+                        - font-weight: 700
+                        - color: black
+                        - justify-self: start
+                  - type: custom:button-card
+                    name: 모두 켜기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_on
+                      target:
+                        area_id: bogceunghwajangsil
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#f5a623'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+                  - type: custom:button-card
+                    name: 모두 끄기
+                    icon: mdi:power
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: light.turn_off
+                      target:
+                        area_id: bogceunghwajangsil
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n"'
+                        - grid-template-columns: min-content 1fr
+                      icon:
+                        - width: 18px
+                        - color: '#9e9e9e'
+                      name:
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - justify-self: start
+                        - padding-left: 6px
+              - type: custom:auto-entities
+                card:
+                  type: grid
+                  columns: 3
+                  square: false
+                card_param: cards
+                filter:
+                  include:
+                    - domain: light
+                      area: bogceunghwajangsil
+                      options:
+                        type: custom:button-card
+                        show_state: true
+                        show_icon: true
+                        tap_action:
+                          action: toggle
+                        styles:
+                          card:
+                            - padding: 10px
+                            - background: var(--gray100)
+                            - box-shadow: 4px 4px 10px var(--gray300)
+                            - border-radius: 14px
+                          grid:
+                            - grid-template-areas: '"i n" "i s"'
+                            - grid-template-columns: min-content 1fr
+                            - grid-template-rows: 1fr 1fr
+                          icon:
+                            - width: 22px
+                          name:
+                            - justify-self: start
+                            - font-size: 13px
+                            - font-weight: 600
+                            - color: black
+                            - padding-left: 8px
+                          state:
+                            - justify-self: start
+                            - font-size: 11px
+                            - opacity: 0.6
+                            - padding-left: 8px
                 sort:
                   method: friendly_name
                 show_empty: false
@@ -3116,9 +4503,7 @@ views:
             hash: '#finance'
             name: 주식 및 환율
             icon: mdi:currency-usd
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee
-              !important; opacity: 1!important; } .bubble-icon { color: orange!important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee !important; opacity: 1!important; } .bubble-icon { color: orange!important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 40%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -3410,9 +4795,7 @@ views:
             hash: '#battery'
             name: 배터리 상태
             icon: mdi:battery-70
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee
-              !important; opacity: 1!important; } .bubble-icon { color: orange!important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee !important; opacity: 1!important; } .bubble-icon { color: orange!important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 40%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -3536,9 +4919,7 @@ views:
             hash: '#network'
             name: 지그비/쓰레드
             icon: mdi:help-network-outline
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee
-              !important; opacity: 1!important; } .bubble-icon { color: orange!important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee !important; opacity: 1!important; } .bubble-icon { color: orange!important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 50%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -3614,9 +4995,7 @@ views:
             hash: '#vacuum'
             name: 로봇 청소기
             icon: mdi:vacuum
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee
-              !important; opacity: 1!important; } .bubble-icon { color: orange!important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee !important; opacity: 1!important; } .bubble-icon { color: orange!important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 35%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -3652,8 +5031,7 @@ views:
                               justify-content: center
                               width: max-content
                               background: var(--gray100)
-                              box-shadow: '8px 8px 16px var(--gray300), -8px -8px
-                                16px #ffffff'
+                              box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
                             buttons:
                               - layout: name
                               - name: 구역
@@ -3674,8 +5052,7 @@ views:
                                     border-radius: 24px
                                     height: 24px
                                     display: flex
-                                    box-shadow: 'inset 4px 4px 8px var(--gray300),
-                                      inset -4px -4px 8px #ffffff'
+                                    box-shadow: 'inset 4px 4px 8px var(--gray300), inset -4px -4px 8px #ffffff'
                               - layout: name
                               - name: 제어
                                 tap_action:
@@ -3738,8 +5115,7 @@ views:
                                       - height: 130px
                                       - border-radius: 36px 36px 6px 6px
                                       - background: var(--gray100)
-                                      - box-shadow: '8px 8px 16px var(--gray300),
-                                          -8px -8px 16px #ffffff'
+                                      - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
                                     grid:
                                       - grid-template-areas: '"n i" "temp temp"'
                                       - grid-template-rows: 1fr min-content
@@ -3754,8 +5130,7 @@ views:
                                       - border-radius: 100%
                                       - width: 48px
                                       - height: 48px
-                                      - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px
-                                          -3px 6px rgba(255,255,255,0.8)
+                                      - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px -3px 6px rgba(255,255,255,0.8)
                                     name:
                                       - justify-self: start
                                       - align-self: end
@@ -3783,8 +5158,7 @@ views:
                                       - height: 130px
                                       - border-radius: 36px 36px 6px 6px
                                       - background: var(--gray100)
-                                      - box-shadow: '8px 8px 16px var(--gray300),
-                                          -8px -8px 16px #ffffff'
+                                      - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
                                     grid:
                                       - grid-template-areas: '"n i" "temp temp"'
                                       - grid-template-rows: 1fr min-content
@@ -3799,8 +5173,7 @@ views:
                                       - border-radius: 100%
                                       - width: 48px
                                       - height: 48px
-                                      - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px
-                                          -3px 6px rgba(255,255,255,0.8)
+                                      - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px -3px 6px rgba(255,255,255,0.8)
                                     name:
                                       - justify-self: start
                                       - align-self: end
@@ -3828,8 +5201,7 @@ views:
                                       - height: 130px
                                       - border-radius: 6px 6px 36px 36px
                                       - background: var(--gray100)
-                                      - box-shadow: '8px 8px 16px var(--gray300),
-                                          -8px -8px 16px #ffffff'
+                                      - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
                                     grid:
                                       - grid-template-areas: '"n i" "temp temp"'
                                       - grid-template-rows: 1fr min-content
@@ -3844,8 +5216,7 @@ views:
                                       - border-radius: 100%
                                       - width: 48px
                                       - height: 48px
-                                      - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px
-                                          -3px 6px rgba(255,255,255,0.8)
+                                      - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px -3px 6px rgba(255,255,255,0.8)
                                     name:
                                       - justify-self: start
                                       - align-self: end
@@ -3873,8 +5244,7 @@ views:
                                       - height: 130px
                                       - border-radius: 6px 6px 36px 36px
                                       - background: var(--gray100)
-                                      - box-shadow: '8px 8px 16px var(--gray300),
-                                          -8px -8px 16px #ffffff'
+                                      - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
                                     grid:
                                       - grid-template-areas: '"n i" "temp temp"'
                                       - grid-template-rows: 1fr min-content
@@ -3889,8 +5259,7 @@ views:
                                       - border-radius: 100%
                                       - width: 48px
                                       - height: 48px
-                                      - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px
-                                          -3px 6px rgba(255,255,255,0.8)
+                                      - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px -3px 6px rgba(255,255,255,0.8)
                                     name:
                                       - justify-self: start
                                       - align-self: end
@@ -3918,8 +5287,7 @@ views:
                                       - height: 130px
                                       - border-radius: 36px 36px 6px 6px
                                       - background: var(--gray100)
-                                      - box-shadow: '8px 8px 16px var(--gray300),
-                                          -8px -8px 16px #ffffff'
+                                      - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
                                     grid:
                                       - grid-template-areas: '"n i" "temp temp"'
                                       - grid-template-rows: 1fr min-content
@@ -3934,8 +5302,7 @@ views:
                                       - border-radius: 100%
                                       - width: 48px
                                       - height: 48px
-                                      - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px
-                                          -3px 6px rgba(255,255,255,0.8)
+                                      - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px -3px 6px rgba(255,255,255,0.8)
                                     name:
                                       - justify-self: start
                                       - align-self: end
@@ -3963,8 +5330,7 @@ views:
                                       - height: 130px
                                       - border-radius: 6px 6px 36px 36px
                                       - background: var(--gray100)
-                                      - box-shadow: '8px 8px 16px var(--gray300),
-                                          -8px -8px 16px #ffffff'
+                                      - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
                                     grid:
                                       - grid-template-areas: '"n i" "temp temp"'
                                       - grid-template-rows: 1fr min-content
@@ -3979,8 +5345,7 @@ views:
                                       - border-radius: 100%
                                       - width: 48px
                                       - height: 48px
-                                      - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px
-                                          -3px 6px rgba(255,255,255,0.8)
+                                      - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px -3px 6px rgba(255,255,255,0.8)
                                     name:
                                       - justify-self: start
                                       - align-self: end
@@ -4003,8 +5368,7 @@ views:
                                       - height: 100%
                                       - border-radius: 36px 36px 36px 36px
                                       - background: var(--green)
-                                      - box-shadow: '8px 8px 16px var(--gray300),
-                                          -8px -8px 16px #ffffff'
+                                      - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
                                     grid:
                                       - grid-template-areas: '"n i" "temp temp"'
                                       - grid-template-rows: 1fr min-content
@@ -4019,8 +5383,7 @@ views:
                                       - border-radius: 100%
                                       - width: 48px
                                       - height: 48px
-                                      - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px
-                                          -3px 6px rgba(255,255,255,0.8)
+                                      - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px -3px 6px rgba(255,255,255,0.8)
                                     name:
                                       - justify-self: start
                                       - align-self: end
@@ -4060,8 +5423,7 @@ views:
                               justify-content: center
                               width: max-content
                               background: var(--gray100)
-                              box-shadow: '8px 8px 16px var(--gray300), -8px -8px
-                                16px #ffffff'
+                              box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
                             buttons:
                               - layout: name
                               - name: 구역
@@ -4101,8 +5463,7 @@ views:
                                     border-radius: 24px
                                     height: 24px
                                     display: flex
-                                    box-shadow: 'inset 4px 4px 8px var(--gray300),
-                                      inset -4px -4px 8px #ffffff'
+                                    box-shadow: 'inset 4px 4px 8px var(--gray300), inset -4px -4px 8px #ffffff'
                               - layout: name
                               - name: 지도
                                 tap_action:
@@ -4314,8 +5675,7 @@ views:
                                   - height: 100%
                                   - border-radius: 36px
                                   - background: var(--gray100)
-                                  - box-shadow: '8px 8px 16px var(--gray300), -8px
-                                      -8px 16px #ffffff'
+                                  - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
                                 grid:
                                   - grid-template-areas: '"l i" "n i"'
                                   - grid-template-rows: 1fr min-content
@@ -4330,8 +5690,7 @@ views:
                                   - border-radius: 100%
                                   - width: 48px
                                   - height: 48px
-                                  - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px
-                                      -3px 6px rgba(255,255,255,0.8)
+                                  - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px -3px 6px rgba(255,255,255,0.8)
                                 name:
                                   - justify-self: start
                                   - align-self: end
@@ -4371,8 +5730,7 @@ views:
                                   - padding: 12px
                                   - border-radius: 36px 36px 6px 6px
                                   - background: var(--gray100)
-                                  - box-shadow: '8px 8px 16px var(--gray300), -8px
-                                      -8px 16px #ffffff'
+                                  - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
                                 grid:
                                   - grid-template-areas: |
                                       "i n"
@@ -4387,8 +5745,7 @@ views:
                                   - border-radius: 50%
                                   - width: 48px
                                   - height: 48px
-                                  - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px
-                                      -3px 6px rgba(255,255,255,0.8)
+                                  - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px -3px 6px rgba(255,255,255,0.8)
                                 icon:
                                   - width: 26px
                                   - color: black
@@ -4439,8 +5796,7 @@ views:
                                   - padding: 12px
                                   - border-radius: 6px 6px 36px 36px
                                   - background: var(--gray100)
-                                  - box-shadow: '8px 8px 16px var(--gray300), -8px
-                                      -8px 16px #ffffff'
+                                  - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
                                 grid:
                                   - grid-template-areas: |
                                       "i n"
@@ -4455,8 +5811,7 @@ views:
                                   - border-radius: 50%
                                   - width: 48px
                                   - height: 48px
-                                  - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px
-                                      -3px 6px rgba(255,255,255,0.8)
+                                  - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px -3px 6px rgba(255,255,255,0.8)
                                 icon:
                                   - width: 26px
                                   - color: black
@@ -4530,8 +5885,7 @@ views:
                                 card:
                                   - padding: 24px
                                   - background: var(--gray100)
-                                  - box-shadow: '8px 8px 16px var(--gray300), -8px
-                                      -8px 16px #ffffff'
+                                  - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
                                   - border-radius: 36px 6px 6px 36px
                                 img_cell:
                                   - justify-self: start
@@ -4540,8 +5894,7 @@ views:
                                   - border-radius: 100%
                                   - background: var(--active-big)
                                   - margin-left: -10px
-                                  - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px
-                                      -3px 6px rgba(255,255,255,0.8)
+                                  - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px -3px 6px rgba(255,255,255,0.8)
                                 icon:
                                   - width: 26px
                                   - color: black
@@ -4585,8 +5938,7 @@ views:
                                 card:
                                   - padding: 24px
                                   - background: var(--gray100)
-                                  - box-shadow: '8px 8px 16px var(--gray300), -8px
-                                      -8px 16px #ffffff'
+                                  - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
                                   - border-radius: 6px 36px 36px 6px
                                 img_cell:
                                   - justify-self: end
@@ -4595,8 +5947,7 @@ views:
                                   - border-radius: 100%
                                   - background: black
                                   - margin-right: -10px
-                                  - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px
-                                      -3px 6px rgba(255,255,255,0.8)
+                                  - box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -3px -3px 6px rgba(255,255,255,0.8)
                                 icon:
                                   - width: 26px
                                   - color: white
@@ -4635,8 +5986,7 @@ views:
                               justify-content: center
                               width: max-content
                               background: var(--gray100)
-                              box-shadow: '8px 8px 16px var(--gray300), -8px -8px
-                                16px #ffffff'
+                              box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
                             buttons:
                               - layout: name
                               - name: 구역
@@ -4695,8 +6045,7 @@ views:
                                     border-radius: 24px
                                     height: 24px
                                     display: flex
-                                    box-shadow: 'inset 4px 4px 8px var(--gray300),
-                                      inset -4px -4px 8px #ffffff'
+                                    box-shadow: 'inset 4px 4px 8px var(--gray300), inset -4px -4px 8px #ffffff'
                         - type: custom:xiaomi-vacuum-map-card
                           entity: vacuum.roborock_s5e_c2e7_robot_cleaner
                           map_source:
@@ -4713,9 +6062,7 @@ views:
             name: 에어컨
             icon: mdi:air-conditioner
             is_sidebar_hidden: true
-            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee
-              !important; opacity: 1!important; } .bubble-icon { color: orange!important;
-              opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee !important; opacity: 1!important; } .bubble-icon { color: orange!important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
             width_desktop: 45%
             margin_top_desktop: 30px
             margin_top_mobile: 30px
@@ -4781,7 +6128,7 @@ views:
                       padding: 12px;
                     }
               - type: custom:gap-card
-                height: 10px
+                height: 5px
               - type: custom:mushroom-climate-card
                 entity: climate.nagyeongbang_eeokeon
                 icon: mdi:face-woman-outline
@@ -4803,7 +6150,7 @@ views:
               - type: custom:mushroom-climate-card
                 entity: climate.deureseurum_eeokeon
                 icon: mdi:hanger
-                name: 드레스룸
+                name: 옷방
                 show_temperature_control: true
                 fill_container: false
                 grid_options:
@@ -4837,7 +6184,7 @@ views:
                   columns: 4
                   rows: 2
               - type: custom:gap-card
-                height: 10px
+                height: 5px
               - type: custom:mushroom-climate-card
                 entity: climate.gongbubang_eeokeon
                 icon: mdi:desk
@@ -4891,5 +6238,240 @@ views:
                       border: 1px solid rgba(255,255,255,0.1);
                       border-radius: 16px;
                       padding: 12px;
+                    }
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: '#fan'
+            name: 팬
+            icon: mdi:fan
+            is_sidebar_hidden: true
+            styles: '.bubble-icon-container { --bubble-icon-background-color: #ffeeee !important; opacity: 1!important; } .bubble-icon { color: orange!important; opacity: 1!important; --mdc-icon-size: 24px !important; }'
+            width_desktop: 45%
+            margin_top_desktop: 30px
+            margin_top_mobile: 30px
+            bg_blur: 10
+            back_open: true
+            button_type: name
+            sub_button:
+              main: []
+              bottom: []
+            cards:
+              - type: custom:mushroom-fan-card
+                entity: fan.geosil_silringpaen
+                icon: mdi:sofa
+                name: 거실 실링팬
+                show_percentage_control: true
+                show_oscillate_control: false
+                show_direction_control: false
+                fill_container: false
+                grid_options:
+                  columns: 4
+                  rows: 2
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 16px;
+                      padding: 12px;
+                    }
+                    mushroom-shape-icon {
+                      --icon-color: {{ '#4CAF50' if is_state('fan.geosil_silringpaen', 'on') else 'rgb(var(--rgb-disabled))' }} !important;
+                      --shape-color: {{ 'rgba(76,175,80,0.2)' if is_state('fan.geosil_silringpaen', 'on') else 'rgba(var(--rgb-disabled),0.2)' }} !important;
+                    }
+              - type: custom:mushroom-fan-card
+                entity: fan.anbang_silringpaen
+                icon: mdi:account-multiple
+                name: 안방 실링팬
+                show_percentage_control: true
+                show_oscillate_control: false
+                show_direction_control: false
+                fill_container: false
+                grid_options:
+                  columns: 4
+                  rows: 2
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 16px;
+                      padding: 12px;
+                    }
+                    mushroom-shape-icon {
+                      --icon-color: {{ '#4CAF50' if is_state('fan.anbang_silringpaen', 'on') else 'rgb(var(--rgb-disabled))' }} !important;
+                      --shape-color: {{ 'rgba(76,175,80,0.2)' if is_state('fan.anbang_silringpaen', 'on') else 'rgba(var(--rgb-disabled),0.2)' }} !important;
+                    }
+              - type: custom:mushroom-fan-card
+                entity: fan.nagyeongbang_silringpaen
+                icon: mdi:face-woman-outline
+                name: 나경방 실링팬
+                show_percentage_control: true
+                show_oscillate_control: false
+                show_direction_control: false
+                fill_container: false
+                grid_options:
+                  columns: 4
+                  rows: 2
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 16px;
+                      padding: 12px;
+                    }
+                    mushroom-shape-icon {
+                      --icon-color: {{ '#4CAF50' if is_state('fan.nagyeongbang_silringpaen', 'on') else 'rgb(var(--rgb-disabled))' }} !important;
+                      --shape-color: {{ 'rgba(76,175,80,0.2)' if is_state('fan.nagyeongbang_silringpaen', 'on') else 'rgba(var(--rgb-disabled),0.2)' }} !important;
+                    }
+              - type: custom:mushroom-fan-card
+                entity: fan.gongbubang_silringpaen
+                icon: mdi:desk
+                name: 공부방 실링팬
+                show_percentage_control: true
+                show_oscillate_control: false
+                show_direction_control: false
+                fill_container: false
+                grid_options:
+                  columns: 4
+                  rows: 2
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 16px;
+                      padding: 12px;
+                    }
+                    mushroom-shape-icon {
+                      --icon-color: {{ '#4CAF50' if is_state('fan.gongbubang_silringpaen', 'on') else 'rgb(var(--rgb-disabled))' }} !important;
+                      --shape-color: {{ 'rgba(76,175,80,0.2)' if is_state('fan.gongbubang_silringpaen', 'on') else 'rgba(var(--rgb-disabled),0.2)' }} !important;
+                    }
+              - type: custom:mushroom-fan-card
+                entity: fan.cafe_silringpaen
+                icon: mdi:coffee
+                name: cafe 실링팬
+                show_percentage_control: true
+                show_oscillate_control: false
+                show_direction_control: false
+                fill_container: false
+                grid_options:
+                  columns: 4
+                  rows: 2
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 16px;
+                      padding: 12px;
+                    }
+                    mushroom-shape-icon {
+                      --icon-color: {{ '#4CAF50' if is_state('fan.cafe_silringpaen', 'on') else 'rgb(var(--rgb-disabled))' }} !important;
+                      --shape-color: {{ 'rgba(76,175,80,0.2)' if is_state('fan.cafe_silringpaen', 'on') else 'rgba(var(--rgb-disabled),0.2)' }} !important;
+                    }
+              - type: custom:mushroom-fan-card
+                entity: fan.seojae_silringpaen
+                icon: mdi:bookshelf
+                name: 서재 실링팬
+                show_percentage_control: true
+                show_oscillate_control: false
+                show_direction_control: false
+                fill_container: false
+                grid_options:
+                  columns: 4
+                  rows: 2
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 16px;
+                      padding: 12px;
+                    }
+                    mushroom-shape-icon {
+                      --icon-color: {{ '#4CAF50' if is_state('fan.seojae_silringpaen', 'on') else 'rgb(var(--rgb-disabled))' }} !important;
+                      --shape-color: {{ 'rgba(76,175,80,0.2)' if is_state('fan.seojae_silringpaen', 'on') else 'rgba(var(--rgb-disabled),0.2)' }} !important;
+                    }
+              - type: custom:gap-card
+                height: 5px
+              - type: custom:mushroom-fan-card
+                entity: fan.geosilhwajangsil_hwanpunggi
+                icon: mdi:toilet
+                name: 거실화장실 환풍기
+                show_percentage_control: false
+                show_oscillate_control: false
+                show_direction_control: false
+                fill_container: false
+                grid_options:
+                  columns: 4
+                  rows: 1
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 16px;
+                      padding: 12px;
+                    }
+                    mushroom-shape-icon {
+                      --icon-color: {{ '#4CAF50' if is_state('fan.geosilhwajangsil_hwanpunggi', 'on') else 'rgb(var(--rgb-disabled))' }} !important;
+                      --shape-color: {{ 'rgba(76,175,80,0.2)' if is_state('fan.geosilhwajangsil_hwanpunggi', 'on') else 'rgba(var(--rgb-disabled),0.2)' }} !important;
+                    }
+              - type: custom:mushroom-fan-card
+                entity: fan.anbanghwajangsil_hwanpunggi
+                icon: mdi:toilet
+                name: 안방화장실 환풍기
+                show_percentage_control: false
+                show_oscillate_control: false
+                show_direction_control: false
+                fill_container: false
+                grid_options:
+                  columns: 4
+                  rows: 1
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 16px;
+                      padding: 12px;
+                    }
+                    mushroom-shape-icon {
+                      --icon-color: {{ '#4CAF50' if is_state('fan.anbanghwajangsil_hwanpunggi', 'on') else 'rgb(var(--rgb-disabled))' }} !important;
+                      --shape-color: {{ 'rgba(76,175,80,0.2)' if is_state('fan.anbanghwajangsil_hwanpunggi', 'on') else 'rgba(var(--rgb-disabled),0.2)' }} !important;
+                    }
+              - type: custom:mushroom-fan-card
+                entity: fan.bogceunghwajangsil_hwanpunggi
+                icon: mdi:toilet
+                name: 복층화장실 환풍기
+                show_percentage_control: false
+                show_oscillate_control: false
+                show_direction_control: false
+                fill_container: false
+                grid_options:
+                  columns: 4
+                  rows: 1
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 16px;
+                      padding: 12px;
+                    }
+                    mushroom-shape-icon {
+                      --icon-color: {{ '#4CAF50' if is_state('fan.bogceunghwajangsil_hwanpunggi', 'on') else 'rgb(var(--rgb-disabled))' }} !important;
+                      --shape-color: {{ 'rgba(76,175,80,0.2)' if is_state('fan.bogceunghwajangsil_hwanpunggi', 'on') else 'rgba(var(--rgb-disabled),0.2)' }} !important;
                     }
         column_span: 1
