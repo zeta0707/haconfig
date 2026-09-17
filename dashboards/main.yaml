@@ -1604,9 +1604,9 @@ views:
                   - b3_name: 베란다조명
                   - b4_entity: light.geosil_zemiswitch_jomyeong_2
                   - b4_name: 복도
-                  - b5_entity: light.geosil_zemiswitch_jomyeong_4
+                  - b5_entity: light.geosil_silringpaen_switch
                   - b5_name: 실링팬
-                  - b6_entity: light.geosil_zemiswitch_jomyeong_6
+                  - b6_entity: light.geosil_eeokeon_switch
                   - b6_name: 에어컨
               - type: custom:gap-card
                 height: 5px
@@ -1701,17 +1701,17 @@ views:
                   - circle_bg: '#b2dfdb'
                   - icon_color: '#00695c'
                   - button_height: 38px
-                  - b1_entity: light.jubang_zemiswitch_jomyeong_1
+                  - b1_entity: input_boolean.jubang_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: light.jubang_zemiswitch_jomyeong_3
+                  - b2_entity: input_boolean.jubang_jomyeong_3
                   - b2_name: 상부장LED
-                  - b3_entity: light.jubang_zemiswitch_jomyeong_5
+                  - b3_entity: input_boolean.jubang_jomyeong_5
                   - b3_name: 확장부등
-                  - b4_entity: light.jubang_zemiswitch_jomyeong_2
+                  - b4_entity: input_boolean.jubang_jomyeong_2
                   - b4_name: 식탁등
-                  - b5_entity: light.jubang_zemiswitch_jomyeong_4
+                  - b5_entity: input_boolean.jubang_jomyeong_4
                   - b5_name: 실링팬
-                  - b6_entity: light.jubang_zemiswitch_jomyeong_6
+                  - b6_entity: input_boolean.jubang_jomyeong_6
                   - b6_name: 에어컨
               - type: custom:gap-card
                 height: 5px
@@ -1779,13 +1779,13 @@ views:
                   - circle_bg: '#ceeefd'
                   - icon_color: '#1fb1f2'
                   - button_height: 34px
-                  - b1_entity: light.geosilhwajangsil_zemiswitch_jomyeong_1
+                  - b1_entity: input_boolean.geosilhwajangsil_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: light.geosilhwajangsil_zemiswitch_jomyeong_2
+                  - b2_entity: input_boolean.geosilhwajangsil_jomyeong_2
                   - b2_name: 간접등
-                  - b3_entity: light.anbanghwajangsil_zemiswitch_jomyeong_2
+                  - b3_entity: input_boolean.geosilhwajangsil_jomyeong_3
                   - b3_name: 환풍기
-                  - b4_entity: light.geosilhwajangsil_zemiswitch_jomyeong_4
+                  - b4_entity: input_boolean.geosilhwajangsil_jomyeong_4
                   - b4_name: 전체
                   - b5_entity: none
                   - b5_name: none
@@ -1831,10 +1831,10 @@ views:
                   - button_height: 34px
                   - b1_entity: light.anbanghwajangsil_zemiswitch_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: light.anbanghwajangsil_zemiswitch_jomyeong_2
-                  - b2_name: 간접등
-                  - b3_entity: light.anbanghwajangsil_zemiswitch_jomyeong_2
-                  - b3_name: 환풍기
+                  - b2_entity: light.anbanghwajangsil_hwanpunggi_switch
+                  - b2_name: 환풍기
+                  - b3_entity: light.anbanghwajangsil_zemiswitch_jomyeong_3
+                  - b3_name: 간접등
                   - b4_entity: light.anbanghwajangsil_zemiswitch_jomyeong_4
                   - b4_name: 전체
                   - b5_entity: none
@@ -2031,13 +2031,13 @@ views:
                   - circle_bg: '#fdd9d7'
                   - icon_color: red
                   - button_height: 34px
-                  - b1_entity: light.hyeongwan_zemiswitch_jomyeong_1
+                  - b1_entity: input_boolean.hyeongwan_jomyeong_1
                   - b1_name: 현관등
-                  - b2_entity: light.hyeongwan_zemiswitch_jomyeong_2
+                  - b2_entity: input_boolean.hyeongwan_jomyeong_2
                   - b2_name: 복도등
-                  - b3_entity: light.hyeongwan_zemiswitch_jomyeong_3
+                  - b3_entity: input_boolean.hyeongwan_jomyeong_3
                   - b3_name: 거실전체
-                  - b4_entity: light.hyeongwan_zemiswitch_jomyeong_4
+                  - b4_entity: input_boolean.hyeongwan_jomyeong_4
                   - b4_name: 일괄소등
                   - b5_entity: none
                   - b5_name: none
@@ -2081,13 +2081,13 @@ views:
                   - circle_bg: '#fdd9d7'
                   - icon_color: red
                   - button_height: 34px
-                  - b1_entity: light.anbang_zemiswitch_jomyeong_1
+                  - b1_entity: input_boolean.anbang_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: light.anbang_zemiswitch_jomyeong_2
+                  - b2_entity: input_boolean.anbang_jomyeong_2
                   - b2_name: 스탠드
-                  - b3_entity: light.anbang_zemiswitch_jomyeong_3
+                  - b3_entity: input_boolean.anbang_jomyeong_3
                   - b3_name: 실링팬
-                  - b4_entity: light.anbang_zemiswitch_jomyeong_4
+                  - b4_entity: input_boolean.anbang_jomyeong_4
                   - b4_name: 에어컨
                   - b5_entity: none
                   - b5_name: none
@@ -2174,13 +2174,13 @@ views:
                   - circle_bg: '#dbefdc'
                   - icon_color: black
                   - button_height: 34px
-                  - b1_entity: light.junhobang_zemiswitch_jomyeong_1
+                  - b1_entity: input_boolean.junhobang_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: light.junhobang_zemiswitch_jomyeong_2
+                  - b2_entity: input_boolean.junhobang_jomyeong_2
                   - b2_name: 스탠드
-                  - b3_entity: light.junhobang_zemiswitch_jomyeong_3
+                  - b3_entity: input_boolean.junhobang_jomyeong_3
                   - b3_name: 에어컨
-                  - b4_entity: light.junhobang_zemiswitch_jomyeong_4
+                  - b4_entity: input_boolean.junhobang_jomyeong_4
                   - b4_name: 전체
                   - b5_entity: none
                   - b5_name: none
@@ -2252,13 +2252,13 @@ views:
                   - circle_bg: '#fcef83'
                   - icon_color: black
                   - button_height: 34px
-                  - b1_entity: light.nagyeongbang_zemiswitch_jomyeong_1
+                  - b1_entity: input_boolean.nagyeongbang_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: light.nagyeongbang_zemiswitch_jomyeong_2
+                  - b2_entity: input_boolean.nagyeongbang_jomyeong_2
                   - b2_name: 화장대간접
-                  - b3_entity: light.nagyeongbang_zemiswitch_jomyeong_3
+                  - b3_entity: input_boolean.nagyeongbang_jomyeong_3
                   - b3_name: 실링팬
-                  - b4_entity: light.nagyeongbang_zemiswitch_jomyeong_4
+                  - b4_entity: input_boolean.nagyeongbang_jomyeong_4
                   - b4_name: 에어컨
                   - b5_entity: none
                   - b5_name: none
@@ -2350,13 +2350,13 @@ views:
                   - circle_bg: '#ffcc66'
                   - icon_color: brown
                   - button_height: 34px
-                  - b1_entity: light.osbang_zemiswitch_jomyeong_1
+                  - b1_entity: input_boolean.osbang_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: light.osbang_zemiswitch_jomyeong_2
+                  - b2_entity: input_boolean.osbang_jomyeong_2
                   - b2_name: 에어컨
-                  - b3_entity: light.osbang_zemiswitch_jomyeong_3
+                  - b3_entity: input_boolean.osbang_jomyeong_3
                   - b3_name: 제습기
-                  - b4_entity: light.osbang_zemiswitch_jomyeong_4
+                  - b4_entity: input_boolean.osbang_jomyeong_4
                   - b4_name: 전체
                   - b5_entity: none
                   - b5_name: none
@@ -2428,13 +2428,13 @@ views:
                   - circle_bg: '#c8e6c9'
                   - icon_color: '#2e7d32'
                   - button_height: 34px
-                  - b1_entity: light.gongbubang_zemiswitch_jomyeong_1
+                  - b1_entity: input_boolean.gongbubang_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: light.gongbubang_zemiswitch_jomyeong_2
+                  - b2_entity: input_boolean.gongbubang_jomyeong_2
                   - b2_name: 벽등
-                  - b3_entity: light.gongbubang_zemiswitch_jomyeong_3
+                  - b3_entity: input_boolean.gongbubang_jomyeong_3
                   - b3_name: 실링팬
-                  - b4_entity: light.gongbubang_zemiswitch_jomyeong_4
+                  - b4_entity: input_boolean.gongbubang_jomyeong_4
                   - b4_name: 에어컨
                   - b5_entity: none
                   - b5_name: none
@@ -2526,13 +2526,13 @@ views:
                   - circle_bg: '#e1bee7'
                   - icon_color: '#6a1b9a'
                   - button_height: 34px
-                  - b1_entity: light.jihabang_zemiswitch_jomyeong_1
+                  - b1_entity: input_boolean.jihabang_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: light.jihabang_zemiswitch_jomyeong_2
+                  - b2_entity: input_boolean.jihabang_jomyeong_2
                   - b2_name: 에어컨
-                  - b3_entity: light.jihabang_zemiswitch_jomyeong_3
+                  - b3_entity: input_boolean.jihabang_jomyeong_3
                   - b3_name: 스탠드
-                  - b4_entity: light.jihabang_zemiswitch_jomyeong_4
+                  - b4_entity: input_boolean.jihabang_jomyeong_4
                   - b4_name: 전체
                   - b5_entity: none
                   - b5_name: none
@@ -2604,13 +2604,13 @@ views:
                   - circle_bg: '#ffccbc'
                   - icon_color: '#d84315'
                   - button_height: 34px
-                  - b1_entity: light.cafe_zemiswitch_jomyeong_1
+                  - b1_entity: input_boolean.cafe_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: light.cafe_zemiswitch_jomyeong_2
+                  - b2_entity: input_boolean.cafe_jomyeong_2
                   - b2_name: 선풍기
-                  - b3_entity: light.cafe_zemiswitch_jomyeong_3
+                  - b3_entity: input_boolean.cafe_jomyeong_3
                   - b3_name: 제습기
-                  - b4_entity: light.cafe_zemiswitch_jomyeong_4
+                  - b4_entity: input_boolean.cafe_jomyeong_4
                   - b4_name: 에어컨
                   - b5_entity: none
                   - b5_name: none
@@ -2702,13 +2702,13 @@ views:
                   - circle_bg: '#ceeefd'
                   - icon_color: '#1fb1f2'
                   - button_height: 34px
-                  - b1_entity: light.bogceunghwajangsil_zemiswitch_jomyeong_1
+                  - b1_entity: input_boolean.bogceunghwajangsil_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: light.bogceunghwajangsil_zemiswitch_jomyeong_2
+                  - b2_entity: input_boolean.bogceunghwajangsil_jomyeong_2
                   - b2_name: 간접등
-                  - b3_entity: light.anbanghwajangsil_zemiswitch_jomyeong_2
+                  - b3_entity: input_boolean.bogceunghwajangsil_jomyeong_3
                   - b3_name: 환풍기
-                  - b4_entity: light.bogceunghwajangsil_zemiswitch_jomyeong_4
+                  - b4_entity: input_boolean.bogceunghwajangsil_jomyeong_4
                   - b4_name: 전체
                   - b5_entity: none
                   - b5_name: none
@@ -3351,7 +3351,7 @@ views:
                             - opacity: 0.6
                             - padding-left: 8px
                   exclude:
-                    - entity_id: light.anbanghwajangsil_zemiswitch_jomyeong_2
+                    - entity_id: light.anbanghwajangsil_hwanpunggi_switch
                 sort:
                   method: friendly_name
                 show_empty: false
