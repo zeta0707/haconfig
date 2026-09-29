@@ -11,6 +11,12 @@ scene: !include scenes.yaml
 
 # 1. 상태를 기록할 가상 헬퍼
 input_boolean:
+  bathroom1_exhaust_fan_state:
+    name: "거실화장실 환풍기 전원"
+  bathroom2_exhaust_fan_state:
+    name: "안방화장실 환풍기 전원"
+  bathroom3_exhaust_fan_state:
+    name: "복층화장실 환풍기 전원"
   geosil_ceiling_fan_state:
     name: "가상 실링팬 전원"
   anbang_ceiling_fan_state:
@@ -23,12 +29,6 @@ input_boolean:
     name: "공부방 실링팬 전원"
   cafe_ceiling_fan_state:
     name: "cafe 실링팬 전원"
-  bathroom1_exhaust_fan_state:
-    name: "거실화장실 환풍기 전원"
-  bathroom2_exhaust_fan_state:
-    name: "안방화장실 환풍기 전원"
-  bathroom3_exhaust_fan_state:
-    name: "복층화장실 환풍기 전원"
 
 input_number:
   virtual_ac_temp_livingroom:
@@ -70,7 +70,7 @@ input_number:
     max: 30
     step: 1
     unit_of_measurement: "°C"
-
+    
   virtual_ac_temp_studyroom:
     name: "가상 공부방 에어컨 설정온도"
     initial: 24
@@ -278,6 +278,122 @@ input_select:
     icon: mdi:fan
 
 climate:
+# 가상 히터 (climate_template) - 우리엘 URC-02 설치 전 임시용 (독립형)
+# 기존에 붙여넣은 히터 8개 블록을 이 내용으로 교체하세요.
+# set_temperature가 있어야 설정 온도 기능이 켜집니다. 값은 climate_template이 자체 저장하고,
+# 변경할 때마다 로그북에 기록만 남깁니다.
+  - platform: climate_template
+    name: 거실 난방
+    unique_id: heater_livingroom
+    modes: ["off", "heat"]
+    min_temp: 10
+    max_temp: 35
+    temp_step: 0.5
+    current_temperature_template: "{{ states('sensor.temperature_sensor_temperature') }}"
+    set_temperature:
+      - action: logbook.log
+        data:
+          name: 거실 난방
+          message: "설정 온도 {{ temperature }}°C"
+
+  - platform: climate_template
+    name: 주방 난방
+    unique_id: heater_kitchen
+    modes: ["off", "heat"]
+    min_temp: 10
+    max_temp: 35
+    temp_step: 0.5
+    current_temperature_template: "{{ states('sensor.temperature_sensor_temperature') }}"
+    set_temperature:
+      - action: logbook.log
+        data:
+          name: 주방 난방
+          message: "설정 온도 {{ temperature }}°C"
+
+  - platform: climate_template
+    name: 안방 난방
+    unique_id: heater_masterroom
+    modes: ["off", "heat"]
+    min_temp: 10
+    max_temp: 35
+    temp_step: 0.5
+    current_temperature_template: "{{ states('sensor.temperature_sensor_temperature') }}"
+    set_temperature:
+      - action: logbook.log
+        data:
+          name: 안방 난방
+          message: "설정 온도 {{ temperature }}°C"
+
+  - platform: climate_template
+    name: 준호방 난방
+    unique_id: heater_junhoroom
+    modes: ["off", "heat"]
+    min_temp: 10
+    max_temp: 35
+    temp_step: 0.5
+    current_temperature_template: "{{ states('sensor.temperature_sensor_temperature') }}"
+    set_temperature:
+      - action: logbook.log
+        data:
+          name: 준호방 난방
+          message: "설정 온도 {{ temperature }}°C"
+
+  - platform: climate_template
+    name: 나경방 난방
+    unique_id: heater_nakyungroom
+    modes: ["off", "heat"]
+    min_temp: 10
+    max_temp: 35
+    temp_step: 0.5
+    current_temperature_template: "{{ states('sensor.temperature_sensor_temperature') }}"
+    set_temperature:
+      - action: logbook.log
+        data:
+          name: 나경방 난방
+          message: "설정 온도 {{ temperature }}°C"
+
+  - platform: climate_template
+    name: 옷방 난방
+    unique_id: heater_dressroom
+    modes: ["off", "heat"]
+    min_temp: 10
+    max_temp: 35
+    temp_step: 0.5
+    current_temperature_template: "{{ states('sensor.temperature_sensor_temperature') }}"
+    set_temperature:
+      - action: logbook.log
+        data:
+          name: 옷방 난방
+          message: "설정 온도 {{ temperature }}°C"
+
+  - platform: climate_template
+    name: 공부방 난방
+    unique_id: heater_studyroom
+    modes: ["off", "heat"]
+    min_temp: 10
+    max_temp: 35
+    temp_step: 0.5
+    current_temperature_template: "{{ states('sensor.temperature_sensor_temperature') }}"
+    set_temperature:
+      - action: logbook.log
+        data:
+          name: 공부방 난방
+          message: "설정 온도 {{ temperature }}°C"
+
+  - platform: climate_template
+    name: 지하방 난방
+    unique_id: heater_jiharoom
+    modes: ["off", "heat"]
+    min_temp: 10
+    max_temp: 35
+    temp_step: 0.5
+    current_temperature_template: "{{ states('sensor.temperature_sensor_temperature') }}"
+    set_temperature:
+      - action: logbook.log
+        data:
+          name: 지하방 난방
+          message: "설정 온도 {{ temperature }}°C"
+          
   - platform: climate_template
     name: "거실 에어컨"
     unique_id: ac_livingroom
@@ -514,6 +630,47 @@ climate:
 
 template:
   - fan:
+      - name: "거실화장실 환풍기"
+        unique_id: bathroom1_exhaust_fan
+        state: "{{ states('input_boolean.bathroom1_exhaust_fan_state') }}"
+ 
+        turn_on:
+          - action: input_boolean.turn_on
+            target:
+              entity_id: input_boolean.bathroom1_exhaust_fan_state
+ 
+        turn_off:
+          - action: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.bathroom1_exhaust_fan_state
+ 
+      - name: "안방화장실 환풍기"
+        unique_id: bathroom2_exhaust_fan
+        state: "{{ states('input_boolean.bathroom2_exhaust_fan_state') }}"
+ 
+        turn_on:
+          - action: input_boolean.turn_on
+            target:
+              entity_id: input_boolean.bathroom2_exhaust_fan_state
+ 
+        turn_off:
+          - action: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.bathroom2_exhaust_fan_state
+ 
+      - name: "복층화장실 환풍기"
+        unique_id: bathroom3_exhaust_fan
+        state: "{{ states('input_boolean.bathroom3_exhaust_fan_state') }}"
+ 
+        turn_on:
+          - action: input_boolean.turn_on
+            target:
+              entity_id: input_boolean.bathroom3_exhaust_fan_state
+ 
+        turn_off:
+          - action: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.bathroom3_exhaust_fan_state
       - name: "서재 실링팬"
         unique_id: studyroom_sove_fan
         state: "{{ states('input_boolean.studyroom_sove_fan_state') }}"
@@ -752,48 +909,6 @@ template:
           - action: input_boolean.turn_on
             target:
               entity_id: input_boolean.cafe_ceiling_fan_state
-
-      - name: "거실화장실 환풍기"
-        unique_id: bathroom1_exhaust_fan
-        state: "{{ states('input_boolean.bathroom1_exhaust_fan_state') }}"
-
-        turn_on:
-          - action: input_boolean.turn_on
-            target:
-              entity_id: input_boolean.bathroom1_exhaust_fan_state
-
-        turn_off:
-          - action: input_boolean.turn_off
-            target:
-              entity_id: input_boolean.bathroom1_exhaust_fan_state
-
-      - name: "안방화장실 환풍기"
-        unique_id: bathroom2_exhaust_fan
-        state: "{{ states('input_boolean.bathroom2_exhaust_fan_state') }}"
-
-        turn_on:
-          - action: input_boolean.turn_on
-            target:
-              entity_id: input_boolean.bathroom2_exhaust_fan_state
-
-        turn_off:
-          - action: input_boolean.turn_off
-            target:
-              entity_id: input_boolean.bathroom2_exhaust_fan_state
-
-      - name: "복층화장실 환풍기"
-        unique_id: bathroom3_exhaust_fan
-        state: "{{ states('input_boolean.bathroom3_exhaust_fan_state') }}"
-
-        turn_on:
-          - action: input_boolean.turn_on
-            target:
-              entity_id: input_boolean.bathroom3_exhaust_fan_state
-
-        turn_off:
-          - action: input_boolean.turn_off
-            target:
-              entity_id: input_boolean.bathroom3_exhaust_fan_state
 
   - sensor:
       - name: "vnd_krw_100"

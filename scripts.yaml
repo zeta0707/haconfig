@@ -44,7 +44,7 @@ control_room_lights:
   sequence:
   - variables:
       target_entities: '{% if room == ''living_room'' %} [''light.geosil_zemiswitch_jomyeong_1'',''light.geosil_zemiswitch_jomyeong_2'']
-        {% else %} [''light.anbanghwajangsil_zemiswitch_jomyeong_1'',''light.anbanghwajangsil_zemiswitch_jomyeong_2'']
+        {% else %} [''light.anbanghwajangsil_zemiswitch_jomyeong_1'',''light.anbanghwajangsil_hwanpunggi_switch'']
         {% endif %}
 
         '

@@ -124,9 +124,9 @@
           - light.geosil_zemiswitch_jomyeong_1
           - light.geosil_zemiswitch_jomyeong_2
           - light.geosil_zemiswitch_jomyeong_3
-          - light.geosil_zemiswitch_jomyeong_4
+          - light.geosil_silringpaen_switch
           - light.geosil_zemiswitch_jomyeong_5
-          - light.geosil_zemiswitch_jomyeong_6
+          - light.geosil_eeokeon_switch
   mode: single
 - id: '1781325034527'
   alias: Bilresa PowerOff clicks
@@ -159,9 +159,9 @@
           - light.geosil_zemiswitch_jomyeong_1
           - light.geosil_zemiswitch_jomyeong_2
           - light.geosil_zemiswitch_jomyeong_3
-          - light.geosil_zemiswitch_jomyeong_4
+          - light.geosil_silringpaen_switch
           - light.geosil_zemiswitch_jomyeong_5
-          - light.geosil_zemiswitch_jomyeong_6
+          - light.geosil_eeokeon_switch
   mode: single
 - id: '1787300001'
   alias: 가상 청소기 - 청소 중 배터리 소모
@@ -228,13 +228,13 @@
 - id: '1787919015610'
   alias: 거실 실링팬 스위치 연동
   triggers:
-  - entity_id: light.geosil_zemiswitch_jomyeong_4
+  - entity_id: light.geosil_silringpaen_switch
     trigger: state
   actions:
   - choose:
     - conditions:
       - condition: state
-        entity_id: light.geosil_zemiswitch_jomyeong_4
+        entity_id: light.geosil_silringpaen_switch
         state: 'on'
       sequence:
       - target:
@@ -242,7 +242,7 @@
         action: fan.turn_on
     - conditions:
       - condition: state
-        entity_id: light.geosil_zemiswitch_jomyeong_4
+        entity_id: light.geosil_silringpaen_switch
         state: 'off'
       sequence:
       - target:
@@ -252,13 +252,13 @@
 - id: '1787919233903'
   alias: 거실 에어컨 스위치 연동
   triggers:
-  - entity_id: light.geosil_zemiswitch_jomyeong_6
+  - entity_id: light.geosil_eeokeon_switch
     trigger: state
   actions:
   - choose:
     - conditions:
       - condition: state
-        entity_id: light.geosil_zemiswitch_jomyeong_6
+        entity_id: light.geosil_eeokeon_switch
         state: 'on'
       sequence:
       - action: climate.set_hvac_mode
@@ -268,7 +268,7 @@
           hvac_mode: cool
     - conditions:
       - condition: state
-        entity_id: light.geosil_zemiswitch_jomyeong_6
+        entity_id: light.geosil_eeokeon_switch
         state: 'off'
       sequence:
       - action: climate.set_hvac_mode
@@ -300,4 +300,29 @@
       - target:
           entity_id: fan.anbang_silringpaen
         action: fan.turn_off
+  mode: single
+- id: '1789381557247'
+  alias: 안방화장실 환풍기 스위치 연동
+  description: 안방화장실 2번 스위치(zemiswitch jomyeong_2)에 실제 환풍기 연결됨
+  triggers:
+  - entity_id: light.anbanghwajangsil_hwanpunggi_switch
+    trigger: state
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: light.anbanghwajangsil_hwanpunggi_switch
+        state: 'on'
+      sequence:
+      - action: fan.turn_on
+        target:
+          entity_id: fan.anbanghwajangsil_hwanpunggi
+    - conditions:
+      - condition: state
+        entity_id: light.anbanghwajangsil_hwanpunggi_switch
+        state: 'off'
+      sequence:
+      - action: fan.turn_off
+        target:
+          entity_id: fan.anbanghwajangsil_hwanpunggi
   mode: single
