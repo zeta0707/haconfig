@@ -13,7 +13,7 @@ scene: !include scenes.yaml
 input_boolean:
   geosilhwajangsil_hwanpunggi_switch:
     name: "거실화장실 환풍기 전원"
-  bathroom2_exhaust_fan_state:
+  anbanghwajangsil_hwanpunggi_switch:
     name: "안방화장실 환풍기 전원"
   bogceunghwajangsil_hwanpunggi_switch:
     name: "복층화장실 환풍기 전원"
@@ -648,17 +648,17 @@ template:
  
       - name: "안방화장실 환풍기"
         unique_id: bathroom2_exhaust_fan
-        state: "{{ states('input_boolean.bathroom2_exhaust_fan_state') }}"
+        state: "{{ states('input_boolean.anbanghwajangsil_hwanpunggi_switch') }}"
  
         turn_on:
           - action: input_boolean.turn_on
             target:
-              entity_id: input_boolean.bathroom2_exhaust_fan_state
+              entity_id: input_boolean.anbanghwajangsil_hwanpunggi_switch
  
         turn_off:
           - action: input_boolean.turn_off
             target:
-              entity_id: input_boolean.bathroom2_exhaust_fan_state
+              entity_id: input_boolean.anbanghwajangsil_hwanpunggi_switch
  
       - name: "복층화장실 환풍기"
         unique_id: bathroom3_exhaust_fan

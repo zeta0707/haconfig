@@ -2,45 +2,45 @@
   alias: 누수 감지 알림
   description: ''
   triggers:
-  - entity_id: binary_sensor.tuya_nususenseo_water_leak
+  - entity_id: binary_sensor.cafe_water_leak
+    id: cafe
+    to: 'on'
+    trigger: state
+  - entity_id: binary_sensor.gongbubang_waterleak_sensor
+    id: gongbubang
     to: 'on'
     trigger: state
   actions:
-  - action: notify.mobile_app
-    data:
-      title: ⚠️ 누수 경고!
-      message: "주방에서 누수가 감지됐습니다! \U0001F4A7"
-  mode: single
-- id: '1780924411635'
-  alias: Smart Plug On
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - event.bilresa_dual_button_dancu_1
-  conditions: []
-  actions:
-  - action: switch.turn_on
-    metadata: {}
-    target:
-      entity_id: switch.grillplats_plug
-    data: {}
-  mode: single
-- id: '1780925775109'
-  alias: Smart Plug Off
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - event.bilresa_dual_button_dancu_2
-  conditions: []
-  actions:
-  - action: switch.turn_off
-    metadata: {}
-    target:
-      entity_id: switch.grillplats_plug
-    data: {}
-  mode: single
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: cafe
+      sequence:
+      - action: notify.mobile_app_galaxypad
+        data:
+          message: "cafe에서 누수가 감지됐습니다! \U0001F4A7"
+          title: ⚠️ 누수 경고!
+          data:
+            ttl: 0
+            priority: high
+            importance: high
+            channel: alarm_stream
+        continue_on_error: true
+    - conditions:
+      - condition: trigger
+        id: gongbubang
+      sequence:
+      - action: notify.mobile_app_galaxypad
+        data:
+          message: "공부방에서 누수가 감지됐습니다! \U0001F4A7"
+          title: ⚠️ 누수 경고!
+          data:
+            ttl: 0
+            priority: high
+            importance: high
+            channel: alarm_stream
+        continue_on_error: true
+  mode: parallel
 - id: '1781318745154'
   alias: Zemi1_grillplats
   triggers:
@@ -92,76 +92,6 @@
       - action: switch.turn_off
         target:
           entity_id: switch.grillplats_plug
-  mode: single
-- id: '1781324944517'
-  alias: Bilresa PowerOn clicks
-  triggers:
-  - trigger: state
-    entity_id:
-    - event.bilresa_dual_button_dancu_1
-  conditions: []
-  actions:
-  - choose:
-    - conditions:
-      - condition: template
-        value_template: '{{ trigger.to_state.attributes.event_type == ''multi_press_1''
-          }}'
-      sequence:
-      - action: light.turn_on
-        target:
-          entity_id:
-          - light.geosil_zemiswitch_jomyeong_1
-          - light.geosil_zemiswitch_jomyeong_2
-          - light.geosil_zemiswitch_jomyeong_3
-    - conditions:
-      - condition: template
-        value_template: '{{ trigger.to_state.attributes.event_type == ''multi_press_2''
-          }}'
-      sequence:
-      - action: light.turn_on
-        target:
-          entity_id:
-          - light.geosil_zemiswitch_jomyeong_1
-          - light.geosil_zemiswitch_jomyeong_2
-          - light.geosil_zemiswitch_jomyeong_3
-          - light.geosil_silringpaen_switch
-          - light.geosil_zemiswitch_jomyeong_5
-          - light.geosil_eeokeon_switch
-  mode: single
-- id: '1781325034527'
-  alias: Bilresa PowerOff clicks
-  triggers:
-  - trigger: state
-    entity_id:
-    - event.bilresa_dual_button_dancu_2
-  conditions: []
-  actions:
-  - choose:
-    - conditions:
-      - condition: template
-        value_template: '{{ trigger.to_state.attributes.event_type == ''multi_press_1''
-          }}'
-      sequence:
-      - action: light.turn_off
-        target:
-          entity_id:
-          - light.geosil_zemiswitch_jomyeong_1
-          - light.geosil_zemiswitch_jomyeong_2
-          - light.geosil_zemiswitch_jomyeong_3
-    - conditions:
-      - condition: template
-        value_template: '{{ trigger.to_state.attributes.event_type == ''multi_press_2''
-          }}'
-      sequence:
-      - action: light.turn_off
-        target:
-          entity_id:
-          - light.geosil_zemiswitch_jomyeong_1
-          - light.geosil_zemiswitch_jomyeong_2
-          - light.geosil_zemiswitch_jomyeong_3
-          - light.geosil_silringpaen_switch
-          - light.geosil_zemiswitch_jomyeong_5
-          - light.geosil_eeokeon_switch
   mode: single
 - id: '1787300001'
   alias: 가상 청소기 - 청소 중 배터리 소모
@@ -646,3 +576,218 @@
         target:
           entity_id: fan.junhobang_silringpaen
   mode: single
+- id: '1791636064135'
+  alias: 안방 BILRESA 휠 리모컨
+  description: 그룹1=조명(클릭 메인등 토글, 길게 간접등 토글, 회전 전체 켜기/끄기), 그룹2=실링팬(회전 속도, 클릭 켜기/끄기),
+    그룹3=에어컨(회전 온도, 클릭 켜기/끄기)
+  triggers:
+  - entity_id: event.anbang_wheel_button_beoteun_1
+    id: g1_cw
+    trigger: state
+  - entity_id: event.anbang_wheel_button_beoteun_2
+    id: g1_ccw
+    trigger: state
+  - entity_id: event.anbang_wheel_button_beoteun_3
+    id: g1_press
+    trigger: state
+  - entity_id: event.anbang_wheel_button_beoteun_4
+    id: g2_cw
+    trigger: state
+  - entity_id: event.anbang_wheel_button_beoteun_5
+    id: g2_ccw
+    trigger: state
+  - entity_id: event.anbang_wheel_button_beoteun_6
+    id: g2_press
+    trigger: state
+  - entity_id: event.anbang_wheel_button_beoteun_7
+    id: g3_cw
+    trigger: state
+  - entity_id: event.anbang_wheel_button_beoteun_8
+    id: g3_ccw
+    trigger: state
+  - entity_id: event.anbang_wheel_button_beoteun_9
+    id: g3_press
+    trigger: state
+  conditions:
+  - condition: template
+    value_template: '{{ trigger.to_state is not none and trigger.to_state.state not
+      in [''unknown'',''unavailable''] and trigger.from_state is not none and trigger.from_state.state
+      != ''unavailable'' }}'
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: g1_cw
+      sequence:
+      - action: light.turn_on
+        target:
+          entity_id:
+          - light.anbang_zemiswitch_jomyeong_1
+          - light.anbang_zemiswitch_jomyeong_2
+    - conditions:
+      - condition: trigger
+        id: g1_ccw
+      sequence:
+      - action: light.turn_off
+        target:
+          entity_id:
+          - light.anbang_zemiswitch_jomyeong_1
+          - light.anbang_zemiswitch_jomyeong_2
+    - conditions:
+      - condition: trigger
+        id: g1_press
+      sequence:
+      - choose:
+        - conditions:
+          - condition: template
+            value_template: '{{ ev == ''multi_press_1'' }}'
+          sequence:
+          - action: light.toggle
+            target:
+              entity_id: light.anbang_zemiswitch_jomyeong_1
+        - conditions:
+          - condition: template
+            value_template: '{{ ev == ''long_press'' }}'
+          sequence:
+          - action: light.toggle
+            target:
+              entity_id: light.anbang_zemiswitch_jomyeong_2
+    - conditions:
+      - condition: trigger
+        id: g2_cw
+      sequence:
+      - else:
+        - action: fan.increase_speed
+          data:
+            percentage_step: '{{ (n * 100 / 6) | round(0) }}'
+          target:
+            entity_id: fan.anbang_silringpaen
+        if:
+        - condition: state
+          entity_id: fan.anbang_silringpaen
+          state: 'off'
+        then:
+        - action: light.turn_on
+          target:
+            entity_id: light.anbang_zemiswitch_silringpaen_switch
+    - conditions:
+      - condition: trigger
+        id: g2_ccw
+      sequence:
+      - if:
+        - condition: state
+          entity_id: fan.anbang_silringpaen
+          state: 'on'
+        - condition: template
+          value_template: '{{ (state_attr(''fan.anbang_silringpaen'',''percentage'')
+            | int(0)) > 20 }}'
+        then:
+        - action: fan.decrease_speed
+          data:
+            percentage_step: '{{ (n * 100 / 6) | round(0) }}'
+          target:
+            entity_id: fan.anbang_silringpaen
+    - conditions:
+      - condition: trigger
+        id: g2_press
+      sequence:
+      - if:
+        - condition: template
+          value_template: '{{ ev == ''multi_press_1'' }}'
+        then:
+        - action: light.toggle
+          target:
+            entity_id: light.anbang_zemiswitch_silringpaen_switch
+    - conditions:
+      - condition: trigger
+        id: g3_cw
+      sequence:
+      - if:
+        - condition: template
+          value_template: '{{ not is_state(''climate.anbang_eeokeon'',''off'') }}'
+        then:
+        - action: climate.set_temperature
+          data:
+            temperature: '{{ [ (state_attr(''climate.anbang_eeokeon'',''temperature'')
+              | float(24)) + n, 30 ] | min }}'
+          target:
+            entity_id: climate.anbang_eeokeon
+    - conditions:
+      - condition: trigger
+        id: g3_ccw
+      sequence:
+      - if:
+        - condition: template
+          value_template: '{{ not is_state(''climate.anbang_eeokeon'',''off'') }}'
+        then:
+        - action: climate.set_temperature
+          data:
+            temperature: '{{ [ (state_attr(''climate.anbang_eeokeon'',''temperature'')
+              | float(24)) - n, 16 ] | max }}'
+          target:
+            entity_id: climate.anbang_eeokeon
+    - conditions:
+      - condition: trigger
+        id: g3_press
+      sequence:
+      - if:
+        - condition: template
+          value_template: '{{ ev == ''multi_press_1'' }}'
+        then:
+        - action: light.toggle
+          target:
+            entity_id: light.anbang_zemiswitch_eeokeon_switch
+  max: 10
+  mode: queued
+  variables:
+    ev: '{{ trigger.to_state.attributes.event_type | default('''') }}'
+    n: '{{ [ (trigger.to_state.attributes.totalNumberOfPressesCounted | default(1)
+      | int(1)), 1 ] | max }}'
+- id: '1791637925589'
+  alias: 거실 BILRESA 듀얼 버튼 리모컨
+  description: 버튼1(PowerOn)=켜기, 버튼2(PowerOff)=끄기. 클릭=메인등, 더블클릭=전체등(우물·메인·베란다·복도),
+    길게 누르기=실링팬
+  triggers:
+  - entity_id: event.bilresa_dual_button_dancu_1
+    id: 'on'
+    trigger: state
+  - entity_id: event.bilresa_dual_button_dancu_2
+    id: 'off'
+    trigger: state
+  conditions:
+  - condition: template
+    value_template: '{{ trigger.to_state is not none and trigger.to_state.state not
+      in [''unknown'',''unavailable''] and trigger.from_state is not none and trigger.from_state.state
+      != ''unavailable'' }}'
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ ev == ''multi_press_1'' }}'
+      sequence:
+      - action: light.{{ svc }}
+        target:
+          entity_id: light.geosil_zemiswitch_jomyeong_3
+    - conditions:
+      - condition: template
+        value_template: '{{ ev == ''multi_press_2'' }}'
+      sequence:
+      - action: light.{{ svc }}
+        target:
+          entity_id:
+          - light.geosil_zemiswitch_jomyeong_1
+          - light.geosil_zemiswitch_jomyeong_2
+          - light.geosil_zemiswitch_jomyeong_3
+          - light.geosil_zemiswitch_jomyeong_5
+    - conditions:
+      - condition: template
+        value_template: '{{ ev == ''long_press'' }}'
+      sequence:
+      - action: light.{{ svc }}
+        target:
+          entity_id: light.geosil_silringpaen_switch
+  max: 5
+  mode: queued
+  variables:
+    ev: '{{ trigger.to_state.attributes.event_type | default('''') }}'
+    svc: '{{ ''turn_on'' if trigger.id == ''on'' else ''turn_off'' }}'
