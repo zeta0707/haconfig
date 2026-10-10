@@ -13,25 +13,23 @@ dashboards/            # dashboard-2nd 스냅샷들 (main.yaml이 최신)
 themes/                # 테마 정의
 www-images/            # 대시보드에서 쓰는 이미지 (floor1.png, floor2.png 등)
 getDashboard.sh        # 대시보드만 받아서 dashboards/main.yaml 생성
-getCode.sh             # configuration/automations/scripts/scenes/dashboards/themes/images 전체 다운로드
+getCode.sh             # configuration/automations/scripts/scenes/themes/images 다운로드 (SSH, 대시보드 제외)
 .agents/skills/        # Claude용 Home Assistant 베스트 프랙티스 스킬 참고 자료
 ```
 
 ## 동기화 스크립트
 
-두 스크립트 모두 기본은 **WebSocket/REST API 모드**(비밀번호 불필요)이고, `configuration.yaml`/`themes`/`www-images`처럼 API로 못 받는 정적 파일이 필요할 때만 `--ssh` 옵션을 씁니다.
+용도가 다른 두 스크립트를 **각각 따로** 실행합니다.
 
 ```bash
-./getDashboard.sh          # dashboard-2nd → dashboards/main.yaml
-./getDashboard.sh --ssh    # SSH로 동일 작업
-
-./getCode.sh                # automations/scripts/scenes/dashboards 전체 (API)
-./getCode.sh --ssh          # + configuration.yaml, themes/, www-images/ 까지 (SSH, 비밀번호 필요)
+./getCode.sh        # configuration/automations/scripts/scenes/themes/www-images (SSH, 비밀번호 필요)
+./getDashboard.sh   # dashboard-2nd → dashboards/main.yaml (API, 비밀번호 불필요)
 ```
 
-`getCode.sh`의 API 모드는 `automations.yaml`/`scripts.yaml`/`scenes.yaml`을 **entity_registry 조회 → REST API로 각 항목 설정 조회 → YAML 재조립** 방식으로 만듭니다. 즉 HA가 내부적으로 쓰는 포맷 그대로 재생성되므로, 원본을 SSH로 받은 파일과 들여쓰기 스타일이 다를 수 있습니다 (아래 "YAML 들여쓰기 차이" 참고).
+- `getCode.sh`는 SSH(scp)로 HA 본체의 원본 파일을 그대로 받아옵니다. 그래서 `automations.yaml`/`scripts.yaml`이 HA가 직접 쓰는 YAML 형식 그대로 유지되어, `git diff`에 실제 변경만 나타납니다. **대시보드(`dashboards/`)는 받지 않습니다.** HA 본체의 `dashboards/` 폴더는 오래된 파일이라 덮어쓰면 최신 `main.yaml`이 옛 내용으로 되돌아갑니다.
+- `getDashboard.sh`는 WebSocket API로 현재 쓰는 `dashboard-2nd`(storage 모드)를 받아 `dashboards/main.yaml`로 변환합니다. 대시보드는 항상 이 스크립트로만 받습니다.
 
-> **주의:** 두 스크립트 모두 `HA_TOKEN` 환경변수가 없을 때 쓰는 기본값으로 실제 long-lived access token이 하드코딩되어 있습니다. 다행히 `.gitignore`에 `*.sh`가 포함되어 있어 두 스크립트 자체는 git에 커밋되지 않지만, 토큰을 바꾸거나 재발급할 때는 스크립트 파일 안의 기본값도 같이 수정해야 합니다. 가능하면 기본값에 토큰을 박아두지 말고 매번 `HA_TOKEN=... ./getCode.sh`처럼 환경변수로 주입하는 걸 권장합니다.
+> **주의:** `getDashboard.sh`에는 `HA_TOKEN` 환경변수가 없을 때 쓰는 기본값으로 실제 long-lived access token이 하드코딩되어 있습니다. 다행히 `.gitignore`에 `*.sh`가 포함되어 있어 스크립트 자체는 git에 커밋되지 않지만, 토큰을 바꾸거나 재발급할 때는 스크립트 안의 기본값도 같이 수정해야 합니다. 가능하면 기본값에 토큰을 박아두지 말고 `HA_TOKEN=... ./getDashboard.sh`처럼 환경변수로 주입하는 걸 권장합니다.
 
 ## 대시보드(dashboard-2nd) 구조
 

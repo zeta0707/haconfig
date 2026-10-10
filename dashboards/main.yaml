@@ -112,106 +112,327 @@ decluttering_templates:
                 }
         status:
           card:
-            type: horizontal-stack
-            cards:
-              - type: custom:button-card
-                icon: mdi:fire
-                entity: '[[boiler_entity]]'
-                show_name: false
-                show_state: false
-                tap_action:
-                  action: toggle
-                styles:
-                  card:
-                    - background: none
-                    - box-shadow: none
-                    - width: 32px
-                    - height: 32px
-                    - padding: '0'
-                card_mod:
-                  style: |
-                    ha-card {
-                      display: {{ 'none' if '[[boiler_entity]]' == 'none' else 'flex' }} !important;
-                    }
-                    @keyframes heater-pulse {
-                      0%, 100% { transform: scale(1); }
-                      50% { transform: scale(1.40); }
-                    }
-                    ha-icon, ha-state-icon, .icon {
-                      --mdc-icon-size: 32px !important;
-                      width: 32px !important;
-                      height: 32px !important;
-                      color: {{ '#FF7043' if ('[[boiler_entity]]' != 'none' and not is_state('[[boiler_entity]]', 'off')) else 'var(--gray300)' }} !important;
-                      animation: {{ 'heater-pulse 2s ease-in-out infinite' if ('[[boiler_entity]]' != 'none' and not is_state('[[boiler_entity]]', 'off')) else 'none' }} !important;
-                      display: inline-block !important;
-                      transform-origin: center;
-                    }
-              - type: custom:button-card
-                icon: mdi:snowflake
-                entity: '[[climate_entity]]'
-                show_name: false
-                show_state: false
-                styles:
-                  card:
-                    - background: none
-                    - box-shadow: none
-                    - width: 32px
-                    - height: 32px
-                    - padding: '0'
-                card_mod:
-                  style: |
-                    ha-card {
-                      display: {{ 'none' if '[[climate_entity]]' == 'none' else 'flex' }} !important;
-                    }
-                    @keyframes ac-spin {
-                      from { transform: rotate(0deg); }
-                      to { transform: rotate(360deg); }
-                    }
-                    ha-icon, ha-state-icon, .icon {
-                      --mdc-icon-size: 32px !important;
-                      width: 32px !important;
-                      height: 32px !important;
-                      color: {{ '#4FC3F7' if ('[[climate_entity]]' != 'none' and not is_state('[[climate_entity]]', 'off')) else 'var(--gray300)' }} !important;
-                      animation: {{ 'ac-spin 1.6s linear infinite' if ('[[climate_entity]]' != 'none' and not is_state('[[climate_entity]]', 'off')) else 'none' }} !important;
-                      display: inline-block !important;
-                      transform-origin: center;
-                    }
-              - type: custom:button-card
-                icon: mdi:fan
-                entity: '[[fan_entity]]'
-                show_name: false
-                show_state: false
-                styles:
-                  card:
-                    - background: none
-                    - box-shadow: none
-                    - width: 32px
-                    - height: 32px
-                    - padding: '0'
-                card_mod:
-                  style: |
-                    ha-card {
-                      display: {{ 'none' if '[[fan_entity]]' == 'none' else 'flex' }} !important;
-                    }
-                    @keyframes fan-spin {
-                      from { transform: rotate(0deg); }
-                      to { transform: rotate(360deg); }
-                    }
-                    ha-icon, ha-state-icon, .icon {
-                      --mdc-icon-size: 32px !important;
-                      width: 32px !important;
-                      height: 32px !important;
-                      color: {{ '#4CAF50' if is_state('[[fan_entity]]', 'on') else 'var(--gray300)' }} !important;
-                      animation: {{ 'fan-spin 1.2s linear infinite' if is_state('[[fan_entity]]', 'on') else 'none' }} !important;
-                      display: inline-block;
-                      transform-origin: center;
-                            }
-                tap_action:
-                  action: toggle
-                  haptic: light
-                hold_action:
-                  action: more-info
-                  haptic: medium
+            type: custom:button-card
+            show_name: false
+            show_icon: false
+            show_state: false
+            tap_action:
+              action: none
+            triggers_update:
+              - '[[door_entity]]'
+              - '[[presence_a]]'
+              - '[[presence_b]]'
+              - '[[boiler_entity]]'
+              - '[[fan_entity]]'
+              - '[[climate_entity]]'
+            custom_fields:
+              door:
+                card:
+                  type: custom:button-card
+                  show_name: false
+                  show_state: false
+                  styles:
+                    card:
+                      - background: none
+                      - box-shadow: none
+                      - border: none
+                      - border-radius: '0'
+                      - width: 32px
+                      - height: 32px
+                      - padding: '0'
+                  card_mod:
+                    style: |
+                      ha-card {
+                        border: none !important;
+                        box-shadow: none !important;
+                        background: none !important;
+                      }
+                      @keyframes heater-pulse {
+                        0%, 100% { transform: scale(1); }
+                        50% { transform: scale(1.4); }
+                      }
+                      @keyframes icon-spin {
+                        from { transform: rotate(0deg); }
+                        to { transform: rotate(360deg); }
+                      }
+                      ha-icon, ha-state-icon, .icon {
+                        --mdc-icon-size: 32px !important;
+                        width: 32px !important;
+                        height: 32px !important;
+                        color: {{ '#F44336' if ('[[door_entity]]' != 'none' and is_state('[[door_entity]]', 'on')) else 'var(--gray300)' }} !important;
+                        animation: none !important;
+                        display: inline-block !important;
+                        transform-origin: center;
+                      }
+                  icon: mdi:door-closed
+                  entity: '[[door_entity]]'
+                  state:
+                    - value: 'on'
+                      icon: mdi:door-open
+                  tap_action:
+                    action: more-info
+              presence:
+                card:
+                  type: custom:button-card
+                  show_name: false
+                  show_state: false
+                  styles:
+                    card:
+                      - background: none
+                      - box-shadow: none
+                      - border: none
+                      - border-radius: '0'
+                      - width: 32px
+                      - height: 32px
+                      - padding: '0'
+                  card_mod:
+                    style: |
+                      ha-card {
+                        border: none !important;
+                        box-shadow: none !important;
+                        background: none !important;
+                      }
+                      @keyframes heater-pulse {
+                        0%, 100% { transform: scale(1); }
+                        50% { transform: scale(1.4); }
+                      }
+                      @keyframes icon-spin {
+                        from { transform: rotate(0deg); }
+                        to { transform: rotate(360deg); }
+                      }
+                      ha-icon, ha-state-icon, .icon {
+                        --mdc-icon-size: 32px !important;
+                        width: 32px !important;
+                        height: 32px !important;
+                        color: {{ '#2196F3' if (('[[presence_a]]' != 'none' and is_state('[[presence_a]]', 'on')) or ('[[presence_b]]' != 'none' and is_state('[[presence_b]]', 'on'))) else 'var(--gray300)' }} !important;
+                        animation: none !important;
+                        display: inline-block !important;
+                        transform-origin: center;
+                      }
+                  icon: '[[[ const a = states[''[[presence_a]]'']?.state === ''on'';
+                    const b = states[''[[presence_b]]'']?.state === ''on''; return
+                    (a || b) ? ''mdi:account'' : ''mdi:account-outline''; ]]]'
+                  triggers_update:
+                    - '[[presence_a]]'
+                    - '[[presence_b]]'
+                  tap_action:
+                    action: none
+              boiler:
+                card:
+                  type: custom:button-card
+                  show_name: false
+                  show_state: false
+                  styles:
+                    card:
+                      - background: none
+                      - box-shadow: none
+                      - border: none
+                      - border-radius: '0'
+                      - width: 32px
+                      - height: 32px
+                      - padding: '0'
+                  card_mod:
+                    style: |
+                      ha-card {
+                        border: none !important;
+                        box-shadow: none !important;
+                        background: none !important;
+                      }
+                      @keyframes heater-pulse {
+                        0%, 100% { transform: scale(1); }
+                        50% { transform: scale(1.4); }
+                      }
+                      @keyframes icon-spin {
+                        from { transform: rotate(0deg); }
+                        to { transform: rotate(360deg); }
+                      }
+                      ha-icon, ha-state-icon, .icon {
+                        --mdc-icon-size: 32px !important;
+                        width: 32px !important;
+                        height: 32px !important;
+                        color: {{ '#FF7043' if ('[[boiler_entity]]' != 'none' and not is_state('[[boiler_entity]]', 'off')) else 'var(--gray300)' }} !important;
+                        animation: {{ 'heater-pulse 2s ease-in-out infinite' if ('[[boiler_entity]]' != 'none' and not is_state('[[boiler_entity]]', 'off')) else 'none' }} !important;
+                        display: inline-block !important;
+                        transform-origin: center;
+                      }
+                  icon: mdi:fire
+                  entity: '[[boiler_entity]]'
+                  tap_action:
+                    action: toggle
+              fan:
+                card:
+                  type: custom:button-card
+                  show_name: false
+                  show_state: false
+                  styles:
+                    card:
+                      - background: none
+                      - box-shadow: none
+                      - border: none
+                      - border-radius: '0'
+                      - width: 32px
+                      - height: 32px
+                      - padding: '0'
+                  card_mod:
+                    style: |
+                      ha-card {
+                        border: none !important;
+                        box-shadow: none !important;
+                        background: none !important;
+                      }
+                      @keyframes heater-pulse {
+                        0%, 100% { transform: scale(1); }
+                        50% { transform: scale(1.4); }
+                      }
+                      @keyframes icon-spin {
+                        from { transform: rotate(0deg); }
+                        to { transform: rotate(360deg); }
+                      }
+                      ha-icon, ha-state-icon, .icon {
+                        --mdc-icon-size: 32px !important;
+                        width: 32px !important;
+                        height: 32px !important;
+                        color: {{ '#4CAF50' if ('[[fan_entity]]' != 'none' and is_state('[[fan_entity]]', 'on')) else 'var(--gray300)' }} !important;
+                        animation: {{ 'icon-spin 1.2s linear infinite' if ('[[fan_entity]]' != 'none' and is_state('[[fan_entity]]', 'on')) else 'none' }} !important;
+                        display: inline-block !important;
+                        transform-origin: center;
+                      }
+                  icon: mdi:fan
+                  entity: '[[fan_entity]]'
+                  tap_action:
+                    action: call-service
+                    service: homeassistant.toggle
+                    service_data:
+                      entity_id: '[[fan_switch]]'
+                    haptic: light
+                  hold_action:
+                    action: more-info
+                    haptic: medium
+              aircon:
+                card:
+                  type: custom:button-card
+                  show_name: false
+                  show_state: false
+                  styles:
+                    card:
+                      - background: none
+                      - box-shadow: none
+                      - border: none
+                      - border-radius: '0'
+                      - width: 32px
+                      - height: 32px
+                      - padding: '0'
+                  card_mod:
+                    style: |
+                      ha-card {
+                        border: none !important;
+                        box-shadow: none !important;
+                        background: none !important;
+                      }
+                      @keyframes heater-pulse {
+                        0%, 100% { transform: scale(1); }
+                        50% { transform: scale(1.4); }
+                      }
+                      @keyframes icon-spin {
+                        from { transform: rotate(0deg); }
+                        to { transform: rotate(360deg); }
+                      }
+                      ha-icon, ha-state-icon, .icon {
+                        --mdc-icon-size: 32px !important;
+                        width: 32px !important;
+                        height: 32px !important;
+                        color: {{ '#4FC3F7' if ('[[climate_entity]]' != 'none' and not is_state('[[climate_entity]]', 'off')) else 'var(--gray300)' }} !important;
+                        animation: {{ 'icon-spin 1.6s linear infinite' if ('[[climate_entity]]' != 'none' and not is_state('[[climate_entity]]', 'off')) else 'none' }} !important;
+                        display: inline-block !important;
+                        transform-origin: center;
+                      }
+                  icon: mdi:snowflake
+                  entity: '[[climate_entity]]'
+                  tap_action:
+                    action: call-service
+                    service: homeassistant.toggle
+                    service_data:
+                      entity_id: '[[climate_switch]]'
+                    haptic: light
+            styles:
+              card:
+                - background: none
+                - box-shadow: none
+                - border: none
+                - padding: '0'
+                - position: relative
+                - overflow: visible
+                - height: 32px
+                - width: '[[[ return Math.max(0, (((''[[door_entity]]'' !== ''none'')
+                    ? 1 : 0) + ((''[[presence_a]]'' !== ''none'' || ''[[presence_b]]''
+                    !== ''none'') ? 1 : 0) + ((''[[boiler_entity]]'' !== ''none'')
+                    ? 1 : 0) + ((''[[fan_entity]]'' !== ''none'') ? 1 : 0) + ((''[[climate_entity]]''
+                    !== ''none'') ? 1 : 0)) * 36 - 4) + ''px''; ]]]'
+              grid:
+                - position: relative
+                - width: 100%
+                - height: 32px
+              custom_fields:
+                door:
+                  - position: absolute
+                  - top: '0'
+                  - left: '[[[ return (0) * 36 + ''px''; ]]]'
+                  - width: 32px
+                  - height: 32px
+                  - padding: '0'
+                  - margin: '0'
+                  - display: '[[[ return (''[[door_entity]]'' !== ''none'') ? ''block''
+                      : ''none''; ]]]'
+                presence:
+                  - position: absolute
+                  - top: '0'
+                  - left: '[[[ return (((''[[door_entity]]'' !== ''none'') ? 1 : 0))
+                      * 36 + ''px''; ]]]'
+                  - width: 32px
+                  - height: 32px
+                  - padding: '0'
+                  - margin: '0'
+                  - display: '[[[ return (''[[presence_a]]'' !== ''none'' || ''[[presence_b]]''
+                      !== ''none'') ? ''block'' : ''none''; ]]]'
+                boiler:
+                  - position: absolute
+                  - top: '0'
+                  - left: '[[[ return (((''[[door_entity]]'' !== ''none'') ? 1 : 0)
+                      + ((''[[presence_a]]'' !== ''none'' || ''[[presence_b]]'' !==
+                      ''none'') ? 1 : 0)) * 36 + ''px''; ]]]'
+                  - width: 32px
+                  - height: 32px
+                  - padding: '0'
+                  - margin: '0'
+                  - display: '[[[ return (''[[boiler_entity]]'' !== ''none'') ? ''block''
+                      : ''none''; ]]]'
+                fan:
+                  - position: absolute
+                  - top: '0'
+                  - left: '[[[ return (((''[[door_entity]]'' !== ''none'') ? 1 : 0)
+                      + ((''[[presence_a]]'' !== ''none'' || ''[[presence_b]]'' !==
+                      ''none'') ? 1 : 0) + ((''[[boiler_entity]]'' !== ''none'') ?
+                      1 : 0)) * 36 + ''px''; ]]]'
+                  - width: 32px
+                  - height: 32px
+                  - padding: '0'
+                  - margin: '0'
+                  - display: '[[[ return (''[[fan_entity]]'' !== ''none'') ? ''block''
+                      : ''none''; ]]]'
+                aircon:
+                  - position: absolute
+                  - top: '0'
+                  - left: '[[[ return (((''[[door_entity]]'' !== ''none'') ? 1 : 0)
+                      + ((''[[presence_a]]'' !== ''none'' || ''[[presence_b]]'' !==
+                      ''none'') ? 1 : 0) + ((''[[boiler_entity]]'' !== ''none'') ?
+                      1 : 0) + ((''[[fan_entity]]'' !== ''none'') ? 1 : 0)) * 36 +
+                      ''px''; ]]]'
+                  - width: 32px
+                  - height: 32px
+                  - padding: '0'
+                  - margin: '0'
+                  - display: '[[[ return (''[[climate_entity]]'' !== ''none'') ? ''block''
+                      : ''none''; ]]]'
     grid_options:
       columns: 12
       rows: auto
@@ -1554,7 +1775,7 @@ views:
                           template: room_overview_card
                           variables:
                             - hash: jiharoom
-                            - icon: mdi:face-woman-shimmer-outline
+                            - icon: mdi:face-woman-profile
                             - name: 지하방
                             - border_radius: 6px 36px 36px 6px
                             - icon_color: '#6a1b9a'
@@ -1616,6 +1837,11 @@ views:
                   - boiler_entity: climate.geosil_nanbang
                   - climate_entity: climate.geosil_eeokeon
                   - fan_entity: fan.geosil_silringpaen
+                  - door_entity: none
+                  - presence_a: none
+                  - presence_b: none
+                  - fan_switch: light.geosil_silringpaen_switch
+                  - climate_switch: light.geosil_eeokeon_switch
               - type: custom:gap-card
                 height: 5px
                 grid_options:
@@ -1630,13 +1856,13 @@ views:
                   - icon_color: orange
                   - button_height: 38px
                   - b1_entity: light.geosil_zemiswitch_jomyeong_1
-                  - b1_name: 우물조명
+                  - b1_name: 우물등
                   - b2_entity: light.geosil_zemiswitch_jomyeong_3
-                  - b2_name: 메인조명
+                  - b2_name: 메인등
                   - b3_entity: light.geosil_zemiswitch_jomyeong_5
-                  - b3_name: 베란다조명
+                  - b3_name: 베란다등
                   - b4_entity: light.geosil_zemiswitch_jomyeong_2
-                  - b4_name: 복도
+                  - b4_name: 복도등
                   - b5_entity: light.geosil_silringpaen_switch
                   - b5_name: 실링팬
                   - b6_entity: light.geosil_eeokeon_switch
@@ -1724,6 +1950,11 @@ views:
                   - boiler_entity: climate.jubang_nanbang
                   - climate_entity: climate.jubang_eeokeon
                   - fan_entity: none
+                  - door_entity: none
+                  - presence_a: none
+                  - presence_b: none
+                  - fan_switch: none
+                  - climate_switch: input_boolean.jubang_eeokeon_switch
               - type: custom:gap-card
                 height: 5px
                 grid_options:
@@ -1740,13 +1971,13 @@ views:
                   - b1_entity: input_boolean.jubang_jomyeong_1
                   - b1_name: 메인등
                   - b2_entity: input_boolean.jubang_jomyeong_3
-                  - b2_name: 상부장
+                  - b2_name: 상부장등
                   - b3_entity: input_boolean.jubang_jomyeong_5
-                  - b3_name: 확장부
+                  - b3_name: 확장부등
                   - b4_entity: input_boolean.jubang_jomyeong_2
                   - b4_name: 식탁등
                   - b5_entity: input_boolean.jubang_jomyeong_4
-                  - b5_name: 홈바
+                  - b5_name: 홈바등
                   - b6_entity: input_boolean.jubang_eeokeon_switch
                   - b6_name: 에어컨
               - type: custom:gap-card
@@ -1825,6 +2056,11 @@ views:
                   - boiler_entity: none
                   - climate_entity: none
                   - fan_entity: fan.geosilhwajangsil_hwanpunggi
+                  - door_entity: none
+                  - presence_a: none
+                  - presence_b: none
+                  - fan_switch: input_boolean.geosilhwajangsil_hwanpunggi_switch
+                  - climate_switch: none
               - type: custom:gap-card
                 height: 5px
                 grid_options:
@@ -1877,6 +2113,11 @@ views:
                   - boiler_entity: none
                   - climate_entity: none
                   - fan_entity: fan.anbanghwajangsil_hwanpunggi
+                  - door_entity: binary_sensor.contact_sensor_door
+                  - presence_a: binary_sensor.presense_sensor_occupancy
+                  - presence_b: binary_sensor.mwave_sensor_presence
+                  - fan_switch: input_boolean.anbanghwajangsil_hwanpunggi_switch
+                  - climate_switch: none
               - type: custom:gap-card
                 height: 5px
                 grid_options:
@@ -1890,13 +2131,13 @@ views:
                   - circle_bg: '#e1d8f1'
                   - icon_color: purple
                   - button_height: 34px
-                  - b1_entity: light.anbanghwajangsil_zemiswitch_jomyeong_1
+                  - b1_entity: input_boolean.anbanghwajangsil_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: light.anbanghwajangsil_zemiswitch_jomyeong_2
+                  - b2_entity: input_boolean.anbanghwajangsil_jomyeong_2
                   - b2_name: 간접등
-                  - b3_entity: light.anbanghwajangsil_hwanpunggi_switch
+                  - b3_entity: input_boolean.anbanghwajangsil_hwanpunggi_switch
                   - b3_name: 환풍기
-                  - b4_entity: light.anbanghwajangsil_zemiswitch_jomyeong_4
+                  - b4_entity: input_boolean.anbanghwajangsil_jomyeong_4
                   - b4_name: 전체
                   - b5_entity: none
                   - b5_name: none
@@ -1906,55 +2147,6 @@ views:
                 height: 5px
                 grid_options:
                   columns: 12
-                  rows: auto
-              - type: custom:button-card
-                name: 도어
-                icon: mdi:door
-                entity: binary_sensor.contact_sensor_door
-                show_state: false
-                custom_fields:
-                  status: |
-                    [[[
-                      const s = states['binary_sensor.contact_sensor_door']?.state;
-                      if (s === 'on') return '열림';
-                      if (s === 'off') return '닫힘';
-                      return '—';
-                    ]]]
-                styles:
-                  grid:
-                    - grid-template-areas: '"n" "i" "status"'
-                    - grid-template-rows: min-content min-content min-content
-                    - justify-items: center
-                  card:
-                    - padding: 16px 8px
-                    - background-color: var(--gray100)
-                    - box-shadow: '8px 8px 16px var(--gray300), -8px -8px 16px #ffffff'
-                    - border: 1px solid rgba(255,255,255,0.1)
-                    - border-left: |
-                        [[[
-                          const s = states['binary_sensor.contact_sensor_door']?.state;
-                          return s === 'on' ? '4px solid #00C853' : '4px solid #F97316';
-                        ]]]
-                  name:
-                    - font-size: 13px
-                    - font-weight: 500
-                    - color: black
-                    - padding-bottom: 4px
-                  icon:
-                    - width: 26px
-                    - color: |
-                        [[[
-                          const s = states['binary_sensor.contact_sensor_door']?.state;
-                          return s === 'on' ? '#00C853' : '#F97316';
-                        ]]]
-                  custom_fields:
-                    status:
-                      - font-size: 14px
-                      - font-weight: 700
-                      - padding-top: 6px
-                      - text-align: center
-                grid_options:
-                  columns: 4
                   rows: auto
               - type: custom:button-card
                 name: mmWave
@@ -2081,6 +2273,11 @@ views:
                   - boiler_entity: none
                   - climate_entity: none
                   - fan_entity: none
+                  - door_entity: none
+                  - presence_a: none
+                  - presence_b: none
+                  - fan_switch: none
+                  - climate_switch: none
               - type: custom:gap-card
                 height: 5px
                 grid_options:
@@ -2094,14 +2291,14 @@ views:
                   - circle_bg: '#fdd9d7'
                   - icon_color: red
                   - button_height: 34px
-                  - b1_entity: input_boolean.hyeongwan_jomyeong_1
+                  - b1_entity: light.hyeongwan_zemiswitch_jomyeong_1
                   - b1_name: 현관등
-                  - b2_entity: input_boolean.hyeongwan_jomyeong_2
-                  - b2_name: 복도등
-                  - b3_entity: input_boolean.hyeongwan_jomyeong_3
-                  - b3_name: 보조등
-                  - b4_entity: input_boolean.hyeongwan_jomyeong_4
-                  - b4_name: 일괄소등
+                  - b2_entity: light.hyeongwan_zemiswitch_jomyeong_2
+                  - b2_name: 전체
+                  - b3_entity: none
+                  - b3_name: none
+                  - b4_entity: none
+                  - b4_name: none
                   - b5_entity: none
                   - b5_name: none
                   - b6_entity: none
@@ -2133,6 +2330,11 @@ views:
                   - boiler_entity: climate.anbang_nanbang
                   - climate_entity: climate.anbang_eeokeon
                   - fan_entity: fan.anbang_silringpaen
+                  - door_entity: none
+                  - presence_a: none
+                  - presence_b: none
+                  - fan_switch: light.anbang_zemiswitch_silringpaen_switch
+                  - climate_switch: light.anbang_zemiswitch_eeokeon_switch
               - type: custom:gap-card
                 height: 5px
                 grid_options:
@@ -2146,13 +2348,13 @@ views:
                   - circle_bg: '#fdd9d7'
                   - icon_color: red
                   - button_height: 34px
-                  - b1_entity: input_boolean.anbang_jomyeong_1
+                  - b1_entity: light.anbang_zemiswitch_jomyeong_1
                   - b1_name: 메인등
-                  - b2_entity: input_boolean.anbang_jomyeong_2
+                  - b2_entity: light.anbang_zemiswitch_jomyeong_2
                   - b2_name: 간접등
-                  - b3_entity: input_boolean.anbang_silringpaen_switch
+                  - b3_entity: light.anbang_zemiswitch_silringpaen_switch
                   - b3_name: 실링팬
-                  - b4_entity: input_boolean.anbang_eeokeon_switch
+                  - b4_entity: light.anbang_zemiswitch_eeokeon_switch
                   - b4_name: 에어컨
                   - b5_entity: none
                   - b5_name: none
@@ -2228,7 +2430,12 @@ views:
                   - humidity_entity: sensor.temperature_sensor_humidity
                   - boiler_entity: climate.junhobang_nanbang
                   - climate_entity: climate.junhobang_eeokeon
-                  - fan_entity: none
+                  - fan_entity: fan.junhobang_silringpaen
+                  - door_entity: none
+                  - presence_a: none
+                  - presence_b: none
+                  - fan_switch: input_boolean.junhobang_silringpaen_switch
+                  - climate_switch: input_boolean.junhobang_eeokeon_switch
               - type: custom:gap-card
                 height: 5px
                 grid_options:
@@ -2246,8 +2453,8 @@ views:
                   - b1_name: 메인등
                   - b2_entity: input_boolean.junhobang_jomyeong_2
                   - b2_name: 보조등
-                  - b3_entity: input_boolean.junhobang_jomyeong_3
-                  - b3_name: 전자제품
+                  - b3_entity: input_boolean.junhobang_silringpaen_switch
+                  - b3_name: 실링팬
                   - b4_entity: input_boolean.junhobang_eeokeon_switch
                   - b4_name: 에어컨
                   - b5_entity: none
@@ -2330,6 +2537,11 @@ views:
                   - boiler_entity: climate.nagyeongbang_nanbang
                   - climate_entity: climate.nagyeongbang_eeokeon
                   - fan_entity: fan.nagyeongbang_silringpaen
+                  - door_entity: none
+                  - presence_a: none
+                  - presence_b: none
+                  - fan_switch: input_boolean.nagyeongbang_silringpaen_switch
+                  - climate_switch: input_boolean.nagyeongbang_eeokeon_switch
               - type: custom:gap-card
                 height: 5px
                 grid_options:
@@ -2431,6 +2643,11 @@ views:
                   - boiler_entity: climate.osbang_nanbang
                   - climate_entity: climate.deureseurum_eeokeon
                   - fan_entity: none
+                  - door_entity: none
+                  - presence_a: none
+                  - presence_b: none
+                  - fan_switch: none
+                  - climate_switch: input_boolean.osbang_eeokeon_switch
               - type: custom:gap-card
                 height: 5px
                 grid_options:
@@ -2449,7 +2666,7 @@ views:
                   - b2_entity: input_boolean.osbang_jomyeong_2
                   - b2_name: 보조등
                   - b3_entity: input_boolean.osbang_jomyeong_3
-                  - b3_name: 전자제품
+                  - b3_name: 제습기
                   - b4_entity: input_boolean.osbang_eeokeon_switch
                   - b4_name: 에어컨
                   - b5_entity: none
@@ -2532,6 +2749,11 @@ views:
                   - boiler_entity: climate.gongbubang_nanbang
                   - climate_entity: climate.gongbubang_eeokeon
                   - fan_entity: fan.gongbubang_silringpaen
+                  - door_entity: none
+                  - presence_a: none
+                  - presence_b: none
+                  - fan_switch: input_boolean.gongbubang_silringpaen_switch
+                  - climate_switch: input_boolean.gongbubang_eeokeon_switch
               - type: custom:gap-card
                 height: 5px
                 grid_options:
@@ -2633,6 +2855,11 @@ views:
                   - boiler_entity: climate.jihabang_nanbang
                   - climate_entity: climate.jihabang_eeokeon
                   - fan_entity: none
+                  - door_entity: none
+                  - presence_a: none
+                  - presence_b: none
+                  - fan_switch: none
+                  - climate_switch: input_boolean.jihabang_eeokeon_switch
               - type: custom:gap-card
                 height: 5px
                 grid_options:
@@ -2734,6 +2961,11 @@ views:
                   - boiler_entity: none
                   - climate_entity: climate.cafe_eeokeon
                   - fan_entity: fan.cafe_silringpaen
+                  - door_entity: none
+                  - presence_a: none
+                  - presence_b: none
+                  - fan_switch: input_boolean.cafe_silringpaen_switch
+                  - climate_switch: input_boolean.cafe_eeokeon_switch
               - type: custom:gap-card
                 height: 5px
                 grid_options:
@@ -2750,7 +2982,7 @@ views:
                   - b1_entity: input_boolean.cafe_jomyeong_1
                   - b1_name: 메인등
                   - b2_entity: input_boolean.cafe_jomyeong_2
-                  - b2_name: 제습기
+                  - b2_name: 보조등
                   - b3_entity: input_boolean.cafe_silringpaen_switch
                   - b3_name: 선풍기
                   - b4_entity: input_boolean.cafe_eeokeon_switch
@@ -2814,6 +3046,11 @@ views:
                   - boiler_entity: none
                   - climate_entity: none
                   - fan_entity: fan.bogceunghwajangsil_hwanpunggi
+                  - door_entity: none
+                  - presence_a: none
+                  - presence_b: none
+                  - fan_switch: input_boolean.bogceunghwajangsil_hwanpunggi_switch
+                  - climate_switch: none
               - type: custom:gap-card
                 height: 5px
                 grid_options:
@@ -3012,9 +3249,13 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_on
+                      service: homeassistant.turn_on
                       target:
-                        area_id: geosil
+                        entity_id:
+                          - light.geosil_zemiswitch_jomyeong_1
+                          - light.geosil_zemiswitch_jomyeong_3
+                          - light.geosil_zemiswitch_jomyeong_5
+                          - light.geosil_zemiswitch_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -3039,9 +3280,13 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_off
+                      service: homeassistant.turn_off
                       target:
-                        area_id: geosil
+                        entity_id:
+                          - light.geosil_zemiswitch_jomyeong_1
+                          - light.geosil_zemiswitch_jomyeong_3
+                          - light.geosil_zemiswitch_jomyeong_5
+                          - light.geosil_zemiswitch_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -3065,8 +3310,40 @@ views:
                 square: false
                 cards:
                   - type: custom:button-card
+                    show_state: true
+                    show_icon: true
+                    tap_action:
+                      action: toggle
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n" "i s"'
+                        - grid-template-columns: min-content 1fr
+                        - grid-template-rows: 1fr 1fr
+                      icon:
+                        - width: 22px
+                      name:
+                        - justify-self: start
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - padding-left: 8px
+                      state:
+                        - justify-self: start
+                        - font-size: 11px
+                        - opacity: 0.6
+                        - padding-left: 8px
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: light.geosil_zemiswitch_jomyeong_1
-                    name: 우물조명
+                    name: 우물등
+                  - type: custom:button-card
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -3094,9 +3371,13 @@ views:
                         - font-size: 11px
                         - opacity: 0.6
                         - padding-left: 8px
-                  - type: custom:button-card
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: light.geosil_zemiswitch_jomyeong_3
-                    name: 메인조명
+                    name: 메인등
+                  - type: custom:button-card
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -3124,39 +3405,13 @@ views:
                         - font-size: 11px
                         - opacity: 0.6
                         - padding-left: 8px
-                  - type: custom:button-card
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: light.geosil_zemiswitch_jomyeong_5
-                    name: 베란다조명
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
+                    name: 베란다등
                   - type: custom:button-card
-                    entity: light.geosil_zemiswitch_jomyeong_2
-                    name: 복도
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -3184,6 +3439,12 @@ views:
                         - font-size: 11px
                         - opacity: 0.6
                         - padding-left: 8px
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
+                    entity: light.geosil_zemiswitch_jomyeong_2
+                    name: 복도등
               - type: custom:button-card
                 show_name: false
                 show_icon: false
@@ -3221,9 +3482,14 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_on
+                      service: homeassistant.turn_on
                       target:
-                        area_id: jubang
+                        entity_id:
+                          - input_boolean.jubang_jomyeong_1
+                          - input_boolean.jubang_jomyeong_3
+                          - input_boolean.jubang_jomyeong_5
+                          - input_boolean.jubang_jomyeong_2
+                          - input_boolean.jubang_jomyeong_4
                     styles:
                       card:
                         - padding: 10px
@@ -3248,9 +3514,14 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_off
+                      service: homeassistant.turn_off
                       target:
-                        area_id: jubang
+                        entity_id:
+                          - input_boolean.jubang_jomyeong_1
+                          - input_boolean.jubang_jomyeong_3
+                          - input_boolean.jubang_jomyeong_5
+                          - input_boolean.jubang_jomyeong_2
+                          - input_boolean.jubang_jomyeong_4
                     styles:
                       card:
                         - padding: 10px
@@ -3274,8 +3545,40 @@ views:
                 square: false
                 cards:
                   - type: custom:button-card
+                    show_state: true
+                    show_icon: true
+                    tap_action:
+                      action: toggle
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n" "i s"'
+                        - grid-template-columns: min-content 1fr
+                        - grid-template-rows: 1fr 1fr
+                      icon:
+                        - width: 22px
+                      name:
+                        - justify-self: start
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - padding-left: 8px
+                      state:
+                        - justify-self: start
+                        - font-size: 11px
+                        - opacity: 0.6
+                        - padding-left: 8px
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.jubang_jomyeong_1
                     name: 메인등
+                  - type: custom:button-card
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -3304,9 +3607,12 @@ views:
                         - opacity: 0.6
                         - padding-left: 8px
                     icon: mdi:lightbulb
-                  - type: custom:button-card
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.jubang_jomyeong_3
-                    name: 상부장
+                    name: 상부장등
+                  - type: custom:button-card
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -3334,9 +3640,13 @@ views:
                         - font-size: 11px
                         - opacity: 0.6
                         - padding-left: 8px
-                  - type: custom:button-card
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.jubang_jomyeong_5
-                    name: 확장부
+                    name: 확장부등
+                  - type: custom:button-card
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -3364,9 +3674,13 @@ views:
                         - font-size: 11px
                         - opacity: 0.6
                         - padding-left: 8px
-                  - type: custom:button-card
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.jubang_jomyeong_2
                     name: 식탁등
+                  - type: custom:button-card
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -3395,36 +3709,11 @@ views:
                         - opacity: 0.6
                         - padding-left: 8px
                     icon: mdi:lightbulb
-                  - type: custom:button-card
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.jubang_jomyeong_4
-                    name: 홈바
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
+                    name: 홈바등
               - type: custom:button-card
                 show_name: false
                 show_icon: false
@@ -3462,9 +3751,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_on
+                      service: homeassistant.turn_on
                       target:
-                        area_id: geosilhwajangsil
+                        entity_id:
+                          - input_boolean.geosilhwajangsil_jomyeong_1
+                          - input_boolean.geosilhwajangsil_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -3489,9 +3780,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_off
+                      service: homeassistant.turn_off
                       target:
-                        area_id: geosilhwajangsil
+                        entity_id:
+                          - input_boolean.geosilhwajangsil_jomyeong_1
+                          - input_boolean.geosilhwajangsil_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -3515,8 +3808,40 @@ views:
                 square: false
                 cards:
                   - type: custom:button-card
+                    show_state: true
+                    show_icon: true
+                    tap_action:
+                      action: toggle
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n" "i s"'
+                        - grid-template-columns: min-content 1fr
+                        - grid-template-rows: 1fr 1fr
+                      icon:
+                        - width: 22px
+                      name:
+                        - justify-self: start
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - padding-left: 8px
+                      state:
+                        - justify-self: start
+                        - font-size: 11px
+                        - opacity: 0.6
+                        - padding-left: 8px
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.geosilhwajangsil_jomyeong_1
                     name: 메인등
+                  - type: custom:button-card
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -3545,67 +3870,11 @@ views:
                         - opacity: 0.6
                         - padding-left: 8px
                     icon: mdi:lightbulb
-                  - type: custom:button-card
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.geosilhwajangsil_jomyeong_2
                     name: 간접등
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
-                    icon: mdi:lightbulb
-                  - type: custom:button-card
-                    entity: input_boolean.geosilhwajangsil_jomyeong_4
-                    name: 전체
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
               - type: custom:button-card
                 show_name: false
                 show_icon: false
@@ -3643,9 +3912,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_on
+                      service: homeassistant.turn_on
                       target:
-                        area_id: anbanghwajangsil
+                        entity_id:
+                          - input_boolean.anbanghwajangsil_jomyeong_1
+                          - input_boolean.anbanghwajangsil_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -3670,9 +3941,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_off
+                      service: homeassistant.turn_off
                       target:
-                        area_id: anbanghwajangsil
+                        entity_id:
+                          - input_boolean.anbanghwajangsil_jomyeong_1
+                          - input_boolean.anbanghwajangsil_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -3696,8 +3969,40 @@ views:
                 square: false
                 cards:
                   - type: custom:button-card
-                    entity: light.anbanghwajangsil_zemiswitch_jomyeong_1
+                    show_state: true
+                    show_icon: true
+                    tap_action:
+                      action: toggle
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n" "i s"'
+                        - grid-template-columns: min-content 1fr
+                        - grid-template-rows: 1fr 1fr
+                      icon:
+                        - width: 22px
+                      name:
+                        - justify-self: start
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - padding-left: 8px
+                      state:
+                        - justify-self: start
+                        - font-size: 11px
+                        - opacity: 0.6
+                        - padding-left: 8px
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
+                    entity: input_boolean.anbanghwajangsil_jomyeong_1
                     name: 메인등
+                  - type: custom:button-card
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -3726,67 +4031,11 @@ views:
                         - opacity: 0.6
                         - padding-left: 8px
                     icon: mdi:lightbulb
-                  - type: custom:button-card
-                    entity: light.anbanghwajangsil_zemiswitch_jomyeong_2
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
+                    entity: input_boolean.anbanghwajangsil_jomyeong_2
                     name: 간접등
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
-                    icon: mdi:lightbulb
-                  - type: custom:button-card
-                    entity: light.anbanghwajangsil_zemiswitch_jomyeong_4
-                    name: 전체
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
               - type: custom:button-card
                 show_name: false
                 show_icon: false
@@ -3824,9 +4073,10 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_on
+                      service: homeassistant.turn_on
                       target:
-                        area_id: hyeongwan
+                        entity_id:
+                          - light.hyeongwan_zemiswitch_jomyeong_1
                     styles:
                       card:
                         - padding: 10px
@@ -3851,9 +4101,10 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_off
+                      service: homeassistant.turn_off
                       target:
-                        area_id: hyeongwan
+                        entity_id:
+                          - light.hyeongwan_zemiswitch_jomyeong_1
                     styles:
                       card:
                         - padding: 10px
@@ -3877,129 +4128,39 @@ views:
                 square: false
                 cards:
                   - type: custom:button-card
-                    entity: input_boolean.hyeongwan_jomyeong_1
+                    show_state: true
+                    show_icon: true
+                    tap_action:
+                      action: toggle
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n" "i s"'
+                        - grid-template-columns: min-content 1fr
+                        - grid-template-rows: 1fr 1fr
+                      icon:
+                        - width: 22px
+                      name:
+                        - justify-self: start
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - padding-left: 8px
+                      state:
+                        - justify-self: start
+                        - font-size: 11px
+                        - opacity: 0.6
+                        - padding-left: 8px
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
+                    entity: light.hyeongwan_zemiswitch_jomyeong_1
                     name: 현관등
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
-                    icon: mdi:lightbulb
-                  - type: custom:button-card
-                    entity: input_boolean.hyeongwan_jomyeong_2
-                    name: 복도등
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
-                    icon: mdi:lightbulb
-                  - type: custom:button-card
-                    entity: input_boolean.hyeongwan_jomyeong_3
-                    name: 보조등
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
-                    icon: mdi:lightbulb
-                  - type: custom:button-card
-                    entity: input_boolean.hyeongwan_jomyeong_4
-                    name: 일괄소등
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
-                    icon: mdi:lightbulb
               - type: custom:button-card
                 show_name: false
                 show_icon: false
@@ -4037,9 +4198,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_on
+                      service: homeassistant.turn_on
                       target:
-                        area_id: anbang
+                        entity_id:
+                          - light.anbang_zemiswitch_jomyeong_1
+                          - light.anbang_zemiswitch_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -4064,9 +4227,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_off
+                      service: homeassistant.turn_off
                       target:
-                        area_id: anbang
+                        entity_id:
+                          - light.anbang_zemiswitch_jomyeong_1
+                          - light.anbang_zemiswitch_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -4090,39 +4255,40 @@ views:
                 square: false
                 cards:
                   - type: custom:button-card
-                    entity: input_boolean.anbang_jomyeong_1
+                    show_state: true
+                    show_icon: true
+                    tap_action:
+                      action: toggle
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n" "i s"'
+                        - grid-template-columns: min-content 1fr
+                        - grid-template-rows: 1fr 1fr
+                      icon:
+                        - width: 22px
+                      name:
+                        - justify-self: start
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - padding-left: 8px
+                      state:
+                        - justify-self: start
+                        - font-size: 11px
+                        - opacity: 0.6
+                        - padding-left: 8px
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
+                    entity: light.anbang_zemiswitch_jomyeong_1
                     name: 메인등
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
-                    icon: mdi:lightbulb
                   - type: custom:button-card
-                    entity: input_boolean.anbang_jomyeong_2
-                    name: 간접등
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -4151,6 +4317,11 @@ views:
                         - opacity: 0.6
                         - padding-left: 8px
                     icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
+                    entity: light.anbang_zemiswitch_jomyeong_2
+                    name: 간접등
               - type: custom:button-card
                 show_name: false
                 show_icon: false
@@ -4188,9 +4359,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_on
+                      service: homeassistant.turn_on
                       target:
-                        area_id: junhobang
+                        entity_id:
+                          - input_boolean.junhobang_jomyeong_1
+                          - input_boolean.junhobang_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -4215,9 +4388,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_off
+                      service: homeassistant.turn_off
                       target:
-                        area_id: junhobang
+                        entity_id:
+                          - input_boolean.junhobang_jomyeong_1
+                          - input_boolean.junhobang_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -4241,8 +4416,40 @@ views:
                 square: false
                 cards:
                   - type: custom:button-card
+                    show_state: true
+                    show_icon: true
+                    tap_action:
+                      action: toggle
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n" "i s"'
+                        - grid-template-columns: min-content 1fr
+                        - grid-template-rows: 1fr 1fr
+                      icon:
+                        - width: 22px
+                      name:
+                        - justify-self: start
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - padding-left: 8px
+                      state:
+                        - justify-self: start
+                        - font-size: 11px
+                        - opacity: 0.6
+                        - padding-left: 8px
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.junhobang_jomyeong_1
                     name: 메인등
+                  - type: custom:button-card
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -4271,67 +4478,11 @@ views:
                         - opacity: 0.6
                         - padding-left: 8px
                     icon: mdi:lightbulb
-                  - type: custom:button-card
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.junhobang_jomyeong_2
                     name: 보조등
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
-                    icon: mdi:lightbulb
-                  - type: custom:button-card
-                    entity: input_boolean.junhobang_jomyeong_3
-                    name: 전자제품
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
               - type: custom:button-card
                 show_name: false
                 show_icon: false
@@ -4369,9 +4520,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_on
+                      service: homeassistant.turn_on
                       target:
-                        area_id: nagyeongbang
+                        entity_id:
+                          - input_boolean.nagyeongbang_jomyeong_1
+                          - input_boolean.nagyeongbang_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -4396,9 +4549,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_off
+                      service: homeassistant.turn_off
                       target:
-                        area_id: nagyeongbang
+                        entity_id:
+                          - input_boolean.nagyeongbang_jomyeong_1
+                          - input_boolean.nagyeongbang_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -4422,8 +4577,40 @@ views:
                 square: false
                 cards:
                   - type: custom:button-card
+                    show_state: true
+                    show_icon: true
+                    tap_action:
+                      action: toggle
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n" "i s"'
+                        - grid-template-columns: min-content 1fr
+                        - grid-template-rows: 1fr 1fr
+                      icon:
+                        - width: 22px
+                      name:
+                        - justify-self: start
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - padding-left: 8px
+                      state:
+                        - justify-self: start
+                        - font-size: 11px
+                        - opacity: 0.6
+                        - padding-left: 8px
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.nagyeongbang_jomyeong_1
                     name: 메인등
+                  - type: custom:button-card
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -4452,37 +4639,11 @@ views:
                         - opacity: 0.6
                         - padding-left: 8px
                     icon: mdi:lightbulb
-                  - type: custom:button-card
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.nagyeongbang_jomyeong_2
                     name: 간접등
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
-                    icon: mdi:lightbulb
               - type: custom:button-card
                 show_name: false
                 show_icon: false
@@ -4520,9 +4681,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_on
+                      service: homeassistant.turn_on
                       target:
-                        area_id: osbang
+                        entity_id:
+                          - input_boolean.osbang_jomyeong_1
+                          - input_boolean.osbang_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -4547,9 +4710,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_off
+                      service: homeassistant.turn_off
                       target:
-                        area_id: osbang
+                        entity_id:
+                          - input_boolean.osbang_jomyeong_1
+                          - input_boolean.osbang_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -4573,8 +4738,40 @@ views:
                 square: false
                 cards:
                   - type: custom:button-card
+                    show_state: true
+                    show_icon: true
+                    tap_action:
+                      action: toggle
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n" "i s"'
+                        - grid-template-columns: min-content 1fr
+                        - grid-template-rows: 1fr 1fr
+                      icon:
+                        - width: 22px
+                      name:
+                        - justify-self: start
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - padding-left: 8px
+                      state:
+                        - justify-self: start
+                        - font-size: 11px
+                        - opacity: 0.6
+                        - padding-left: 8px
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.osbang_jomyeong_1
                     name: 메인등
+                  - type: custom:button-card
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -4603,67 +4800,11 @@ views:
                         - opacity: 0.6
                         - padding-left: 8px
                     icon: mdi:lightbulb
-                  - type: custom:button-card
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.osbang_jomyeong_2
                     name: 보조등
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
-                    icon: mdi:lightbulb
-                  - type: custom:button-card
-                    entity: input_boolean.osbang_jomyeong_3
-                    name: 전자제품
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
               - type: custom:button-card
                 show_name: false
                 show_icon: false
@@ -4701,9 +4842,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_on
+                      service: homeassistant.turn_on
                       target:
-                        area_id: gongbubang
+                        entity_id:
+                          - input_boolean.gongbubang_jomyeong_1
+                          - input_boolean.gongbubang_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -4728,9 +4871,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_off
+                      service: homeassistant.turn_off
                       target:
-                        area_id: gongbubang
+                        entity_id:
+                          - input_boolean.gongbubang_jomyeong_1
+                          - input_boolean.gongbubang_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -4754,8 +4899,40 @@ views:
                 square: false
                 cards:
                   - type: custom:button-card
+                    show_state: true
+                    show_icon: true
+                    tap_action:
+                      action: toggle
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n" "i s"'
+                        - grid-template-columns: min-content 1fr
+                        - grid-template-rows: 1fr 1fr
+                      icon:
+                        - width: 22px
+                      name:
+                        - justify-self: start
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - padding-left: 8px
+                      state:
+                        - justify-self: start
+                        - font-size: 11px
+                        - opacity: 0.6
+                        - padding-left: 8px
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.gongbubang_jomyeong_1
                     name: 메인등
+                  - type: custom:button-card
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -4784,37 +4961,11 @@ views:
                         - opacity: 0.6
                         - padding-left: 8px
                     icon: mdi:lightbulb
-                  - type: custom:button-card
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.gongbubang_jomyeong_2
                     name: 보조등
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
-                    icon: mdi:lightbulb
               - type: custom:button-card
                 show_name: false
                 show_icon: false
@@ -4852,9 +5003,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_on
+                      service: homeassistant.turn_on
                       target:
-                        area_id: jihabang
+                        entity_id:
+                          - input_boolean.jihabang_jomyeong_1
+                          - input_boolean.jihabang_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -4879,9 +5032,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_off
+                      service: homeassistant.turn_off
                       target:
-                        area_id: jihabang
+                        entity_id:
+                          - input_boolean.jihabang_jomyeong_1
+                          - input_boolean.jihabang_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -4905,8 +5060,40 @@ views:
                 square: false
                 cards:
                   - type: custom:button-card
+                    show_state: true
+                    show_icon: true
+                    tap_action:
+                      action: toggle
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n" "i s"'
+                        - grid-template-columns: min-content 1fr
+                        - grid-template-rows: 1fr 1fr
+                      icon:
+                        - width: 22px
+                      name:
+                        - justify-self: start
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - padding-left: 8px
+                      state:
+                        - justify-self: start
+                        - font-size: 11px
+                        - opacity: 0.6
+                        - padding-left: 8px
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.jihabang_jomyeong_1
                     name: 메인등
+                  - type: custom:button-card
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -4935,67 +5122,11 @@ views:
                         - opacity: 0.6
                         - padding-left: 8px
                     icon: mdi:lightbulb
-                  - type: custom:button-card
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.jihabang_jomyeong_2
                     name: 보조등
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
-                    icon: mdi:lightbulb
-                  - type: custom:button-card
-                    entity: input_boolean.jihabang_jomyeong_3
-                    name: 전자제품
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
               - type: custom:button-card
                 show_name: false
                 show_icon: false
@@ -5033,9 +5164,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_on
+                      service: homeassistant.turn_on
                       target:
-                        area_id: cafe
+                        entity_id:
+                          - input_boolean.cafe_jomyeong_1
+                          - input_boolean.cafe_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -5060,9 +5193,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_off
+                      service: homeassistant.turn_off
                       target:
-                        area_id: cafe
+                        entity_id:
+                          - input_boolean.cafe_jomyeong_1
+                          - input_boolean.cafe_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -5086,8 +5221,6 @@ views:
                 square: false
                 cards:
                   - type: custom:button-card
-                    entity: input_boolean.cafe_jomyeong_1
-                    name: 메인등
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -5116,9 +5249,12 @@ views:
                         - opacity: 0.6
                         - padding-left: 8px
                     icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
+                    entity: input_boolean.cafe_jomyeong_1
+                    name: 메인등
                   - type: custom:button-card
-                    entity: input_boolean.cafe_jomyeong_2
-                    name: 제습기
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -5146,6 +5282,12 @@ views:
                         - font-size: 11px
                         - opacity: 0.6
                         - padding-left: 8px
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
+                    entity: input_boolean.cafe_jomyeong_2
+                    name: 보조등
               - type: custom:button-card
                 show_name: false
                 show_icon: false
@@ -5183,9 +5325,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_on
+                      service: homeassistant.turn_on
                       target:
-                        area_id: bogceunghwajangsil
+                        entity_id:
+                          - input_boolean.bogceunghwajangsil_jomyeong_1
+                          - input_boolean.bogceunghwajangsil_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -5210,9 +5354,11 @@ views:
                     show_state: false
                     tap_action:
                       action: call-service
-                      service: light.turn_off
+                      service: homeassistant.turn_off
                       target:
-                        area_id: bogceunghwajangsil
+                        entity_id:
+                          - input_boolean.bogceunghwajangsil_jomyeong_1
+                          - input_boolean.bogceunghwajangsil_jomyeong_2
                     styles:
                       card:
                         - padding: 10px
@@ -5236,8 +5382,40 @@ views:
                 square: false
                 cards:
                   - type: custom:button-card
+                    show_state: true
+                    show_icon: true
+                    tap_action:
+                      action: toggle
+                    styles:
+                      card:
+                        - padding: 10px
+                        - background: var(--gray100)
+                        - box-shadow: 4px 4px 10px var(--gray300)
+                        - border-radius: 14px
+                      grid:
+                        - grid-template-areas: '"i n" "i s"'
+                        - grid-template-columns: min-content 1fr
+                        - grid-template-rows: 1fr 1fr
+                      icon:
+                        - width: 22px
+                      name:
+                        - justify-self: start
+                        - font-size: 13px
+                        - font-weight: 600
+                        - color: black
+                        - padding-left: 8px
+                      state:
+                        - justify-self: start
+                        - font-size: 11px
+                        - opacity: 0.6
+                        - padding-left: 8px
+                    icon: mdi:lightbulb
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.bogceunghwajangsil_jomyeong_1
                     name: 메인등
+                  - type: custom:button-card
                     show_state: true
                     show_icon: true
                     tap_action:
@@ -5266,67 +5444,11 @@ views:
                         - opacity: 0.6
                         - padding-left: 8px
                     icon: mdi:lightbulb
-                  - type: custom:button-card
+                    state:
+                      - value: 'off'
+                        icon: mdi:lightbulb-off
                     entity: input_boolean.bogceunghwajangsil_jomyeong_2
                     name: 간접등
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
-                    icon: mdi:lightbulb
-                  - type: custom:button-card
-                    entity: input_boolean.bogceunghwajangsil_jomyeong_4
-                    name: 전체
-                    show_state: true
-                    show_icon: true
-                    tap_action:
-                      action: toggle
-                    styles:
-                      card:
-                        - padding: 10px
-                        - background: var(--gray100)
-                        - box-shadow: 4px 4px 10px var(--gray300)
-                        - border-radius: 14px
-                      grid:
-                        - grid-template-areas: '"i n" "i s"'
-                        - grid-template-columns: min-content 1fr
-                        - grid-template-rows: 1fr 1fr
-                      icon:
-                        - width: 22px
-                      name:
-                        - justify-self: start
-                        - font-size: 13px
-                        - font-weight: 600
-                        - color: black
-                        - padding-left: 8px
-                      state:
-                        - justify-self: start
-                        - font-size: 11px
-                        - opacity: 0.6
-                        - padding-left: 8px
           - type: custom:bubble-card
             card_type: pop-up
             hash: '#finance'
@@ -7333,6 +7455,30 @@ views:
                     mushroom-shape-icon {
                       --icon-color: {{ '#4CAF50' if is_state('fan.anbang_silringpaen', 'on') else 'rgb(var(--rgb-disabled))' }} !important;
                       --shape-color: {{ 'rgba(76,175,80,0.2)' if is_state('fan.anbang_silringpaen', 'on') else 'rgba(var(--rgb-disabled),0.2)' }} !important;
+                    }
+              - type: custom:mushroom-fan-card
+                entity: fan.junhobang_silringpaen
+                icon: mdi:face-man-shimmer-outline
+                name: 준호방 실링팬
+                show_percentage_control: true
+                show_oscillate_control: false
+                show_direction_control: false
+                fill_container: false
+                grid_options:
+                  columns: 6
+                  rows: 2
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: var(--gray100);
+                      box-shadow: 8px 8px 16px var(--gray300), -8px -8px 16px #ffffff;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 16px;
+                      padding: 12px;
+                    }
+                    mushroom-shape-icon {
+                      --icon-color: {{ '#4CAF50' if is_state('fan.junhobang_silringpaen', 'on') else 'rgb(var(--rgb-disabled))' }} !important;
+                      --shape-color: {{ 'rgba(76,175,80,0.2)' if is_state('fan.junhobang_silringpaen', 'on') else 'rgba(var(--rgb-disabled),0.2)' }} !important;
                     }
               - type: custom:mushroom-fan-card
                 entity: fan.nagyeongbang_silringpaen

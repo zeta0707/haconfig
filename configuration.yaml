@@ -11,11 +11,11 @@ scene: !include scenes.yaml
 
 # 1. 상태를 기록할 가상 헬퍼
 input_boolean:
-  bathroom1_exhaust_fan_state:
+  geosilhwajangsil_hwanpunggi_switch:
     name: "거실화장실 환풍기 전원"
   bathroom2_exhaust_fan_state:
     name: "안방화장실 환풍기 전원"
-  bathroom3_exhaust_fan_state:
+  bogceunghwajangsil_hwanpunggi_switch:
     name: "복층화장실 환풍기 전원"
   geosil_ceiling_fan_state:
     name: "가상 실링팬 전원"
@@ -29,7 +29,9 @@ input_boolean:
     name: "공부방 실링팬 전원"
   cafe_ceiling_fan_state:
     name: "cafe 실링팬 전원"
-
+  junhobang_ceiling_fan_state:
+    name: "준호방 실링팬 전원"
+    
 input_number:
   virtual_ac_temp_livingroom:
     name: "가상 에어컨 설정온도"
@@ -103,13 +105,6 @@ input_number:
     step: 1
     unit_of_measurement: "°C"
 
-  virtual_ceiling_fan_speed:
-    name: "가상 실링팬 속도"
-    initial: 33
-    min: 0
-    max: 100
-    step: 1
-
   # 아래 2개는 기존 거실/안방 실링팬 템플릿이 참조하고 있었지만 정의가 빠져있던
   # 항목입니다 (그래서 지금까지 두 실링팬의 속도 조절이 항상 0으로 표시되고
   # 실제로 동작하지 않았어요). 이번에 같이 추가해서 정상 동작하도록 고쳤습니다.
@@ -155,8 +150,15 @@ input_number:
     step: 1
     initial: 0
 
+  junhobang_ceiling_fan_speed:
+    name: "가상 준호방 실링팬 속도"
+    initial: 33
+    min: 0
+    max: 100
+    step: 1
+    
   virtual_vacuum_battery:
-    name: 가상 청소기 배터리
+    name: "가상 청소기 배터리"
     min: 0
     max: 100
     step: 1
@@ -632,17 +634,17 @@ template:
   - fan:
       - name: "거실화장실 환풍기"
         unique_id: bathroom1_exhaust_fan
-        state: "{{ states('input_boolean.bathroom1_exhaust_fan_state') }}"
+        state: "{{ states('input_boolean.geosilhwajangsil_hwanpunggi_switch') }}"
  
         turn_on:
           - action: input_boolean.turn_on
             target:
-              entity_id: input_boolean.bathroom1_exhaust_fan_state
+              entity_id: input_boolean.geosilhwajangsil_hwanpunggi_switch
  
         turn_off:
           - action: input_boolean.turn_off
             target:
-              entity_id: input_boolean.bathroom1_exhaust_fan_state
+              entity_id: input_boolean.geosilhwajangsil_hwanpunggi_switch
  
       - name: "안방화장실 환풍기"
         unique_id: bathroom2_exhaust_fan
@@ -660,17 +662,17 @@ template:
  
       - name: "복층화장실 환풍기"
         unique_id: bathroom3_exhaust_fan
-        state: "{{ states('input_boolean.bathroom3_exhaust_fan_state') }}"
+        state: "{{ states('input_boolean.bogceunghwajangsil_hwanpunggi_switch') }}"
  
         turn_on:
           - action: input_boolean.turn_on
             target:
-              entity_id: input_boolean.bathroom3_exhaust_fan_state
+              entity_id: input_boolean.bogceunghwajangsil_hwanpunggi_switch
  
         turn_off:
           - action: input_boolean.turn_off
             target:
-              entity_id: input_boolean.bathroom3_exhaust_fan_state
+              entity_id: input_boolean.bogceunghwajangsil_hwanpunggi_switch
       - name: "서재 실링팬"
         unique_id: studyroom_sove_fan
         state: "{{ states('input_boolean.studyroom_sove_fan_state') }}"
@@ -909,7 +911,36 @@ template:
           - action: input_boolean.turn_on
             target:
               entity_id: input_boolean.cafe_ceiling_fan_state
+              
+      - name: "준호방 실링팬"
+        unique_id: junhobang_ceiling_fan
+        state: "{{ states('input_boolean.junhobang_ceiling_fan_state') }}"
+        percentage: "{{ states('input_number.junhobang_ceiling_fan_speed') | int(0) }}"
+        speed_count: 6
 
+        # 전원 켜기 동작
+        turn_on:
+          - action: input_boolean.turn_on
+            target:
+              entity_id: input_boolean.junhobang_ceiling_fan_state
+
+        # 전원 끄기 동작
+        turn_off:
+          - action: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.junhobang_ceiling_fan_state
+
+        # 바람 세기(속도) 조절 동작
+        set_percentage:
+          - action: input_number.set_value
+            target:
+              entity_id: input_number.junhobang_ceiling_fan_speed
+            data:
+              value: "{{ percentage }}"
+          - action: input_boolean.turn_on
+            target:
+              entity_id: input_boolean.junhobang_ceiling_fan_state
+              
   - sensor:
       - name: "vnd_krw_100"
         unit_of_measurement: "KRW"
