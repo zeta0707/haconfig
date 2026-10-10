@@ -1,6 +1,6 @@
-# haconfig — 신원아파트 Home Assistant 설정 백업
+# haconfig — Home Assistant 설정 백업
 
-신원아파트 Home Assistant 인스턴스의 설정(`configuration.yaml`, `automations.yaml`, `scripts.yaml`, `scenes.yaml`, 테마, 이미지)과 `dashboard-2nd`("신원아파트") Lovelace 대시보드를 백업·버전관리하기 위한 저장소입니다. 실제 설정은 Home Assistant 본체(`192.168.219.113:8022`)에서 관리되고, 이 저장소는 그 스냅샷을 주기적으로 받아와 git으로 이력을 추적하는 용도입니다.
+Home Assistant 인스턴스의 설정(`configuration.yaml`, `automations.yaml`, `scripts.yaml`, `scenes.yaml`, 테마, 이미지)과 `dashboard-2nd`("신원아파트") Lovelace 대시보드를 백업·버전관리하기 위한 저장소입니다. 실제 설정은 Home Assistant 본체(`192.168.219.113:8022`)에서 관리되고, 이 저장소는 그 스냅샷을 주기적으로 받아와 git으로 이력을 추적하는 용도입니다.
 
 ## 폴더 구조
 
@@ -11,7 +11,7 @@ scripts.yaml           # 스크립트 전체 (API로 재구성)
 scenes.yaml            # 씬 전체 (API로 재구성)
 dashboards/            # dashboard-2nd 스냅샷들 (main.yaml이 최신)
 themes/                # 테마 정의
-www-images/            # 대시보드에서 쓰는 이미지 (floor1.png, floor2.png 등)
+www/images/            # 대시보드에서 쓰는 이미지 (floor1.png, floor2.png 등)
 getDashboard.sh        # 대시보드만 받아서 dashboards/main.yaml 생성
 getCode.sh             # configuration/automations/scripts/scenes/themes/images 다운로드 (SSH, 대시보드 제외)
 .agents/skills/        # Claude용 Home Assistant 베스트 프랙티스 스킬 참고 자료
@@ -22,14 +22,12 @@ getCode.sh             # configuration/automations/scripts/scenes/themes/images 
 용도가 다른 두 스크립트를 **각각 따로** 실행합니다.
 
 ```bash
-./getCode.sh        # configuration/automations/scripts/scenes/themes/www-images (SSH, 비밀번호 필요)
+./getCode.sh        # configuration/automations/scripts/scenes/themes/www\/images (SSH, 비밀번호 필요)
 ./getDashboard.sh   # dashboard-2nd → dashboards/main.yaml (API, 비밀번호 불필요)
 ```
 
 - `getCode.sh`는 SSH(scp)로 HA 본체의 원본 파일을 그대로 받아옵니다. 그래서 `automations.yaml`/`scripts.yaml`이 HA가 직접 쓰는 YAML 형식 그대로 유지되어, `git diff`에 실제 변경만 나타납니다. **대시보드(`dashboards/`)는 받지 않습니다.** HA 본체의 `dashboards/` 폴더는 오래된 파일이라 덮어쓰면 최신 `main.yaml`이 옛 내용으로 되돌아갑니다.
 - `getDashboard.sh`는 WebSocket API로 현재 쓰는 `dashboard-2nd`(storage 모드)를 받아 `dashboards/main.yaml`로 변환합니다. 대시보드는 항상 이 스크립트로만 받습니다.
-
-> **주의:** `getDashboard.sh`에는 `HA_TOKEN` 환경변수가 없을 때 쓰는 기본값으로 실제 long-lived access token이 하드코딩되어 있습니다. 다행히 `.gitignore`에 `*.sh`가 포함되어 있어 스크립트 자체는 git에 커밋되지 않지만, 토큰을 바꾸거나 재발급할 때는 스크립트 안의 기본값도 같이 수정해야 합니다. 가능하면 기본값에 토큰을 박아두지 말고 `HA_TOKEN=... ./getDashboard.sh`처럼 환경변수로 주입하는 걸 권장합니다.
 
 ## 대시보드(dashboard-2nd) 구조
 
@@ -101,12 +99,6 @@ Lovelace storage 모드로 관리되며, 메인 뷰 하나(`sections`)에 방별
 - **에어컨:** 입력이 6가지뿐이라 넣지 못했습니다. 대시보드에서 조작합니다. 에어컨까지 넣으려면 길게 누르기를 에어컨으로 바꾸고 실링팬을 더블클릭에 넣는 식으로 다시 나눠야 하고, 그러면 전체등 입력이 사라집니다.
 - 트리거 조건에서 `unavailable`로 바뀐 신호는 무시하도록 해서, 장치가 오프라인이 됐다 돌아올 때 오동작하지 않습니다.
 - 예전에 이 버튼에 연결되어 있던 "Bilresa PowerOn/PowerOff clicks", "Smart Plug On/Off" 자동화는 삭제했습니다. (`switch.grillplats_plug` 제어도 함께 없어졌습니다.)
-
-**알려진 한계.**
-
-- 설치한 지 오래된 건전지는 전압이 떨어져(3.0V 근처) Thread 연결이 끊기는 일이 있습니다. 2026-10-10에 이 장치의 이벤트·배터리 엔티티가 모두 `unavailable`이 됐다가, 건전지를 빼고 30초 뒤 다시 끼우자 복구된 적이 있습니다. 버튼을 여러 번 눌러서는 복구되지 않았습니다.
-- 같은 증상이 반복되면 새 AAA로 교체하세요. 전압은 `sensor.bilresa_dual_button_baeteori_jeonab`에서 확인합니다.
-- 건전지를 다시 끼울 때 들어오는 첫 신호는 조건에서 걸러지므로 동작하지 않는 게 정상입니다.
 
 ## 알아두어야 할 함정
 
