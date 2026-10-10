@@ -745,8 +745,7 @@
       | int(1)), 1 ] | max }}'
 - id: '1791637925589'
   alias: 거실 BILRESA 듀얼 버튼 리모컨
-  description: 버튼1(PowerOn)=켜기, 버튼2(PowerOff)=끄기. 클릭=메인등, 더블클릭=전체등(우물·메인·베란다·복도),
-    길게 누르기=실링팬
+  description: 버튼1(PowerOn)=켜기, 버튼2(PowerOff)=끄기. 클릭=메인등, 더블클릭=실링팬, 길게 누르기=에어컨
   triggers:
   - entity_id: event.bilresa_dual_button_dancu_1
     id: 'on'
@@ -774,18 +773,14 @@
       sequence:
       - action: light.{{ svc }}
         target:
-          entity_id:
-          - light.geosil_zemiswitch_jomyeong_1
-          - light.geosil_zemiswitch_jomyeong_2
-          - light.geosil_zemiswitch_jomyeong_3
-          - light.geosil_zemiswitch_jomyeong_5
+          entity_id: light.geosil_silringpaen_switch
     - conditions:
       - condition: template
         value_template: '{{ ev == ''long_press'' }}'
       sequence:
       - action: light.{{ svc }}
         target:
-          entity_id: light.geosil_silringpaen_switch
+          entity_id: light.geosil_eeokeon_switch
   max: 5
   mode: queued
   variables:

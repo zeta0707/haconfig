@@ -83,20 +83,20 @@ Lovelace storage 모드로 관리되며, 메인 뷰 하나(`sections`)에 방별
 
 ## 거실 BILRESA 듀얼 버튼 리모컨
 
-거실의 IKEA BILRESA 듀얼 버튼(Matter/Thread)으로 거실 조명과 실링팬을 켜고 끕니다. 자동화 이름은 **"거실 BILRESA 듀얼 버튼 리모컨"**(`automation.geosil_bilresa_dyueol_beoteun_rimokeon`)이고, `mode: queued`(최대 5)입니다. 휠이 없고 버튼 2개뿐이라 안방 휠과 달리 켜기/끄기만 합니다(값 변경, 에어컨 없음).
+거실의 IKEA BILRESA 듀얼 버튼(Matter/Thread)으로 거실 메인등, 실링팬, 에어컨을 켜고 끕니다. 자동화 이름은 **"거실 BILRESA 듀얼 버튼 리모컨"**(`automation.geosil_bilresa_dyueol_beoteun_rimokeon`)이고, `mode: queued`(최대 5)입니다. 휠이 없고 버튼 2개뿐이라 안방 휠과 달리 켜기/끄기만 합니다(값 변경 없음).
 
 **장치 구조.** 엔티티 이름이 장치의 라벨을 따라 `PowerOn`/`PowerOff`로 보이지만 실제로는 일반 버튼 2개입니다. 버튼 1이 켜기, 버튼 2가 끄기 역할이고, 각 버튼은 `multi_press_1`(클릭), `multi_press_2`(더블클릭), `long_press`, `long_release` 이벤트를 냅니다.
 
 | 입력 | 버튼 1 `event.bilresa_dual_button_dancu_1` (켜기) | 버튼 2 `event.bilresa_dual_button_dancu_2` (끄기) |
 |---|---|---|
 | 클릭 | 메인등 켜기 | 메인등 끄기 |
-| 더블클릭 | 전체등 켜기 | 전체등 끄기 |
-| 길게 누르기 | 실링팬 켜기 | 실링팬 끄기 |
+| 더블클릭 | 실링팬 켜기 | 실링팬 끄기 |
+| 길게 누르기 | 에어컨 켜기 | 에어컨 끄기 |
 
 - **메인등:** `light.geosil_zemiswitch_jomyeong_3`
-- **전체등:** 우물등(`_1`), 복도등(`_2`), 메인등(`_3`), 베란다등(`_5`) 4개입니다.
 - **실링팬:** 팬을 직접 부르지 않고 zemiswitch 스위치(`light.geosil_silringpaen_switch`)를 켜고 끕니다. 그러면 기존 "거실 실링팬 스위치 연동" 자동화가 실제 `fan.geosil_silringpaen`을 켜고 꺼서 대시보드 상태와 일치합니다.
-- **에어컨:** 입력이 6가지뿐이라 넣지 못했습니다. 대시보드에서 조작합니다. 에어컨까지 넣으려면 길게 누르기를 에어컨으로 바꾸고 실링팬을 더블클릭에 넣는 식으로 다시 나눠야 하고, 그러면 전체등 입력이 사라집니다.
+- **에어컨:** 실링팬과 같은 방식으로 스위치(`light.geosil_eeokeon_switch`)를 켜고 끕니다. "거실 에어컨 스위치 연동" 자동화가 `climate.geosil_eeokeon`을 냉방(cool)으로 켜고, 끄면 off로 바꿉니다.
+- **전체등 없음:** 입력이 6가지뿐이라 메인등 외의 조명(우물등, 복도등, 베란다등)을 한 번에 켜고 끄는 입력은 없습니다. 대시보드의 조명 팝업을 씁니다. (이전에는 더블클릭이 전체등이었고, 실링팬/에어컨 입력과 바뀌었습니다.)
 - 트리거 조건에서 `unavailable`로 바뀐 신호는 무시하도록 해서, 장치가 오프라인이 됐다 돌아올 때 오동작하지 않습니다.
 - 예전에 이 버튼에 연결되어 있던 "Bilresa PowerOn/PowerOff clicks", "Smart Plug On/Off" 자동화는 삭제했습니다. (`switch.grillplats_plug` 제어도 함께 없어졌습니다.)
 
